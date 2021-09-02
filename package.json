@@ -1,0 +1,20 @@
+{
+  "name": "photide",
+  "version": "1.0.0",
+  "description": "A Photographer's Sun and Star App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tommy-Knight/PhoTide.git"
+  },
+  "keywords": [],
+  "author": "Tommy Knight",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tommy-Knight/PhoTide/issues"
+  },
+  "homepage": "https://github.com/Tommy-Knight/PhoTide#readme"
+}
