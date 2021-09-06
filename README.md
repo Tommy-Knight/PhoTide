@@ -1,2 +1,2 @@
 # PhoTide
- A Photographer's Sun and Star App
+ A Photographer's Sun and Star App 🌊📸
