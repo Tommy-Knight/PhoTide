@@ -1,0 +1,295 @@
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgba(155, 155, 155, 0);
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgba(59, 59, 59, 0.281);
+	border-radius: 10px;
+}
+body {
+	text-align: center;
+	background-color: black;
+	color: white;
+	overflow: auto;
+	backdrop-filter: blur(6px);
+}
+
+.App-header {
+	background-color: #282c34;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: calc(10px + 2vmin);
+}
+
+//########################### ANIMATIONS ###########################
+
+// welcome text float up
+p {
+	animation-duration: 2.2s;
+	animation-name: slidein;
+}
+@keyframes slidein {
+	from {
+		padding-top: 10px;
+		opacity: 0%;
+	}
+	to {
+		opacity: 100%;
+	}
+}
+
+//navbar hover
+
+.navbar {
+	animation-duration: 2.2s;
+	animation-name: appear;
+}
+@keyframes appear {
+	from {
+		opacity: 0%;
+	}
+	to {
+		opacity: 100%;
+	}
+}
+
+//########################### /FLOAT UP ###########################
+//########################### GRID ###########################
+.app-grid {
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-template-columns: 20% 20% 20% 20% 20%;
+	grid-template-rows: 10% 10% 20% 30% 20% 10%;
+	gap: 0px 0px;
+	grid-template-areas:
+		"nav nav nav nav nav"
+		". . . . ."
+		". app-box app-box app-box ."
+		"left-box app-box app-box app-box right-box"
+		". app-box app-box app-box ."
+		"footer footer footer footer footer";
+	width: 100%;
+	height: 100vh;
+}
+.app-box {
+	grid-area: app-box;
+	border-radius: 5%;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.app-box:hover {
+	grid-area: app-box;
+	border-radius: 5%;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.left-box {
+	grid-area: left-box;
+	cursor: pointer;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.right-box {
+	grid-area: right-box;
+	cursor: pointer;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+		rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.footer {
+	grid-area: footer;
+	border: 1px solid white;
+}
+.nav {
+	grid-area: nav;
+	border: 1px solid white;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.561);
+}
+
+//########################### /GRID ###########################
+//########################### /BACKGROUND ###########################
+
+.switch {
+	margin: 20px;
+	right: 0;
+	width: 60px;
+	height: 34px;
+	position: fixed;
+}
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.slider {
+	border-radius: 30px;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: orange;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+input:checked + .slider {
+	background-color: #2c55db;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+#root {
+	margin: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
+.dusk {
+	background: linear-gradient(0deg, orange, #2c55db, #152357, #171e36);
+	opacity: 0.85;
+	background-size: 100% 250%;
+	position: fixed;
+	height: 100vh;
+	background-position: 0% 100%;
+	width: 100vw;
+	top: 300;
+	left: 0;
+	z-index: 1;
+	animation: sunset 3s ease-in 1;
+	animation-fill-mode: forwards;
+}
+
+.dawn {
+	background: linear-gradient(
+		0deg,
+		#54b5f9 10%,
+		35%,
+		#efb456 50%,
+		63.5%,
+		#2c55db,
+		#152357,
+		#171e36
+	);
+	opacity: 0.7;
+	background-size: 100% 500%;
+	position: fixed;
+	height: 100vh;
+	background-position: 0% 100%;
+	width: 100vw;
+	top: 300;
+	left: 0;
+	z-index: 1;
+	animation: sunrise 3s ease-in 1;
+	animation-fill-mode: forwards;
+}
+
+.waiting {
+	background: linear-gradient(0deg, orange, #2c55db, #152357, #171e36);
+	opacity: 0.85;
+	background-size: 100% 250%;
+	position: fixed;
+	height: 100vh;
+	background-position: 0% 100%;
+	width: 100vw;
+	top: 300;
+	left: 0;
+	z-index: 1;
+}
+
+@keyframes sunrise {
+	0% {
+		background-position: 0% 0%;
+		opacity: 1;
+	}
+	50% {
+		background-position: 0% 50%;
+		opacity: 0.6;
+	}
+	100% {
+		background-position: 0% 100%;
+		opacity: 0.8;
+	}
+}
+
+@keyframes sunset {
+	0% {
+		background-position: 0% 100%;
+	}
+	50% {
+		background-position: 0% 50%;
+		opacity: 0.9;
+	}
+	100% {
+		background-position: 0% 0%;
+		opacity: 1;
+	}
+}
+
+//########################### /BACKGROUND ###########################
+//########################### FOREGROUND ###########################
+
+.searchInput {
+	font-family: inherit;
+	color: white;
+	border: 1px solid rgba(255, 255, 255, 0.226);
+	padding: 3px;
+	height: 30px;
+	background: rgba(255, 255, 255, 0.027);
+	backdrop-filter: blur(6px);
+	border-radius: 30px;
+	border: 1px solid white;
+	text-align: center;
+	margin-bottom: 10px;
+	z-index: 5;
+}
+.searchInput:focus {
+	outline: none;
+}
+.weatherResult {
+	border-radius: 14px;
+	border: 1px solid white;
+	background: rgba(255, 255, 255, 0.157);
+	padding: 40px;
+	margin: 0 auto;
+	max-width: 200px;
+}
+//########################### /FOREGROUND ###########################
+//########################### NAVBAR ###########################
+//########################### /NAVBAR ###########################
