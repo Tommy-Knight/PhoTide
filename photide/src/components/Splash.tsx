@@ -11,10 +11,13 @@ export const Splash = (history: History) => {
 	const [searchResult, setSearchResult] = useState<ResponseInterface | null>(null);
 	// const [error, setError] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [forecast, setForecast] = useState<any>({});
+
+	// api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=9d33c3e69026b25a6cab7f300ec5e461
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+	
 		try {
 			setIsLoading(true);
 			const result = await fetch(
@@ -23,6 +26,11 @@ export const Splash = (history: History) => {
 			const data = await result.json();
 			console.log("response", data);
 			setSearchResult(data);
+			const forecastResult = await fetch(
+				`api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=9d33c3e69026b25a6cab7f300ec5e461`
+			);
+			const forecastData = await forecastResult.json();
+			setForecast(forecastData)
 			setIsLoading(false);
 		} catch (error) {
 			console.error(error);

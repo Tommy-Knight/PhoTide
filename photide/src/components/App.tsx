@@ -15,7 +15,7 @@ export const Home = ({ history }: any) => {
 	return (
 		<>
 			<div className='app-grid'>
-				<div className='app-box'>box</div>
+				<div className='app-box bounce-in-fwd'>box</div>
 				<div className='left-box'>L</div>
 				<div className='right-box'>R</div>
 				<div className='footer'>F</div>
