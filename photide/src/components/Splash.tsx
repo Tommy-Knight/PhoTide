@@ -17,7 +17,7 @@ export const Splash = (history: History) => {
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-	
+
 		try {
 			setIsLoading(true);
 			const result = await fetch(
@@ -26,11 +26,13 @@ export const Splash = (history: History) => {
 			const data = await result.json();
 			console.log("response", data);
 			setSearchResult(data);
+			setIsLoading(false);
 			const forecastResult = await fetch(
 				`api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=9d33c3e69026b25a6cab7f300ec5e461`
 			);
 			const forecastData = await forecastResult.json();
-			setForecast(forecastData)
+			setForecast(forecastData);
+			console.log(forecastData);
 			setIsLoading(false);
 		} catch (error) {
 			console.error(error);
@@ -84,7 +86,7 @@ export const Splash = (history: History) => {
 							</form>
 							{isLoading && <div className='weatherResult'>we loading baby</div>}
 							{searchResult && (
-								<div className='weatherResult'>
+								<div className='weatherResult '>
 									{searchResult && (
 										<div>
 											<div key={searchResult.id}>

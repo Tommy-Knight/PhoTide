@@ -1,8 +1,8 @@
-import "./style/App.scss";
+import "./components/App.scss";
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
-import Home from "./components/App";
+import Home from "./components/Home";
 import React from "react";
 import {Splash} from "./components/Splash";
 
