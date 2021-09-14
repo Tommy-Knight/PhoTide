@@ -6,7 +6,7 @@ const rootReducer = (
 ) => {
 	switch (action.type) {
 		case "BG_COLOR":
-			return { ...state, user: action.payload };
+			return { ...state, background: action.payload };
 
 		// case "SELECTED_MEMBERS":
 		// 	const membersArray = [...state.selectedMembers];
