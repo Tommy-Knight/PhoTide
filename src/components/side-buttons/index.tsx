@@ -1,11 +1,11 @@
-import React from 'react'
+import "./style.scss"
 
 export function Left() {
     return (
 			<div className='left-box'>
-				GO TO LUNAR INFO
+				LUNAR
 				<img
-					className={"roll-in-blurred-left"}
+					className={"puff-in-center"}
 					style={{ width: "100%" }}
 					alt={`icon`}
 					src={window.location.origin + `/lunar.png`}
@@ -18,10 +18,10 @@ export function Left() {
 export  function Right() {
 	return (
 		<div className='right-box'>
-			GO TO TIDAL INFO
+			TIDAL
 			<img
-				className={"roll-in-blurred-left"}
-				style={{ height: "100%" }}
+				className={"puff-in-center"}
+				style={{ width: "100%" }}
 				alt={`icon`}
 				src={window.location.origin + `/tides.png`}
 			/>

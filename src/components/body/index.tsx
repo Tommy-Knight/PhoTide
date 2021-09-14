@@ -3,7 +3,7 @@ import { Forecast } from "../../types";
 import { format, fromUnixTime, add, isWithinInterval } from "date-fns";
 import "./style.scss";
 import { useDispatch } from "react-redux";
-import {backgroundAction} from "../../redux/actions"
+import { backgroundAction } from "../../redux/actions";
 
 export default function Body() {
 	const [searchValue, setSearchValue] = useState<string>("");
@@ -20,7 +20,6 @@ export default function Body() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dayTime]);
 
-	
 	useEffect(() => {
 		googleFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,12 +55,14 @@ export default function Body() {
 		e.preventDefault();
 		try {
 			setIsLoading(true);
-			const forecastFetch = await fetch(
+			const resp = await fetch(
 				`https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
 			);
-			const forecastData = await forecastFetch.json();
-			setForecast(forecastData);
-			setIsLoading(false);
+			if (resp.ok) {
+				const forecastData = await resp.json();
+				setForecast(forecastData);
+				setIsLoading(false);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -69,7 +70,7 @@ export default function Body() {
 
 	return (
 		<>
-			<div className="app-box">
+			<div className='app-box'>
 				<h2>Weather</h2>
 				<div
 					style={{
@@ -81,6 +82,7 @@ export default function Body() {
 						onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSearch(e)}>
 						<input
 							className='searchInput'
+							spellCheck='false'
 							type='text'
 							placeholder='🔎 Location ...'
 							value={searchValue}
@@ -90,7 +92,7 @@ export default function Body() {
 						/>
 						<br />
 					</form>
-					{isLoading && <div className='weatherResult'>we loading baby</div>}
+					{isLoading && <div className='weatherResult'>Oh Mama! We're searching ...</div>}
 					{forecast && (
 						<div className='weatherResult '>
 							{forecast && (
@@ -98,7 +100,7 @@ export default function Body() {
 									<div key={forecast.city.id}>
 										<img
 											className={"roll-in-blurred-left"}
-											style={{ width: "auto" }}
+											style={{ width: "9em" }}
 											alt={`icon`}
 											src={window.location.origin + `/` + forecast.list[0].weather[0].icon + `.png`}
 										/>
@@ -113,12 +115,22 @@ export default function Body() {
 										<br />
 										<b>Sunrise</b>{" "}
 										<small>
-											{format(new Date(fromUnixTime(forecast.city.sunrise).toString()), `p`)}
+											{format(
+												add(new Date(fromUnixTime(forecast.city.sunrise).toString()), {
+													seconds: utcOffset,
+												}),
+												`p`
+											)}
 										</small>
 										<br />
 										<b>Sunset</b>{" "}
 										<small>
-											{format(new Date(fromUnixTime(forecast.city.sunset).toString()), `p`)}
+											{format(
+												add(new Date(fromUnixTime(forecast.city.sunset).toString()), {
+													seconds: utcOffset,
+												}),
+												`p`
+											)}
 										</small>
 										<br />
 										<b>Temperature</b>

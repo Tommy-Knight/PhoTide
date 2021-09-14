@@ -1,3 +1,20 @@
+.app-box {
+	grid-area: app-box;
+	border-radius: 2%;
+	border: 1px solid white;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+        z-index:5
+}
+.app-box:hover {
+	grid-area: app-box;
+	border-radius: 5%;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
 .roll-in-blurred-left {
 	-webkit-animation: roll-in-blurred-left 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 	        animation: roll-in-blurred-left 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
