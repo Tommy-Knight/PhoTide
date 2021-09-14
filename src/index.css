@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
+:root{
+  --text: white
+  
+}
+
 body {
 font-family: 'Patua One', cursive!important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
+  color: var(--text);
 }

@@ -1,10 +1,10 @@
-import "./components/App.scss";
+import "./App.scss";
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Home from "./components/Home";
 import React from "react";
-import {Splash} from "./components/Splash";
+import {Splash} from "./components/splash";
 
 class App extends React.Component {
 	render() {
@@ -12,9 +12,9 @@ class App extends React.Component {
 			<Router>
 				<Switch>
 					
-					<Route path='/home' render={(routeProps: any) => <Home {...routeProps} />} />
+					<Route path='/splash' render={(routeProps: any) => <Splash {...routeProps} />} />
 
-					<Route path='/' render={(routeProps: any) => <Splash {...routeProps} />} />
+					<Route path='/' render={(routeProps: any) => <Home {...routeProps} />} />
 				</Switch>
 			</Router>
 		);
