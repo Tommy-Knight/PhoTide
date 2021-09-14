@@ -30,39 +30,6 @@ body {
 	font-size: calc(10px + 2vmin);
 }
 
-//########################### ANIMATIONS ###########################
-
-// welcome text float up
-p {
-	animation-duration: 2.2s;
-	animation-name: slidein;
-}
-@keyframes slidein {
-	from {
-		padding-top: 10px;
-		opacity: 0%;
-	}
-	to {
-		opacity: 100%;
-	}
-}
-
-//navbar hover
-
-.navbar {
-	animation-duration: 2.2s;
-	animation-name: appear;
-}
-@keyframes appear {
-	from {
-		opacity: 0%;
-	}
-	to {
-		opacity: 100%;
-	}
-}
-
-//########################### /FLOAT UP ###########################
 //########################### GRID ###########################
 .app-grid {
 	display: grid;

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Body from "../components/body";
 import { connect } from "react-redux";
 
-export const Splash = (props: any) => {
+export const Home = () => {
 	const [time, setTime] = useState<string>("dawn");
 	const [checked, setChecked] = useState<boolean>(false);
 	window.onbeforeunload = function () {
@@ -23,8 +23,8 @@ export const Splash = (props: any) => {
 			<div className={time}>
 				<div className='app-grid'>
 					<Body />
-					<div className='left-box'>L</div>
-					<div className='right-box'>R</div>
+					<div className='left-box'>GO TO LUNAR INFO</div>
+					<div className='right-box'>GO TO TIDAL INFO</div>
 					<div className='footer'>F</div>
 					<div className='nav navBar p'>
 						USER PROFILE // FAVOURITES // MAP // LOGOUT
@@ -42,4 +42,4 @@ export const Splash = (props: any) => {
 	);
 };
 
-export default connect((s) => s)(Splash);
+export default connect((s) => s)(Home);

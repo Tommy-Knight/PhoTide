@@ -1,44 +1,68 @@
+export interface Forecast {
+	cod: string;
+	message: number;
+	cnt: number;
+	list: List[];
+	city: City;
+}
 
-export interface ResponseInterface {
-	coord: {
-		lon: number;
-		lat: number;
-	};
-	weather: [
-		{
-			id: number;
-			main: string;
-			description: string;
-			icon: string;
-		}
-	];
-	base: string;
-	main: {
-		temp: number;
-		feels_like: number;
-		temp_min: number;
-		temp_max: number;
-		pressure: number;
-		humidity: number;
-	};
-	visibility: number;
-	wind: {
-		speed: number;
-		deg: number;
-	};
-	clouds: {
-		all: number;
-	};
-	dt: number;
-	sys: {
-		type: number;
-		id: number;
-		country: string;
-		sunrise: number;
-		sunset: number;
-	};
-	timezone: number;
+interface City {
 	id: number;
 	name: string;
-	cod: number;
+	coord: Coord;
+	country: string;
+	population: number;
+	timezone: number;
+	sunrise: number;
+	sunset: number;
+}
+
+interface Coord {
+	lat: number;
+	lon: number;
+}
+
+interface List {
+	dt: number;
+	main: Main;
+	weather: Weather[];
+	clouds: Clouds;
+	wind: Wind;
+	visibility: number;
+	pop: number;
+	sys: Sys;
+	dtTxt: Date;
+}
+
+interface Clouds {
+	all: number;
+}
+
+interface Main {
+	temp: number;
+	feelsLike: number;
+	tempMin: number;
+	tempMax: number;
+	pressure: number;
+	seaLevel: number;
+	grndLevel: number;
+	humidity: number;
+	tempKf: number;
+}
+
+interface Sys {
+	pod: string;
+}
+
+interface Weather {
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
+}
+
+interface Wind {
+	speed: number;
+	deg: number;
+	gust: number;
 }

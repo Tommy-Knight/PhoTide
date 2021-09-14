@@ -1,38 +1,50 @@
-import { useState, ChangeEvent } from "react";
-import { ResponseInterface } from "../../types";
-import format from "date-fns/format";
-import fromUnixTime from "date-fns/fromUnixTime";
-
+import { useState, ChangeEvent, useEffect } from "react";
+import { Forecast } from "../../types";
+import { format, fromUnixTime, add } from "date-fns";
+import "./style.scss";
 export default function Body() {
 	const [searchValue, setSearchValue] = useState<string>("");
-	const [searchResult, setSearchResult] = useState<ResponseInterface | null>(null);
-	// const [error, setError] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [forecast, setForecast] = useState<any>({});
+	const [forecast, setForecast] = useState<Forecast | null>(null);
+	const [utcOffset, setUtcOffset] = useState<number>(0);
+	const [localTime, setLocalTime] = useState<string>();
 
-	// api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=9d33c3e69026b25a6cab7f300ec5e461
+	useEffect(() => {
+		googleFetch();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [forecast, utcOffset]);
+
+	const googleFetch = async () => {
+		if (forecast) {
+			const resp = await fetch(
+				`https://maps.googleapis.com/maps/api/timezone/json?location=${forecast.city.coord.lat}%2C${forecast.city.coord.lon}&timestamp=0&key=${process.env.REACT_APP_GOOGLE_API}`
+			);
+			if (resp.ok) {
+				const googleData = await resp.json();
+				setUtcOffset(googleData.rawOffset);
+				getLocalTime();
+			}
+		}
+	};
+
+	const getLocalTime = () => {
+		const UTC = new Date(new Date().toUTCString().substr(0, 25));
+		let seconds = utcOffset;
+		setLocalTime(format(add(UTC, { seconds }), `p`));
+	};
 
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		try {
 			setIsLoading(true);
-			const result = await fetch(
-				`https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+			const forecastFetch = await fetch(
+				`https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
 			);
-			const data = await result.json();
-			console.log("response", data);
-			setSearchResult(data);
-			setIsLoading(false);
-			const forecastResult = await fetch(
-				`api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=9d33c3e69026b25a6cab7f300ec5e461`
-			);
-			const forecastData = await forecastResult.json();
+			const forecastData = await forecastFetch.json();
 			setForecast(forecastData);
-			console.log("🚿", forecast);
 			setIsLoading(false);
 		} catch (error) {
-			console.error(error);
+			console.log(error);
 		}
 	};
 
@@ -60,43 +72,46 @@ export default function Body() {
 						<br />
 					</form>
 					{isLoading && <div className='weatherResult'>we loading baby</div>}
-					{searchResult && (
+					{forecast && (
 						<div className='weatherResult '>
-							{searchResult && (
+							{forecast && (
 								<div>
-									<div key={searchResult.id}>
+									<div key={forecast.city.id}>
 										<img
+											className={"roll-in-blurred-left"}
 											style={{ width: "auto" }}
 											alt={`icon`}
-											src={window.location.origin + `/` + searchResult.weather[0].icon + `.png`}
+											src={window.location.origin + `/` + forecast.list[0].weather[0].icon + `.png`}
 										/>
 										<br />
-										<b>{searchResult.name} </b>
+										<b>{forecast.city.name} </b>
 										<small>
 											{" "}
-											in <i>{searchResult.sys.country}</i>
+											in <i>{forecast.city.country}</i>
 										</small>
+										<br />
+										<b>Time</b> <small>{localTime && localTime}</small>
 										<br />
 										<b>Sunrise</b>{" "}
 										<small>
-											{format(new Date(fromUnixTime(searchResult.sys.sunrise).toString()), `p`)}
+											{format(new Date(fromUnixTime(forecast.city.sunrise).toString()), `p`)}
 										</small>
 										<br />
 										<b>Sunset</b>{" "}
 										<small>
-											{format(new Date(fromUnixTime(searchResult.sys.sunset).toString()), `p`)}
+											{format(new Date(fromUnixTime(forecast.city.sunset).toString()), `p`)}
 										</small>
 										<br />
 										<b>Temperature</b>
 										<small>
 											{" "}
-											is <i>{searchResult.main.temp} °C</i>
+											is <i>{forecast.list[0].main.temp} °C</i>
 										</small>
 										<br />
-										<b>{searchResult.weather[0].main} </b>
+										<b>{forecast.list[0].weather[0].main} </b>
 										<small>
 											{" "}
-											currently <i>{searchResult.weather[0].description}</i>
+											currently <i>{forecast.list[0].weather[0].description}</i>
 										</small>
 									</div>
 								</div>
