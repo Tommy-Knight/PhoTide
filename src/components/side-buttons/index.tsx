@@ -1,21 +1,20 @@
-import "./style.scss"
+import "./style.scss";
 
 export function Left() {
-    return (
-			<div className='left-box'>
-				LUNAR
-				<img
-					className={"puff-in-center"}
-					style={{ width: "100%" }}
-					alt={`icon`}
-					src={window.location.origin + `/lunar.png`}
-				/>
-			</div>
-		);
+	return (
+		<div className='left-box'>
+			LUNAR
+			<img
+				className={"puff-in-center"}
+				style={{ width: "100%" }}
+				alt={`icon`}
+				src={window.location.origin + `/lunar.png`}
+			/>
+		</div>
+	);
 }
 
-
-export  function Right() {
+export function Right() {
 	return (
 		<div className='right-box'>
 			TIDAL
@@ -28,4 +27,3 @@ export  function Right() {
 		</div>
 	);
 }
-

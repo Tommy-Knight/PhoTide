@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function index() {
+export default function Maps() {
     return (
         <div>
-            TIDAL INFORMATION
+            
         </div>
     )
 }

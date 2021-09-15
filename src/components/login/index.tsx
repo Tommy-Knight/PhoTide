@@ -1,8 +1,3 @@
-
-export default function index() {
-    return (
-        <div>
-
-        </div>
-    )
+export default function Login() {
+	return <div></div>;
 }
