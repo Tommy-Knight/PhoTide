@@ -1,16 +1,19 @@
 import Body from "./body";
-import { Left, Right } from "./side-buttons";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { focusAction } from "../redux/actions";
 
 const Home = (props: any) => {
+
+	  const dispatch = useDispatch();
+
 	return (
 		<>
 			<div className={props.background}>
 				<div className='app-grid'>
-					<Body />
-					<Left />
-					<Right />
+					<Body/>
+
 					<div className='footer'></div>
+
 					<div className='nav navBar p'>USER PROFILE // FAVOURITES // MAP // LOGOUT</div>
 				</div>
 			</div>

@@ -3,7 +3,7 @@ import React from 'react'
 export default function index() {
     return (
         <div>
-            TIDAL INFORMATION
+            <h2>Tidal</h2>
         </div>
     )
 }
