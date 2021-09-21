@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import Login from "../login"
 
 export default function Navbar() {
 	return (
@@ -24,11 +25,7 @@ export default function Navbar() {
 						LOGIN
 					</button>
 					<div className='dropdown-menu'>
-						<form className='login-form'>
-							<input type='email' name='email' placeholder='email' id='email'></input>
-							<input type='password' name='password' placeholder='password' id='password'></input>
-							<button type='submit'>LOGIN</button>
-						</form>
+				<Login/>
 					</div>
 				</div>
 				<img

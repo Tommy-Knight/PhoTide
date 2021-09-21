@@ -15,7 +15,7 @@ const Body = (props: Props) => {
 	const LunarButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("lunar")}>
-				LUNAR
+				<p>LUNAR</p>
 				<img
 					className={"puff-in-center"}
 					style={{ width: "100%" }}

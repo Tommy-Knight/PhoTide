@@ -354,13 +354,14 @@ body {
 	grid-area: left-box;
 	cursor: pointer;
 	z-index: 1;
+	font-size: 2vh;
 }
 .right-box {
 	grid-area: right-box;
 	cursor: pointer;
 	z-index: 1;
+	font-size: 2vh;
 }
-
 
 .puff-in-center {
 	-webkit-animation: puff-in-center 2s cubic-bezier(0.47, 0, 0.745, 0.715) both;
