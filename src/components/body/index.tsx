@@ -1,10 +1,12 @@
 import Weather from "../weather";
 import Tidal from "../tide";
 import Lunar from "../lunar";
+import {Props} from "../../types"
 import { connect, useDispatch } from "react-redux";
 import { focusAction } from "../../redux/actions";
+import "./style.scss";
 
-const Body = (props: any) => {
+const Body = (props: Props) => {
 	const dispatch = useDispatch();
 
 	const selectFocus = (e: string) => {

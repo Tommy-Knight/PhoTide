@@ -17,5 +17,8 @@
 		"jsx": "react-jsx",
 		"typeRoots": ["node_modules/@types", "src/typings"]
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"rules": {
+		"no-unused-vars": "off"
+	}
 }

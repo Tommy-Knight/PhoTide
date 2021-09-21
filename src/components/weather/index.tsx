@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, ChangeEvent, useEffect } from "react";
-import { Forecast } from "../../types";
+import { Props, Forecast } from "../../types";
 import { format, fromUnixTime, add, isWithinInterval } from "date-fns";
 import "./style.scss";
 import { connect, useDispatch } from "react-redux";
 import { backgroundAction, searchAction } from "../../redux/actions";
 
-const Weather = (props:any) => {
+const Weather = (props: Props) => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [forecast, setForecast] = useState<Forecast | null>(null);
@@ -93,7 +93,9 @@ const Weather = (props:any) => {
 					/>
 				</form>
 				<br />
-				{isLoading && <div className='weatherResult'> Oh Mama! We're searching ...</div>}
+				{isLoading && (
+					<div className='weatherResult focus-in-expand'> Oh Mama! We're searching ...</div>
+				)}
 				{forecast && (
 					<div className='weatherResult '>
 						{forecast && (
@@ -153,6 +155,6 @@ const Weather = (props:any) => {
 			</div>
 		</div>
 	);
-}
+};
 
-export default connect((s)=>s)(Weather)
+export default connect((s) => s)(Weather);

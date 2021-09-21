@@ -66,3 +66,9 @@ interface Wind {
 	deg: number;
 	gust: number;
 }
+
+export interface Props {
+	background?: string;
+	focus?: string;
+	searchValue?: {};
+}
