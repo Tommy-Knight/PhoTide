@@ -49,23 +49,12 @@
 	pointer-events: none;
 	transform: translateY(-10px);
 	transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+	text-align: left!important;
 }
 
 .dropdown.active > .link + .dropdown-menu {
 	opacity: 1;
-	transform: translateY(0);
 	pointer-events: auto;
-}
-
-.information-grid {
-	display: grid;
-	grid-template-columns: repeat(2, max-content);
-	gap: 1rem;
-}
-
-.dropdown-links {
-	display: flex;
-	flex-direction: column;
 }
 
 .login-form > input {

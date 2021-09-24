@@ -1,3 +1,5 @@
+import { History, LocationState } from "history";
+
 export interface Forecast {
 	cod: string;
 	message: number;
@@ -67,8 +69,17 @@ interface Wind {
 	gust: number;
 }
 
+export interface UserInterface {
+	_id?: string;
+	username?: string;
+	email?: string;
+	password?: string;
+	avatar: string;
+}
 export interface Props {
 	background?: string;
 	focus?: string;
 	searchValue?: {};
+	user?: UserInterface;
+	history?: History<LocationState>;
 }

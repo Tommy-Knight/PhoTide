@@ -2,13 +2,13 @@ import Navbar from "../navbar";
 import { connect } from "react-redux";
 import { Props } from "../../types";
 
-const Maps = (props: Props) => {
+const Profile = (props: Props) => {
 	return (
 		<>
 			<div className="background">
 				<div className='app-grid'>
 					<div className='app-box'>
-						<h1>Maps</h1>
+						<h1>Profile</h1>
 					</div>
 
 					<div className='footer'></div>
@@ -20,4 +20,4 @@ const Maps = (props: Props) => {
 	);
 };
 
-export default connect((s) => s)(Maps);
+export default connect((s) => s)(Profile);

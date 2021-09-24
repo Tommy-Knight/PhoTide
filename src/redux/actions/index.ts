@@ -1,3 +1,4 @@
+import { UserInterface } from "../../types";
 export const backgroundAction = (payload: string) => {
 	return {
 		type: "BG_COLOR",
@@ -16,5 +17,12 @@ export const searchAction = (payload: any) => {
 	return {
 		type: "SEARCH_VALUE",
 		payload,
+	};
+};
+
+export const userAction = (user: UserInterface | null) => {
+	return {
+		type: "USER",
+		payload: user,
 	};
 };

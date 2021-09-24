@@ -1,21 +1,105 @@
-import Navbar from "../navbar";
+import { FormEvent, useState, ChangeEvent } from "react";
 import { connect } from "react-redux";
-import { Props } from "../../types";
+import { RouteComponentProps } from "react-router-dom";
+import Login from "../login"
+interface Props extends RouteComponentProps {
+	background?: string;
+	focus?: string;
+	searchValue?: {};
+	user?: {};
+}
 
-const Photos = (props: Props) => {
+const Register = (props: Props) => {
+	const [username, setUsername] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
+	const bodyJSON = JSON.stringify({
+		email: email,
+		password: password,
+		username: username,
+	});
+
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const resp = await fetch(`http://localhost:3069/auth/register`, {
+				method: "POST",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: bodyJSON,
+			});
+			if (resp.ok) props.history.push("/");
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			<div className={props.background}>
-				<div className='app-grid'>
-					<div className='app-box'>REGISTER</div>
+				<div style={{ height: "95vh", width: "75%", margin: "auto", marginTop:"2vh" }} className='app-box'>
+					<h1> REGISTER</h1>
+					<form
+						onSubmit={(e) => handleSubmit(e)}
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							width: "25%",
+							margin: "Auto",
+							marginTop: "15%",
+						}}>
+						Username
+						<input
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								setUsername(e.target.value);
+							}}
+							className='searchInput'
+							type='text'
+							name='username'
+							placeholder='username...'
+							id='username'></input>
+						Email
+						<input
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								setEmail(e.target.value);
+							}}
+							className='searchInput'
+							type='email'
+							name='email'
+							placeholder='email...'
+							id='email'></input>
+						Password
+						<input
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								setPassword(e.target.value);
+							}}
+							className='searchInput'
+							type='password'
+							placeholder='password...'
+							id='password'></input>
+						{/* Check Password
+							<input
+								className='searchInput'
+								type='password'
+								placeholder='password again...'
+								id='password'></input> */}
+						<button
+							style={{ width: "150px", margin: "auto", marginBottom: "5px" }}
+							className='searchInput'
+							type='submit'>
+							Register
+						</button>
+					</form>
 
-					<div className='footer'></div>
-
-					<Navbar />
+					OR LOGIN
+					<Login/>
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default connect((s) => s)(Photos);
+export default connect((s) => s)(Register);

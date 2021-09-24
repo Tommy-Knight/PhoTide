@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-
 export default function Lunar() {
-	const [moonPhase, setMoonPhase] = useState<string>("")
-	
+	const [moonPhase, setMoonPhase] = useState<string | undefined>("");
+
 	useEffect(() => {
 		const moon_phase = (year: number, month: number, day: number) => {
 			let x,
@@ -32,14 +31,32 @@ export default function Lunar() {
 			if (t === 6) return "🌘 Waning Crescent Moon";
 			if (t === 7) return "🌕 Full Moon";
 		};
+
+		setMoonPhase(moon_phase(2022, 1, 5));
 		console.log(moon_phase(2022, 1, 5));
 	}, []);
 
-
-
 	return (
 		<div>
-			<h2>Lunar</h2>
+			<h1>Current Phase: {moonPhase}</h1>
+			<p>
+				🌑 New Moon
+				<br />
+				🌒 Waxing Crescent Moon
+				<br />
+				🌓 First-Quarter Moon
+				<br />
+				🌔 Waxing Gibbous Moon
+				<br />
+				🌖 Waning Gibbous Moon
+				<br />
+				🌗 Last Quarter Moon
+				<br />
+				🌘 Waning Crescent Moon
+				<br />
+				🌕 Full Moon
+				<br />
+			</p>
 		</div>
 	);
 }

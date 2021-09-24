@@ -1,14 +1,15 @@
 import Navbar from "../navbar";
 import { connect } from "react-redux";
 import { Props } from "../../types";
+import "./style.scss"
 
 const Photos = (props: Props) => {
 	return (
 		<>
-			<div className={props.background}>
+			<div className="background">
 				<div className='app-grid'>
 					<div className='app-box'>
-						<h1>PHOTOS</h1>
+						<h1>Photos</h1>
 					</div>
 
 					<div className='footer'></div>

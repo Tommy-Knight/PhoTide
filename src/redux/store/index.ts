@@ -15,6 +15,7 @@ export const initialState = {
 	background: "dusk",
 	focus: "weather",
 	searchValue: {},
+	user:{},
 };
 
 const configureStore = () =>

@@ -53,7 +53,7 @@ const Weather = (props: Props) => {
 		}
 	};
 
-	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+	const fetchSearchLocation = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
 			setIsLoading(true);
@@ -82,7 +82,7 @@ const Weather = (props: Props) => {
 	const fetchGeolocated = async () => {
 		if (geolocated) {
 			const resp = await fetch(
-				`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&appid=9d33c3e69026b25a6cab7f300ec5e461`
+				`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
 			);
 			console.log(resp)
 			if (resp.ok) {
@@ -102,7 +102,7 @@ const Weather = (props: Props) => {
 						<form
 							style={{ zIndex: 5 }}
 							className='App'
-							onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSearch(e)}>
+							onSubmit={(e: React.FormEvent<HTMLFormElement>) => fetchSearchLocation(e)}>
 							<input
 								style={{ marginBottom: "20px" }}
 								className='searchInput'
@@ -140,18 +140,6 @@ const Weather = (props: Props) => {
 							<circle cx='12' cy='10' r='3' />
 							<path d='M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z' />
 						</svg>
-						{/* <img
-							title='Find Your Current Location! '
-							className={"puff-in-center"}
-							style={{
-								borderRadius: "100%",
-								border: "2px solid lightgrey",
-								width: "35px",
-								marginLeft: "10px",
-							}}
-							alt={`icon`}
-							src={window.location.origin + `/currentlocation.png`}
-						/> */}
 					</div>
 				</div>
 
