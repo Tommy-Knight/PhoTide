@@ -14,40 +14,24 @@ const Body = (props: Props) => {
 	};
 	const LunarButton = () => {
 		return (
-			<span onClick={(e: React.MouseEvent) => selectFocus("lunar")}>
-				<p>LUNAR</p>
-				<img
-					className={"puff-in-center"}
-					style={{ width: "100%" }}
-					alt={`icon`}
-					src={window.location.origin + `/lunar.png`}
-				/>
+			<span onClick={(e: React.MouseEvent) => selectFocus("lunar")}><span style={{fontSize:"1.5vw"}}>LUNAR</span>
+				<p style={{ fontSize: "10vw", marginTop:"0px" }}>🌑</p>
 			</span>
 		);
 	};
 	const TidalButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("tidal")}>
-				TIDAL
-				<img
-					className={"puff-in-center"}
-					style={{ width: "100%" }}
-					alt={`icon`}
-					src={window.location.origin + `/tide.png`}
-				/>
+				<span style={{ fontSize: "1.5vw" }}>TIDAL</span>
+				<p style={{ fontSize: "10vw", marginTop: "0px" }}>🌊</p>
 			</span>
 		);
 	};
 	const WeatherButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("weather")}>
-				WEATHER
-				<img
-					className={"puff-in-center"}
-					style={{ width: "100%" }}
-					alt={`icon`}
-					src={window.location.origin + `/sun.png`}
-				/>
+				<span style={{ fontSize: "1.5vw" }}>WEATHER</span>
+				<p style={{ fontSize: "10vw", marginTop: "0px" }}>⛅</p>
 			</span>
 		);
 	};

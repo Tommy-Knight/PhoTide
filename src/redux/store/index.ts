@@ -12,7 +12,7 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const initialState = {
-	background: "dawn",
+	background: "dusk",
 	focus: "weather",
 	searchValue: {},
 };

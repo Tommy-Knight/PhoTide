@@ -1,15 +1,15 @@
 .navBar {
-	font-size: 2vh;
+	font-size: 1.5vw;
 	line-height: 400%;
-	border-bottom: 1px solid white;
+	border-bottom: 3px solid white;
 	backdrop-filter: blur(100000px);
-	background: rgba(255, 255, 255, 0.26);
+	background: rgba(34, 34, 34, 0.664);
 	text-align: left;
 }
 
 .header {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 	padding: 0.5rem;
 	gap: 1rem;
 }
@@ -36,17 +36,12 @@
 }
 
 .dropdown-menu {
+	z-index: 5;
 	position: absolute;
-	left: 0;
-	top: calc(100% + 1.22rem);
+	right: -100px;
+	top: calc(100% + 1.5rem);
 	border: 1px solid white;
-	backdrop-filter: blur(100px);
-	background: linear-gradient(
-		0deg,
-		lightgrey,
-		rgba(139, 161, 196, 0.966),
-		rgba(76, 139, 158, 0.842)
-	);
+	background: rgba(34, 34, 34, 0.952);
 	padding: 0.75rem;
 	border-radius: 0.25rem;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -65,15 +60,14 @@
 .information-grid {
 	display: grid;
 	grid-template-columns: repeat(2, max-content);
-	gap: 2rem;
+	gap: 1rem;
 }
 
 .dropdown-links {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25rem;
 }
 
 .login-form > input {
-	margin-bottom: 0.5rem;
+	margin: 5px;
 }
