@@ -18,7 +18,6 @@ const Weather = (props: Props) => {
 
 	useEffect(() => {
 		fetchGeolocated();
-		console.log(geolocated?.coords);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [geolocated]);
 
@@ -84,17 +83,18 @@ const Weather = (props: Props) => {
 			const resp = await fetch(
 				`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
 			);
-			console.log(resp)
+			console.log(resp);
 			if (resp.ok) {
 				const forecastData = await resp.json();
 				setForecast(forecastData);
 				setIsLoading(false);
+				console.log("☀", forecast);
 			}
 		}
 	};
 
 	return (
-		<div>
+		<div style={{overflow:"auto"}}>
 			<h2>Weather</h2>
 			<div>
 				<div style={{ display: "flex", justifyContent: "center" }}>
@@ -104,7 +104,6 @@ const Weather = (props: Props) => {
 							className='App'
 							onSubmit={(e: React.FormEvent<HTMLFormElement>) => fetchSearchLocation(e)}>
 							<input
-								style={{ marginBottom: "20px" }}
 								className='searchInput'
 								spellCheck='false'
 								type='text'
@@ -118,9 +117,10 @@ const Weather = (props: Props) => {
 					</div>
 					<div
 						onClick={(e) => geolocate()}
-						title='Current Location 🧭'
+						title='Current Location! 🧭'
 						style={{ display: "inline-block" }}>
 						<svg
+							className='weatherButtons'
 							style={{
 								background: "rgba(255, 255, 255, 0.103)",
 								borderRadius: "200%",
@@ -141,73 +141,160 @@ const Weather = (props: Props) => {
 							<path d='M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z' />
 						</svg>
 					</div>
+					<div
+						title='Add to favourites! ❤'
+						style={{ display: "inline-block" }}>
+						<svg
+							className='weatherButtons'
+							style={{
+								background: "rgba(255, 255, 255, 0.103)",
+								borderRadius: "200%",
+								border: "2px solid lightgrey",
+								padding: "5px",
+								marginLeft: "10px",
+							}}
+							xmlns='http://www.w3.org/2000/svg'
+							width='24'
+							height='24'
+							viewBox='0 0 24 24'
+							fill='none'
+							stroke='currentColor'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'>
+							<path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'></path>
+						</svg>
+					</div>
+					<div
+						title='Upload a Photo! 📷'
+						style={{ display: "inline-block" }}>
+						<svg
+							className='weatherButtons'
+							style={{
+								background: "rgba(255, 255, 255, 0.103)",
+								borderRadius: "200%",
+								border: "2px solid lightgrey",
+								padding: "5px",
+								marginLeft: "10px",
+							}}
+							xmlns='http://www.w3.org/2000/svg'
+							width='24'
+							height='24'
+							viewBox='0 0 24 24'
+							fill='none'
+							stroke='currentColor'
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'>
+							<line x1='12' y1='5' x2='12' y2='19'></line>
+							<line x1='5' y1='12' x2='19' y2='12'></line>
+						</svg>
+					</div>
+					<br />
+					{isLoading && <div className='focus-in-expand'> Oh Mama! We're searching ...</div>}
 				</div>
 
-				<br />
-				{isLoading && (
-					<div className='weatherResult focus-in-expand'> Oh Mama! We're searching ...</div>
-				)}
-				{!forecast && (
-					<h1>
-						SEARCH FOR A LOCATION
-						<br /> ...OR CLICK THE BUTTON TO FIND YOUR CURRENT LOCATION!
-					</h1>
-				)}
+				{!forecast && <h2>SEARCH OR CLICK THE LOCATOR!</h2>}
 				{forecast && (
-					<div className='weatherResult '>
-						{forecast && (
+					<>
+						<div className='weatherResult '>
 							<div>
-								<div key={forecast.city.id}>
-									<img
-										className={"roll-in-blurred-left"}
-										style={{ width: "9em" }}
-										alt={`icon`}
-										src={window.location.origin + `/` + forecast.list[0].weather[0].icon + `.png`}
-									/>
-									<br />
-									<b>{forecast.city.name} </b>
+								<h2>
+									{forecast.city.name}<br/>{" "}
 									<small>
 										{" "}
 										in <i>{forecast.city.country}</i>
-									</small>
-									<br />
-									<b>Time</b> <small>{localTime && localTime}</small>
-									<br />
-									<b>Sunrise</b>{" "}
-									<small>
-										{format(
-											add(new Date(fromUnixTime(forecast.city.sunrise).toString()), {
-												seconds: utcOffset,
-											}),
-											`p`
-										)}
-									</small>
-									<br />
-									<b>Sunset</b>{" "}
-									<small>
-										{format(
-											add(new Date(fromUnixTime(forecast.city.sunset).toString()), {
-												seconds: utcOffset,
-											}),
-											`p`
-										)}
-									</small>
-									<br />
-									<b>Temperature</b>
-									<small>
-										{" "}
-										is <i>{forecast.list[0].main.temp} °C</i>
-									</small>
-									<br />
-									<b>{forecast.list[0].weather[0].main} </b>
-									<small>
-										{" "}
-										currently <i>{forecast.list[0].weather[0].description}</i>
-									</small>
-								</div>
+									</small>{" "}
+								</h2>
+								<img
+									className={"roll-in-blurred-left"}
+									style={{ width: "60%" }}
+									alt={`icon`}
+									src={window.location.origin + `/` + forecast.list[0].weather[0].icon + `.png`}
+								/>
+								<br />
+								<b>{forecast.list[0].weather[0].main} </b>
+								<small>
+									{" "}
+									currently <i>{forecast.list[0].weather[0].description}</i>
+								</small>
 							</div>
-						)}
-					</div>
+						</div>
+						<div className='weatherResult '>
+							<div key={forecast.city.id}>
+								<h2>
+									Local Time{" "}
+									<small>
+										{" "}
+										is <i>{localTime && localTime}</i>
+									</small>
+								</h2>
+								<b>Sunrise</b>{" "}
+								<small>
+									{format(
+										add(new Date(fromUnixTime(forecast.city.sunrise).toString()), {
+											seconds: utcOffset,
+										}),
+										`p`
+									)}
+								</small>
+								<br />
+								<b>Sunset</b>{" "}
+								<small>
+									{format(
+										add(new Date(fromUnixTime(forecast.city.sunset).toString()), {
+											seconds: utcOffset,
+										}),
+										`p`
+									)}
+								</small>
+							</div>
+							<br />
+							<b>Temperature</b>
+							<small>
+								{" "}
+								is <i>{forecast.list[0].main.temp} °C</i>
+							</small>
+							<br />
+							<b>Highs</b>
+							<small>
+								{" "}
+								of <i>{forecast.list[0].main.temp_max} °C</i>
+							</small>
+							<br />
+							<b>Lows</b>
+							<small>
+								{" "}
+								of <i>{forecast.list[0].main.temp_min} °C</i>
+							</small>
+						</div>
+						<div className='weatherResult '>
+							<h2>
+								Cloud coverage
+								<small>
+									{" "}
+									at <i>{forecast.list[0].clouds.all} %</i>
+								</small>
+							</h2>
+							<b>Wind Speed</b>
+							<small>
+								{" "}
+								is <i>{forecast.list[0].wind.speed} m/s</i>
+							</small>
+							<br />
+							<b>Gusts</b>
+							<small>
+								{" "}
+								of <i>{forecast.list[0].wind.gust} m/s</i>
+							</small>
+							<br />
+							<b>Humidity</b>
+							<small>
+								{" "}
+								at <i>{forecast.list[0].main.humidity} %</i>
+							</small>
+						</div>
+					</>
 				)}
 			</div>
 		</div>

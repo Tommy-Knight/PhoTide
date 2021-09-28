@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import Login from "../login"
+import { RouteComponentProps, useLocation } from "react-router-dom";
+
 interface Props extends RouteComponentProps {
 	background?: string;
 	focus?: string;
@@ -37,10 +37,42 @@ const Register = (props: Props) => {
 		}
 	};
 
+	const location = useLocation();
+
+	const bodyJSONLogin = JSON.stringify({
+		email: email,
+		password: password,
+	});
+
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const resp = await fetch(`http://localhost:3069/auth/login`, {
+				method: "POST",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: bodyJSONLogin,
+			});
+			const data = await resp.json();
+			if (resp.ok) {
+				console.log(data);
+			}
+			if (location.pathname === "/register") {
+				props.history.push("/");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			<div className={props.background}>
-				<div style={{ height: "95vh", width: "75%", margin: "auto", marginTop:"2vh" }} className='app-box'>
+				<div
+					style={{ height: "95vh", width: "75%", margin: "auto", marginTop: "2vh" }}
+					className='app-box'>
 					<h1> REGISTER</h1>
 					<form
 						onSubmit={(e) => handleSubmit(e)}
@@ -49,7 +81,6 @@ const Register = (props: Props) => {
 							flexDirection: "column",
 							width: "25%",
 							margin: "Auto",
-							marginTop: "15%",
 						}}>
 						Username
 						<input
@@ -93,9 +124,34 @@ const Register = (props: Props) => {
 							Register
 						</button>
 					</form>
-
-					OR LOGIN
-					<Login/>
+					<br />
+					<h2>OR LOGIN</h2>
+					<form
+						onSubmit={(e) => handleLogin(e)}
+						style={{
+							width: "50%",
+							margin: "auto",
+							marginTop: "2vh",
+							display: "flex",
+							flexDirection: "column"
+						}}>
+						<input
+							onChange={(e) => setEmail(e.target.value)}
+							className='searchInput'
+							type='email'
+							name='email'
+							placeholder='email'
+							id='email'></input>
+						<input
+							onChange={(e) => setPassword(e.target.value)}
+							className='searchInput'
+							type='password'
+							placeholder='password'
+							id='password'></input>
+						<button style={{ width: "50px", right:"0" }} className='searchInput' type='submit'>
+							LOGIN
+						</button>
+					</form>
 				</div>
 			</div>
 		</>

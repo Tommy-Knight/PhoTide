@@ -42,9 +42,9 @@ interface Clouds {
 
 interface Main {
 	temp: number;
-	feelsLike: number;
-	tempMin: number;
-	tempMax: number;
+	feels_like: number;
+	temp_min: number;
+	temp_max: number;
 	pressure: number;
 	seaLevel: number;
 	grndLevel: number;

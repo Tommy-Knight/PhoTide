@@ -1,67 +1,89 @@
 .roll-in-blurred-left {
-	-webkit-animation: roll-in-blurred-left 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-	        animation: roll-in-blurred-left 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	-webkit-animation: roll-in-blurred-left 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+	animation: roll-in-blurred-left 1s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 @-webkit-keyframes roll-in-blurred-left {
-  0% {
-    -webkit-transform: translateX(-200px) rotate(-720deg);
-            transform: translateX(-200px) rotate(-720deg);
-    -webkit-filter: blur(50px);
-            filter: blur(50px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
-    -webkit-filter: blur(0);
-            filter: blur(0);
-    opacity: 1;
-  }
+	0% {
+		-webkit-transform: translateX(-200px) rotate(-720deg);
+		transform: translateX(-200px) rotate(-720deg);
+		-webkit-filter: blur(50px);
+		filter: blur(50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateX(0) rotate(0deg);
+		transform: translateX(0) rotate(0deg);
+		-webkit-filter: blur(0);
+		filter: blur(0);
+		opacity: 1;
+	}
 }
 @keyframes roll-in-blurred-left {
-  0% {
-    -webkit-transform: translateX(-200px) rotate(-720deg);
-            transform: translateX(-200px) rotate(-720deg);
-    -webkit-filter: blur(50px);
-            filter: blur(50px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
-    -webkit-filter: blur(0);
-            filter: blur(0);
-    opacity: 1;
-  }
+	0% {
+		-webkit-transform: translateX(-200px) rotate(-720deg);
+		transform: translateX(-200px) rotate(-720deg);
+		-webkit-filter: blur(50px);
+		filter: blur(50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateX(0) rotate(0deg);
+		transform: translateX(0) rotate(0deg);
+		-webkit-filter: blur(0);
+		filter: blur(0);
+		opacity: 1;
+	}
 }
 //####################
 .focus-in-expand {
-	-webkit-animation: focus-in-expand 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse both;
-	        animation: focus-in-expand 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate-reverse both;
+	-webkit-animation: focus-in-expand 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite
+		alternate-reverse both;
+	animation: focus-in-expand 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate-reverse both;
 }
 @-webkit-keyframes focus-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    -webkit-filter: blur(12px);
-            filter: blur(12px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
-    opacity: 1;
-  }
+	0% {
+		letter-spacing: -0.5em;
+		-webkit-filter: blur(12px);
+		filter: blur(12px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-filter: blur(0px);
+		filter: blur(0px);
+		opacity: 1;
+	}
 }
 @keyframes focus-in-expand {
-  0% {
-    letter-spacing: -0.5em;
-    -webkit-filter: blur(12px);
-            filter: blur(12px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
-    opacity: 1;
-  }
+	0% {
+		letter-spacing: -0.5em;
+		-webkit-filter: blur(12px);
+		filter: blur(12px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-filter: blur(0px);
+		filter: blur(0px);
+		opacity: 1;
+	}
+}
+.weatherResult {
+	width: 30%;
+	margin: 5px;
+	display: inline-block;
+	padding: 5px;
+	border-radius: 5%;
+	padding-bottom: 14px;
+	text-align: center !important;
+	vertical-align: top !important;
+}
+
+.weatherResult:hover {
+	background-color: rgba(158, 101, 250, 0.164);
+}
+.weatherButtons:hover {
+	background-color: rgba(158, 101, 250, 0.164);
+	border: 2px solid white !important;
+	color: white;
+	box-shadow: rgba(20, 46, 58, 0.185) 1px 1px 5px 5px;
+	cursor: pointer;
 }

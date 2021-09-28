@@ -62,11 +62,6 @@ const Navbar = (props: Props) => {
 				</Link>
 				<div style={{ right: "50px", position: "absolute", display: "flex", alignItems: "center" }}>
 					{!props.user && (
-						<Link to='/register' style={{ padding: "20px" }} className='link'>
-							REGISTER
-						</Link>
-					)}
-					{!props.user && (
 						<div className='dropdown' data-dropdown>
 							<button className='link' data-dropdown-button>
 								LOGIN
@@ -76,17 +71,28 @@ const Navbar = (props: Props) => {
 							</div>
 						</div>
 					)}
-					<button
-						onClick={(e) => logOut()}
-						title='Thanks for visiting! 🌞'
-						style={{ padding: "20px" }}
-						className='link'>
-						LOGOUT
-					</button>
+					{!props.user && (
+						<Link to='/register' style={{ padding: "20px" }} className='link'>
+							REGISTER
+						</Link>
+					)}
+					{props.user && (
+						<Link to='/profile' style={{ padding: "20px" }} className='link'>
+							{props.user.username}
+						</Link>
+					)}
+					{props.user && (
+						<button
+							onClick={(e) => logOut()}
+							title='Thanks for visiting! 🌞'
+							style={{ padding: "20px" }}
+							className='link'>
+							LOGOUT
+						</button>
+					)}
 				</div>
 				<img
-				onClick={e=>goToProfile()}
-					className={"puff-in-center"}
+					onClick={(e) => goToProfile()}
 					src={
 						props.user
 							? props.user.avatar

@@ -38,6 +38,8 @@ export default function Lunar() {
 
 	return (
 		<div>
+			<h2>Lunar</h2>
+
 			<h1>Current Phase: {moonPhase}</h1>
 			<p>
 				🌑 New Moon

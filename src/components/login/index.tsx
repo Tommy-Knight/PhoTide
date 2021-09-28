@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, } from "react";
+import { useLocation } from "react-router-dom";
+import {Props} from "../../types"
+import { History, LocationState } from "history";
 
-export default function Login(props: any) {
+export default function Login(props: Props, history:History<LocationState>) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	
+	const location = useLocation();
 
 	const bodyJSON = JSON.stringify({
 		email: email,
@@ -23,6 +28,9 @@ export default function Login(props: any) {
 			const data = await resp.json();
 			if (resp.ok) {
 				console.log(data);
+			}
+			if (location.pathname === "/register") {
+				history.push("/")
 			}
 		} catch (error) {
 			console.log(error);

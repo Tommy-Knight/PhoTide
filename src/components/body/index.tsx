@@ -43,13 +43,13 @@ const Body = (props: Props) => {
 				{props.focus === "tidal" && <Tidal />}
 			</div>
 
-			<div className='left-box'>
+			<div className='left-box sideButton'>
 				{props.focus === "weather" && <LunarButton />}
 				{props.focus === "tidal" && <WeatherButton />}
 				{props.focus === "lunar" && <TidalButton />}
 			</div>
 
-			<div className='right-box'>
+			<div className='right-box sideButton'>
 				{props.focus === "tidal" && <LunarButton />}
 				{props.focus === "lunar" && <WeatherButton />}
 				{props.focus === "weather" && <TidalButton />}

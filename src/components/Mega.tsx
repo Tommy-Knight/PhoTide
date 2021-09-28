@@ -21,15 +21,18 @@ const Mega = (props: Props) => {
 	}, [props.user?._id]);
 
 	const loginFetch = async () => {
-		const resp = await fetch(`http://localhost:3069/users/me`, {
-			credentials: "include",
-		});
-		if (resp.ok) {
-			const data = await resp.json();
-			dispatch(userAction(data));
-		}
-		 else {
-			props.history.push("/register");
+		try {
+			const resp = await fetch(`http://localhost:3069/users/me`, {
+				credentials: "include",
+			});
+			if (resp.ok) {
+				const data = await resp.json();
+				dispatch(userAction(data));
+			} else {
+				props.history.push("/register");
+			}
+		} catch (error) {
+			
 		}
 	};
 
