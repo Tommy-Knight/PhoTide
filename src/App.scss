@@ -1,6 +1,6 @@
 /* width */
 ::-webkit-scrollbar {
-	width: 5px;
+	width: 0px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -9,8 +9,8 @@
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgba(59, 59, 59, 0.281);
-	border-radius: 10px;
+	background: rgba(59, 59, 59, 0);
+	border-radius: 11px;
 }
 body {
 	text-align: center;
@@ -334,14 +334,16 @@ body {
 .app-box {
 	grid-area: app-box;
 	border-radius: 2.22rem;
-	border: 2px solid white;
-	backdrop-filter: blur(10px);
-	background: rgba(34, 34, 34, 0.664);
 	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-	z-index: 0;
+	background-color: rgba(172, 229, 255, 0.637);
 	overflow: auto;
 }
-
+.headline {
+	color: #ffffff;
+	letter-spacing: 0.1em;
+	text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5,
+		2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+}
 //##################SIDE BUTTONS############
 .left-box {
 	grid-area: left-box;

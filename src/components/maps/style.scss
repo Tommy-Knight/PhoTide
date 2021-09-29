@@ -1,5 +1,5 @@
 .background {
-	background: linear-gradient(0deg,  #2c55db, #152357, #171e36);
+	background: linear-gradient(0deg, #2c55db, #152357, #171e36);
 	// background: linear-gradient(
 	// 	0deg,
 	// 	#54b5f9 10%,
@@ -10,4 +10,12 @@
 	// 	#152357,
 	// 	#171e36
 	// );
+}
+.map {
+	border-radius:10px;
+	margin: auto;
+	margin-top:2%;
+	margin-bottom:3%;
+	width:95%;
+	height:85%;
 }

@@ -68,22 +68,35 @@
 }
 .weatherResult {
 	width: 30%;
-	margin: 5px;
+	// margin: 5 5 5 5px;
 	display: inline-block;
 	padding: 5px;
 	border-radius: 5%;
-	padding-bottom: 14px;
 	text-align: center !important;
 	vertical-align: top !important;
+	
 }
-
+.weatherForecast {
+	width: 100%;
+	display: inline-block;
+	padding: 10px;
+	text-align: center !important;
+	vertical-align: top !important;
+	// position: sticky;
+	margin-top:100px;
+}
+.weatherForecast:hover {
+	backdrop-filter: blur(10px);
+	background: rgba(0, 102, 109, 0.164);
+}
 .weatherResult:hover {
-	background-color: rgba(158, 101, 250, 0.164);
+	backdrop-filter: blur(10px);
+	background: rgba(0, 102, 109, 0.164);
 }
 .weatherButtons:hover {
 	background-color: rgba(158, 101, 250, 0.164);
-	border: 2px solid white !important;
+	border: 2px solid rgb(255, 223, 117) !important;
 	color: white;
-	box-shadow: rgba(20, 46, 58, 0.185) 1px 1px 5px 5px;
+	box-shadow: rgb(255, 255, 255) 1px 1px 5px 5px;
 	cursor: pointer;
 }

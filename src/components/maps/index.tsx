@@ -1,18 +1,17 @@
+import "./style.scss";
 import Navbar from "../navbar";
 import { connect } from "react-redux";
-import { Props } from "../../types";
-
-const Maps = (props: Props) => {
+import Map from "./map";
+const Maps = () => {
 	return (
 		<>
-			<div className="background">
+			<div className='background'>
 				<div className='app-grid'>
 					<div className='app-box'>
-						<h1>Maps</h1>
+						<h1 className="headline">Select a filter to view live satellite data</h1>
+						<Map />
 					</div>
-
 					<div className='footer'></div>
-
 					<Navbar />
 				</div>
 			</div>

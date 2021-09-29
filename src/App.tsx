@@ -3,7 +3,7 @@ import "./App.scss";
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
-import Mega from "./components/Mega";
+import Mega from "./components/mega";
 import Register from "./components/register";
 import Photos from "./components/photos";
 import Favourites from "./favourites";

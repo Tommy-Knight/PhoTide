@@ -1,21 +1,24 @@
-import { useState, } from "react";
-import { useLocation } from "react-router-dom";
-import {Props} from "../../types"
-import { History, LocationState } from "history";
+import { useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
+import { userAction } from "../../redux/actions";
+// import {Props} from "../../types"
+// import { History, LocationState } from "history";
 
-export default function Login(props: Props, history:History<LocationState>) {
+const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	
-	const location = useLocation();
 
-	const bodyJSON = JSON.stringify({
-		email: email,
-		password: password,
-	});
+	const location = useLocation();
+	const dispatch = useDispatch();
+	const history = useHistory()
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const bodyJSON = JSON.stringify({
+			email: email,
+			password: password,
+		});
 		try {
 			const resp = await fetch(`http://localhost:3069/auth/login`, {
 				method: "POST",
@@ -27,15 +30,16 @@ export default function Login(props: Props, history:History<LocationState>) {
 			});
 			const data = await resp.json();
 			if (resp.ok) {
-				console.log(data);
+				dispatch(userAction(data));
+				history.push("/");
 			}
 			if (location.pathname === "/register") {
-				history.push("/")
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
 	return (
 		<form onSubmit={(e) => handleSubmit(e)} style={{ display: "flex", flexDirection: "column" }}>
 			<input
@@ -57,3 +61,4 @@ export default function Login(props: Props, history:History<LocationState>) {
 		</form>
 	);
 }
+export default connect(s=>s)(Login)

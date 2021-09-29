@@ -1,18 +1,16 @@
 import { FormEvent, useState, ChangeEvent } from "react";
-import { connect } from "react-redux";
-import { RouteComponentProps, useLocation } from "react-router-dom";
-
-interface Props extends RouteComponentProps {
-	background?: string;
-	focus?: string;
-	searchValue?: {};
-	user?: {};
-}
+import { connect, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { Props } from "../../types";
+import { userAction } from "../../redux/actions";
 
 const Register = (props: Props) => {
 	const [username, setUsername] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+
+	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const bodyJSON = JSON.stringify({
 		email: email,
@@ -31,13 +29,11 @@ const Register = (props: Props) => {
 				},
 				body: bodyJSON,
 			});
-			if (resp.ok) props.history.push("/");
+			if (resp.ok) history.push("/");
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
-	const location = useLocation();
 
 	const bodyJSONLogin = JSON.stringify({
 		email: email,
@@ -57,10 +53,8 @@ const Register = (props: Props) => {
 			});
 			const data = await resp.json();
 			if (resp.ok) {
-				console.log(data);
-			}
-			if (location.pathname === "/register") {
-				props.history.push("/");
+				dispatch(userAction(data));
+				history.push("/");
 			}
 		} catch (error) {
 			console.log(error);
@@ -133,7 +127,7 @@ const Register = (props: Props) => {
 							margin: "auto",
 							marginTop: "2vh",
 							display: "flex",
-							flexDirection: "column"
+							flexDirection: "column",
 						}}>
 						<input
 							onChange={(e) => setEmail(e.target.value)}
@@ -141,14 +135,14 @@ const Register = (props: Props) => {
 							type='email'
 							name='email'
 							placeholder='email'
-							id='email'></input>
+							id='login-email'></input>
 						<input
 							onChange={(e) => setPassword(e.target.value)}
 							className='searchInput'
 							type='password'
 							placeholder='password'
-							id='password'></input>
-						<button style={{ width: "50px", right:"0" }} className='searchInput' type='submit'>
+							id='login-password'></input>
+						<button style={{ width: "50px", right: "0" }} className='searchInput' type='submit'>
 							LOGIN
 						</button>
 					</form>

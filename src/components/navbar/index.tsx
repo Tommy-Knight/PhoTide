@@ -1,20 +1,16 @@
-import React from "react";
 import "./style.scss";
-import Login from "../login";
 import { connect, useDispatch } from "react-redux";
-import { Link, RouteComponentProps } from "react-router-dom";
-import { UserInterface, Props } from "../../types";
+import { Link, useHistory } from "react-router-dom";
+import { Props } from "../../types";
 import { userAction } from "../../redux/actions";
-
-// interface Props extends RouteComponentProps {
-// 	background?: string;
-// 	focus?: string;
-// 	searchValue?: {};
-// 	user?: UserInterface;
-// }
+import Login from "../login";
+// import { History, LocationState } from "history";
 
 const Navbar = (props: Props) => {
+
 	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const logOut = async () => {
 		dispatch(userAction(null));
 		try {
@@ -25,18 +21,22 @@ const Navbar = (props: Props) => {
 					"Content-Type": "application/json",
 				},
 			});
-			const data = await resp.json();
 			if (resp.ok) {
-				console.log(data);
+				history.push("/");
+				console.log("byebye! 🍑");
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	const goToProfile = () =>{
-		if (props.history){props.history.push("/profile")}
-		console.log("why")
-	}
+
+	const goToProfile = () => {
+		if (props.user) {
+			history.push("/profile");
+		} else {
+			history.push("/register");
+		}
+	};
 
 	return (
 		<>
@@ -96,7 +96,7 @@ const Navbar = (props: Props) => {
 					src={
 						props.user
 							? props.user.avatar
-							: "https://image.flaticon.com/icons/png/512/5173/5173555.png"
+							: "https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/000000/external-user-internet-security-vitaliy-gorbachev-blue-vitaly-gorbachev.png"
 					}
 					style={{
 						borderRadius: "100%",

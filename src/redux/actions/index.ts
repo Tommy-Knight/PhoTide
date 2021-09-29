@@ -1,4 +1,5 @@
-import { UserInterface } from "../../types";
+import { UserInterface, WeatherInterface } from "../../types";
+
 export const backgroundAction = (payload: string) => {
 	return {
 		type: "BG_COLOR",
@@ -20,9 +21,21 @@ export const searchAction = (payload: any) => {
 	};
 };
 
-export const userAction = (user: UserInterface | null) => {
+export const userAction = (payload: UserInterface | null) => {
 	return {
 		type: "USER",
-		payload: user,
+		payload,
+	};
+};
+export const weatherAction = (payload: WeatherInterface | null) => {
+	return {
+		type: "WEATHER",
+		payload,
+	};
+};
+export const forecastAction = (payload: WeatherInterface | null) => {
+	return {
+		type: "FORECAST",
+		payload,
 	};
 };

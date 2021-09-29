@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 
 import rootReducer from "../reducers/index";
 import thunk from "redux-thunk";
+// import {UserInterface} from "../../types"
 
 declare global {
 	interface Window {
@@ -15,7 +16,9 @@ export const initialState = {
 	background: "dusk",
 	focus: "weather",
 	searchValue: {},
-	user:{},
+	user:null,
+	weather: null,
+	forecast: null,
 };
 
 const configureStore = () =>

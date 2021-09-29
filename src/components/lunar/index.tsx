@@ -21,7 +21,6 @@ export default function Lunar() {
 			t = Math.floor(z); //take integer of z
 			z -= t; //subtract integer part to leave fractional part of original z
 			t = Math.round(z * 8); //scale fraction from 0-8 and round
-
 			if (t === 0) return "🌑 New Moon";
 			if (t === 1) return "🌒 Waxing Crescent Moon";
 			if (t === 2) return "🌓 First-Quarter Moon";
@@ -31,7 +30,6 @@ export default function Lunar() {
 			if (t === 6) return "🌘 Waning Crescent Moon";
 			if (t === 7) return "🌕 Full Moon";
 		};
-
 		setMoonPhase(moon_phase(2022, 1, 5));
 		console.log(moon_phase(2022, 1, 5));
 	}, []);
