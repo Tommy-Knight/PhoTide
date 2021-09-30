@@ -26,7 +26,14 @@ const Weather = (props: Props) => {
 		googleFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [forecast, utcOffset]);
-
+	
+	const goToPhotos = () => {
+		if (props.user) {
+			history.push("/upload");
+		} else {
+			history.push("/register");
+		}
+	};
 	const googleFetch = async () => {
 		if (forecast) {
 			const resp = await fetch(
@@ -78,13 +85,6 @@ const Weather = (props: Props) => {
 			if (err) throw err;
 			setGeolocated(position);
 		});
-	};
-	const goToPhotos = () => {
-		if (props.user) {
-			history.push("/photos");
-		} else {
-			history.push("/register");
-		}
 	};
 	const fetchGeolocated = async () => {
 		try {

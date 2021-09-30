@@ -39,3 +39,9 @@ export const forecastAction = (payload: WeatherInterface | null) => {
 		payload,
 	};
 };
+export const photoAction = (payload: any) => {
+	return {
+		type: "PHOTO",
+		payload,
+	};
+};

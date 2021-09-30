@@ -9,6 +9,7 @@ import Photos from "./components/photos";
 import Favourites from "./favourites";
 import Profile from "../src/components/profile";
 import Maps from "./components/maps";
+import Upload from "./components/upload";
 
 class App extends React.Component {
 	render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
 					<Route path='/favourites' render={(routeProps: any) => <Favourites {...routeProps} />} />
 					<Route path='/maps' render={(routeProps: any) => <Maps {...routeProps} />} />
 					<Route path='/profile' render={(routeProps: any) => <Profile {...routeProps} />} />
+					<Route path='/upload' render={(routeProps: any) => <Upload {...routeProps} />} />
 				</Switch>
 			</Router>
 		);

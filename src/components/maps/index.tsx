@@ -8,7 +8,7 @@ const Maps = () => {
 			<div className='background'>
 				<div className='app-grid'>
 					<div className='app-box'>
-						<h1 className="headline">Select a filter to view live satellite data</h1>
+						<h1 className="headline">Select a filter to view live data</h1>
 						<Map />
 					</div>
 					<div className='footer'></div>

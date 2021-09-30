@@ -94,7 +94,7 @@ export interface WeatherInterface {
 	current?: Current;
 	minutely?: Minutely[];
 	hourly?: Current[];
-	daily?: Daily[];
+	daily: Daily[];
 }
 
 interface Current {
@@ -135,7 +135,7 @@ interface Daily {
 	moonrise?: number;
 	moonset?: number;
 	moon_phase?: number;
-	temp?: Temp;
+	temp: Temp;
 	feels_like?: FeelsLike;
 	pressure?: number;
 	humidity?: number;

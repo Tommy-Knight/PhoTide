@@ -26,7 +26,7 @@ const Map = (props) => {
 	};
 
 	return (
-		<MapContainer className='map' center={position} zoom={3}>
+		<MapContainer className='map' center={position} zoom={10}>
 			<LayersControl position='topleft'>
 				<LayersControl.BaseLayer name='Satellite'>
 					<TileLayer attribution={owmLink} url={mapTilerUrl} />

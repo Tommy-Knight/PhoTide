@@ -1,0 +1,36 @@
+.background {
+	background: linear-gradient(0deg, #2c55db, #152357, #171e36);
+	// background: linear-gradient(
+	// 	0deg,
+	// 	#54b5f9 10%,
+	// 	35%,
+	// 	#56a5ef 50%,
+	// 	63.5%,
+	// 	#2c55db,
+	// 	#152357,
+	// 	#171e36
+	// );
+}
+.photoButtons {
+	background: rgba(255, 255, 255, 0.198)!important;
+	border-radius: 200%;
+	border: 2px solid white;
+	padding: 5px;
+	margin: 10px;
+	line-height: 10px;
+	width: 60px;
+	height: 60px;
+	font-size: 33px;
+}
+
+.textbox{
+	background:none;
+	border:none;
+	font-family: inherit;
+	color:white;
+	overflow:auto;
+}
+.textbox:focus, input:focus{
+ 	background: rgba(255, 255, 255, 0.198);
+	outline: none;
+}

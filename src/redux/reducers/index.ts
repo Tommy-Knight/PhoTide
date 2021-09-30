@@ -14,6 +14,8 @@ const rootReducer = (state = initialState, action: { type: string; payload: any 
 			return { ...state, weather: action.payload };
 		case "FORECAST":
 			return { ...state, forecast: action.payload };
+		case "PHOTO":
+			return { ...state, photos: [action.payload] };
 		default:
 			return state;
 	}
