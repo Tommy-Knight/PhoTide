@@ -8,6 +8,16 @@ export interface Props {
 	history?: History<LocationState>;
 	weather?: WeatherInterface | null;
 	forecast?: Forecast | null;
+	photos?: any;
+}
+export interface UserInterface {
+	_id?: string;
+	username?: string;
+	email?: string;
+	password?: string;
+	avatar?: string;
+	favourites?:[];
+	photos?:[];
 }
 export interface Forecast {
 	cod: string;
@@ -15,6 +25,17 @@ export interface Forecast {
 	cnt: number;
 	list: List[];
 	city: City;
+}
+
+export interface WeatherInterface {
+	lat?: number;
+	lon?: number;
+	timezone?: string;
+	timezone_offset?: number;
+	current: Current;
+	minutely?: Minutely[];
+	hourly?: Current[];
+	daily: Daily[];
 }
 
 interface City {
@@ -65,36 +86,10 @@ interface Sys {
 	pod: string;
 }
 
-interface Weather {
-	id?: number;
-	main?: string;
-	description?: string;
-	icon?: string;
-}
-
 interface Wind {
 	speed: number;
 	deg: number;
 	gust: number;
-}
-
-export interface UserInterface {
-	_id?: string;
-	username?: string;
-	email?: string;
-	password?: string;
-	avatar?: string;
-}
-
-export interface WeatherInterface {
-	lat?: number;
-	lon?: number;
-	timezone?: string;
-	timezone_offset?: number;
-	current?: Current;
-	minutely?: Minutely[];
-	hourly?: Current[];
-	daily: Daily[];
 }
 
 interface Current {
@@ -122,48 +117,48 @@ interface Rain {
 }
 
 interface Weather {
-	id?: number;
-	main?: string;
-	description?: string;
-	icon?: string;
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
 }
 
 interface Daily {
-	dt?: number;
-	sunrise?: number;
-	sunset?: number;
-	moonrise?: number;
-	moonset?: number;
-	moon_phase?: number;
+	dt: number;
+	sunrise: number;
+	sunset: number;
+	moonrise: number;
+	moonset: number;
+	moon_phase: number;
 	temp: Temp;
-	feels_like?: FeelsLike;
-	pressure?: number;
-	humidity?: number;
-	dew_point?: number;
-	wind_speed?: number;
-	wind_deg?: number;
-	wind_gust?: number;
-	weather?: Weather[];
-	clouds?: number;
-	pop?: number;
-	rain?: number;
-	uvi?: number;
+	feels_like: FeelsLike;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	wind_speed: number;
+	wind_deg: number;
+	wind_gust: number;
+	weather: Weather[];
+	clouds: number;
+	pop: number;
+	rain: number;
+	uvi: number;
 }
 
 interface FeelsLike {
-	day?: number;
-	night?: number;
-	eve?: number;
-	morn?: number;
+	day: number;
+	night: number;
+	eve: number;
+	morn: number;
 }
 
 interface Temp {
-	day?: number;
-	min?: number;
-	max?: number;
-	night?: number;
-	eve?: number;
-	morn?: number;
+	day: number;
+	min: number;
+	max: number;
+	night: number;
+	eve: number;
+	morn: number;
 }
 
 interface Minutely {

@@ -19,7 +19,7 @@ export const initialState = {
 	user:null,
 	weather: null,
 	forecast: null,
-	photos: {},
+	photos: null,
 };
 
 const configureStore = () =>

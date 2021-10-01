@@ -30,7 +30,7 @@ export default function Lunar() {
 			if (t === 6) return "🌘 Waning Crescent Moon";
 			if (t === 7) return "🌕 Full Moon";
 		};
-		setMoonPhase(moon_phase(2022, 1, 5));
+		setMoonPhase(moon_phase(2021, 9, 30));
 		console.log(moon_phase(2022, 1, 5));
 	}, []);
 

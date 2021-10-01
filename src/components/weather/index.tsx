@@ -5,6 +5,7 @@ import { format, fromUnixTime, add, isWithinInterval } from "date-fns";
 import { connect, useDispatch } from "react-redux";
 import { backgroundAction, searchAction, weatherAction, forecastAction } from "../../redux/actions";
 import { Forecast, Props } from "../../types";
+import WeatherForecast from "../forecast/index";
 
 const Weather = (props: Props) => {
 	const [searchValue, setSearchValue] = useState<string>("");
@@ -26,7 +27,7 @@ const Weather = (props: Props) => {
 		googleFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [forecast, utcOffset]);
-	
+
 	const goToPhotos = () => {
 		if (props.user) {
 			history.push("/upload");
@@ -34,6 +35,7 @@ const Weather = (props: Props) => {
 			history.push("/register");
 		}
 	};
+
 	const googleFetch = async () => {
 		if (forecast) {
 			const resp = await fetch(
@@ -72,7 +74,15 @@ const Weather = (props: Props) => {
 				const forecastData = await resp.json();
 				dispatch(forecastAction(forecastData));
 				setForecast(forecastData);
-				setIsLoading(false);
+				const response = await fetch(
+					`https://api.openweathermap.org/data/2.5/onecall?lat=${forecastData.city.coord.lat}&lon=${forecastData.city.coord.lon}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+				);
+				if (response.ok) {
+					const weather = await response.json();
+					dispatch(weatherAction(weather));
+					setIsLoading(false);
+					console.log("☀", weather);
+				}
 			}
 		} catch (error) {
 			console.log(error);
@@ -219,7 +229,7 @@ const Weather = (props: Props) => {
 				{!props.forecast && <h2>SEARCH OR CLICK THE LOCATOR!</h2>}
 				{props.forecast && (
 					<>
-						<div className='weatherResult '>
+						<div className='weatherResult weatherButtons' style={{ border: "2px solid rgba(255, 255, 255, 0)", background:"none" }}>
 							<div>
 								<h2 className={"headline"}>
 									{props.forecast.city.name}
@@ -245,13 +255,22 @@ const Weather = (props: Props) => {
 								</small>
 							</div>
 						</div>
-						<div className='weatherResult '>
+						<div className='weatherResult'>
 							<div key={props.forecast.city.id}>
 								<h2 className={"headline"}>
 									Local Time{" "}
 									<small>
 										{" "}
-										is <i>{localTime && localTime}</i>
+										is{" "}
+										<i>
+											{localTime
+												? localTime
+												: props.weather &&
+												  format(
+														new Date(fromUnixTime(props.weather!.current.dt!).toString()),
+														`p`
+												  )}
+										</i>
 									</small>
 								</h2>
 								<b>Sunrise</b>{" "}
@@ -320,7 +339,7 @@ const Weather = (props: Props) => {
 								at <i>{props.forecast.list[0].main.humidity} %</i>
 							</small>
 						</div>
-						<div className='weatherForecast'> wowza</div>
+						<WeatherForecast />
 					</>
 				)}
 			</div>

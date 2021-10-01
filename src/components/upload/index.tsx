@@ -1,10 +1,11 @@
 import "./style.scss";
-import Navbar from "../navbar";
-import { connect, useDispatch } from "react-redux";
-import { Props } from "../../types";
-import ImageUploading, { ImageListType } from "react-images-uploading";
 import { useState } from "react";
+import { useHistory } from "react-router";
+import { connect, useDispatch } from "react-redux";
+import ImageUploading, { ImageListType } from "react-images-uploading";
+import { Props } from "../../types";
 import { photoAction } from "../../redux/actions";
+import Navbar from "../navbar";
 
 const Upload = (props: Props) => {
 	const [title, setTitle] = useState<string | null>(null);
@@ -13,6 +14,7 @@ const Upload = (props: Props) => {
 	const maxNumber = 69;
 
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
 		console.log(imageList, addUpdateIndex);
@@ -38,6 +40,7 @@ const Upload = (props: Props) => {
 			weather: props.weather?.daily[0].weather,
 		};
 		dispatch(photoAction(image));
+		history.push("/photos");
 	};
 
 	return (
@@ -61,12 +64,14 @@ const Upload = (props: Props) => {
 											<br />
 											<big className='headline'>Title: </big>
 											<input
+												title='Add a Title!'
 												onChange={(e) => setTitle(e.target.value)}
 												className='textbox'
 												type='text'></input>
 											<br />
 											<big className='headline'>Description: </big>
 											<input
+												title='Add a Description!'
 												onChange={(e) => setDescription(e.target.value)}
 												className='textbox'
 												type='text'></input>
