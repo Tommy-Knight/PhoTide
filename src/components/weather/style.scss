@@ -118,19 +118,14 @@
 	width: 30%;
 	// margin: 5 5 5 5px;
 	display: inline-block;
-	padding: 5px;
+	padding: 10px;
 	border-radius: 10px;
 	text-align: center;
 	vertical-align: top !important;
 }
 .weatherForecast {
-	width: 100%;
-	display: inline-block;
-	padding: 5px 3px 0 3px;
-	text-align: center;
-	vertical-align: top !important;
-	// position: sticky;
-	margin-top: 100px;
+	padding:0 2px 2px 2px;
+	margin:25px 1px 1px 0;
 }
 .weatherForecast:hover {
 	backdrop-filter: blur(10px);

@@ -22,7 +22,8 @@ const Navbar = (props: Props) => {
 				},
 			});
 			if (resp.ok) {
-				history.push("/");
+				history.push("/register");
+				window.location.reload()
 				console.log("byebye! 🍑");
 			}
 		} catch (error) {
@@ -42,7 +43,7 @@ const Navbar = (props: Props) => {
 		<>
 			<div className='header nav navBar'>
 				<div className='dropdown' data-dropdown>
-					<Link style={{ textDecoration: "none", letterSpacing: "-5px" }} to='/'>
+					<Link style={{ textDecoration: "none", letterSpacing: "-0.4rem" }} to='/'>
 						<h1>📸🌊</h1>
 					</Link>
 					<div className='dropdown-menu information-grid'>USER PROFILE</div>

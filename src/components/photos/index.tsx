@@ -66,22 +66,25 @@ const Photos = (props: Props) => {
 										{props.photos?.city}, <i>{props.photos?.country}</i>
 									</big>
 									<br />
-									<big>Temperature </big>
-									<small> was </small>
-									<i>{props.photos?.temp} °C</i>
-									<br />
-									<big>Highs </big>
-									<small> of </small> <i>{props.photos?.tempMax} °C</i>
-									<br />
-									<big>Lows </big>
-									<small> of </small>
-									<i>{props.photos?.tempMin} °C</i>
-									<br />
-									<big>{props.photos?.weather[0].main}</big>,
-									<i> {props.photos?.weather[0].description}</i>
-									<br />
-									<big>Clouds </big>
-									<small> at </small> <i>{props.photos?.clouds} %</i>
+									<br/>
+									<div style={{textAlign:"right"}}>
+										<big>{props.photos?.weather[0].main}</big>,
+										<i> {props.photos?.weather[0].description}</i>
+										<br />
+										<big>Temperature </big>
+										<small> was </small>
+										<i>{props.photos?.temp} °C</i>
+										<br />
+										<big>Highs </big>
+										<small> of </small> <i>{props.photos?.tempMax} °C</i>
+										<br />
+										<big>Lows </big>
+										<small> of </small>
+										<i>{props.photos?.tempMin} °C</i>
+										<br />
+										<big>Clouds </big>
+										<small> at </small> <i>{props.photos?.clouds} %</i>
+									</div>
 									<br />
 								</div>
 							</div>

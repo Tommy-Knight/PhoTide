@@ -25,7 +25,7 @@ const Lunar = (props: Props) => {
 		t = Math.round(z * 8); //scale fraction from 0-8 and round
 		if (t === 0) return "New Moon";
 		if (t === 1) return "Waxing Crescent Moon";
-		if (t === 2) return "First-Quarter Moon";
+		if (t === 2) return "First Quarter Moon";
 		if (t === 3) return "Waxing Gibbous Moon";
 		if (t === 4) return "Waning Gibbous Moon";
 		if (t === 5) return "Last Quarter Moon";
@@ -53,35 +53,21 @@ const Lunar = (props: Props) => {
 
 	return (
 		<div>
-			<h2 className='headline'>Lunar</h2>
+			<h1 className='headline'>Lunar</h1>
 			<div className='slide-in-elliptic-bottom-fwd'>
-				<span style={{ fontSize: "80px" }}>{mooning(props.weather?.daily[0].moon_phase!)}</span>
+				<span style={{ fontSize: "69px" }}>{mooning(props.weather?.daily[0].moon_phase!)}</span>
 			</div>
-			<h1>{moonPhase}</h1>
-			<small className='headline weatherResult' style={{ textAlign: "left" }}>
-				🌑 - New Moon
-				<br />
-				🌒 - Waxing Crescent Moon
-				<br />
-				🌓 - First-Quarter Moon
-				<br />
-				🌔  -Waxing Gibbous Moon
-				<br />
-				🌖  -Waning Gibbous Moon
-				<br />
-				🌗  -Last Quarter Moon
-				<br />
-				🌘 - Waning Crescent Moon
-				<br />
-				🌕 - Full Moon
-				<br />
-			</small>
+			<br/>
+			<b style={{ fontSize: "2rem" }}>{moonPhase}</b>
+			<br />
 			<div className='weatherResult'>
+				<br/>
 				<h2 className={"headline"}>
+				
 					Cloudiness
 					<small>
 						{" "}
-						at <i>{props.forecast?.list[0].clouds.all} %</i>
+						at <i>{props.forecast?.list[0].clouds.all}<small>%</small></i>
 					</small>
 				</h2>
 				<b>Moonrise</b>{" "}
@@ -94,21 +80,49 @@ const Lunar = (props: Props) => {
 				<small>
 					{props.weather &&
 						format(new Date(fromUnixTime(props.weather?.daily[0].moonset!).toString()), `p`)}
+					<br />
 				</small>
+				<div
+					className='headline aurora'
+					style={{ border: "2px solid black", height: "45px", marginTop: "10px" }}>
+					<iframe
+						title='aurora'
+						scrolling='no'
+						frameBorder=''
+						width='100%'
+						height='100%'
+						src='//aurorawatch.lancs.ac.uk/external/status_text'></iframe>
+				</div>
 			</div>
+			<span className='headline weatherResult' style={{ textAlign: "right" }}>
+				🌑 - <small>New Moon</small>
+				<br />
+				🌒 - <small>Waxing Crescent</small>
+				<br />
+				🌓 - <small>First Quarter</small>
+				<br />
+				🌔 - <small>Waxing Gibbous</small>
+				<br />
+				🌖 - <small>Waning Gibbous</small>
+				<br />
+				🌗 - <small>Last Quarter</small>
+				<br />
+				🌘 - <small>Waning Crescent</small>
+				<br />
+				🌕 - <small>Full Moon</small>
+				<br />
+			</span>
 
-			<div style={{verticalAlign:"bottom"}}>
+			<div style={{ verticalAlign: "bottom" }}>
 				{props.weather &&
 					props.weather.daily.map((item) => {
 						return (
-							<div style={{ width: "10%" }} className='weatherResult'>
+							<div style={{ width: "10%", padding: "5px" }} className='weatherResult'>
 								<br />
 								<big className='headline'>
 									{format(new Date(fromUnixTime(item.dt).toString()), `iii`)}
 								</big>
 								<h1 className='bounce-in-fwd'>{mooning(item.moon_phase)}</h1>
-								<br />
-								<big className='headline'></big>
 							</div>
 						);
 					})}

@@ -14,11 +14,12 @@ const Weather = (props: Props) => {
 	const [utcOffset, setUtcOffset] = useState<number>(0);
 	const [localTime, setLocalTime] = useState<string>();
 	const [geolocated, setGeolocated] = useState<any | null>(null);
-	const [viewDay, setViewDay] = useState<number>(0)
+	const [viewDay, setViewDay] = useState<number>(0);
+	const [hoverUpload, setHoverUpload] = useState<boolean>(false);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
-	
+
 	useEffect(() => {
 		fetchGeolocated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,9 +125,9 @@ const Weather = (props: Props) => {
 		}
 	};
 
-	const setDay = (e:number) => {
-		setViewDay(e!)
-	}
+	const setDay = (e: number) => {
+		setViewDay(e!);
+	};
 	return (
 		<div style={{ overflow: "auto", color: "" }}>
 			<h2 className='headline'>
@@ -170,7 +171,7 @@ const Weather = (props: Props) => {
 							<path d='M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z' />
 						</svg>
 					</div>
-					{props.user && (
+					{props.forecast && props.user && (
 						<div title='Add to favourites! ❤' style={{ display: "inline-block" }}>
 							<svg
 								className='weatherButtons'
@@ -179,7 +180,7 @@ const Weather = (props: Props) => {
 								height='24'
 								viewBox='0 0 24 24'
 								fill='none'
-								stroke='currentColor'
+								stroke='red'
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'>
@@ -187,8 +188,14 @@ const Weather = (props: Props) => {
 							</svg>
 						</div>
 					)}
-					{props.user && (
+					{props.forecast && props.user && (
 						<div
+							onMouseOver={(e) => {
+								setHoverUpload(true);
+							}}
+							onMouseLeave={(e) => {
+								setHoverUpload(false);
+							}}
 							title='Upload a Photo! 📷'
 							onClick={(e) => goToPhotos()}
 							style={{ display: "inline-block" }}>
@@ -199,7 +206,7 @@ const Weather = (props: Props) => {
 								height='24'
 								viewBox='0 0 24 24'
 								fill='none'
-								stroke='currentColor'
+								stroke={hoverUpload ? "chartreuse" : "currentColor"}
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'>
@@ -222,9 +229,9 @@ const Weather = (props: Props) => {
 					<>
 						<div className='weatherResult'>
 							<div>
-								<big style={{ fontSize: "2rem", margin: 0 }} className={"headline"}>
+								<b style={{ fontSize: "2rem", margin: 0 }} className={"headline"}>
 									{props.forecast.city.name}
-								</big>
+								</b>
 								<br />{" "}
 								<small>
 									{" "}
@@ -246,8 +253,7 @@ const Weather = (props: Props) => {
 								<span className='headline'>
 									<b>{props.forecast.list[0].weather[0].main} </b>
 									<small>
-										{" "}
-										currently <i>{props.weather?.daily[viewDay].weather[0].description}</i>
+										<i> {props.weather?.daily[viewDay].weather[0].description}</i>
 									</small>
 								</span>
 							</div>
@@ -277,34 +283,41 @@ const Weather = (props: Props) => {
 									at <i>{props.weather?.daily[viewDay].clouds} %</i>
 								</small>
 							</h2>
-							<b>Wind Speed</b>
-							<small>
-								{" "}
-								is <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
-							</small>
-							<br />
-							<b>Gusts</b>
-							<small>
-								{" "}
-								of <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
-							</small>
-							<br />
 							<b>Visibility</b>
 							<small>
 								{" "}
 								at <i>{props.weather?.current.visibility}m</i>
 							</small>
+							<br />
+							<b>Wind Speeds</b>
+							<small>
+								{" "}
+								of <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
+							</small>
+							<br />
+							<b>Gusts</b>
+							<small>
+								{" "}
+								up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
+							</small>
 						</div>
 						<div className='weatherResult'>
 							<div key={props.forecast.city.id}>
 								{props.weather && (
-									<big style={{ fontSize: "2rem" }} className={"headline"}>
-										{format(
-											new Date(fromUnixTime(props.weather.daily[viewDay].dt!).toString()),
-											`EEEE do MMM`
-										)}
-										<br />
-										<small className={"headline"}>
+									<big className={"headline"}>
+										<div
+											style={{
+												fontWeight: "bold",
+												fontSize: "2rem",
+												whiteSpace: "nowrap",
+												marginBottom: "12px",
+											}}>
+											{format(
+												new Date(fromUnixTime(props.weather.daily[viewDay].dt!).toString()),
+												`EEEE do MMM`
+											)}
+										</div>
+										<b className={"headline"}>
 											Local Time is{" "}
 											<i>
 												{localTime
@@ -315,29 +328,37 @@ const Weather = (props: Props) => {
 															`p`
 													  )}
 											</i>
-										</small>
+										</b>
 										<br />
 									</big>
 								)}
 								<br />
 								<b>Sunrise</b>{" "}
 								<small>
-									{format(
-										add(new Date(fromUnixTime(props.weather?.daily[viewDay].sunrise!).toString()), {
-											seconds: utcOffset,
-										}),
-										`p`
-									)}
+									{props.weather?.daily[viewDay].sunrise &&
+										format(
+											add(
+												new Date(fromUnixTime(props.weather?.daily[viewDay].sunrise!).toString()),
+												{
+													seconds: utcOffset,
+												}
+											),
+											`p`
+										)}
 								</small>
 								<br />
 								<b>Sunset</b>{" "}
 								<small>
-									{format(
-										add(new Date(fromUnixTime(props.weather?.daily[viewDay].sunset!).toString()), {
-											seconds: utcOffset,
-										}),
-										`p`
-									)}
+									{props.weather?.daily[viewDay].sunset &&
+										format(
+											add(
+												new Date(fromUnixTime(props.weather?.daily[viewDay].sunset!).toString()),
+												{
+													seconds: utcOffset,
+												}
+											),
+											`p`
+										)}
 								</small>
 							</div>
 							<h2 style={{ paddingTop: "2.5px" }} className={"headline"}>

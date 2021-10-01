@@ -29,7 +29,7 @@ const Map = (props: Props) => {
 			className='map'
 			center={[props.weather?.lat! || 51.22, props.weather?.lon! || 0.22]}
 			zoom={10}>
-			<LayersControl position='topleft'>
+			<LayersControl position='topright'>
 				<LayersControl.BaseLayer name='Satellite'>
 					<TileLayer attribution={owmLink} url={mapTilerUrl} />
 				</LayersControl.BaseLayer>
