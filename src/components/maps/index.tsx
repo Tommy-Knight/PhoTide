@@ -7,11 +7,10 @@ const Maps = () => {
 		<>
 			<div className='background'>
 				<div className='app-grid'>
-					<div className='app-box'>
-						<h1 className="headline">Select a filter to view live data</h1>
+					<span style={{ width: "100vw", height: "90vh", marginBottom:0 }}>
 						<Map />
-					</div>
-					<div className='footer'></div>
+					</span>
+
 					<Navbar />
 				</div>
 			</div>

@@ -35,28 +35,52 @@ const Mega = (props: Props) => {
 	const selectFocus = (e: string) => {
 		dispatch(focusAction(e));
 	};
-	
+
 	const LunarButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("lunar")}>
-				<span style={{ fontSize: "1.5vw" }}>LUNAR</span>
-				<p style={{ fontSize: "10vw", marginTop: "0px" }}>🌑</p>
+				<span className={"glow"} style={{ fontSize: "1.5vw" }}>
+					LUNAR
+				</span>
+				<br />
+				<img
+					className={"focus-in-expand-fwd"}
+					style={{ width: "100%" }}
+					alt={`icon`}
+					src={window.location.origin + `/lunar.png`}
+				/>
 			</span>
 		);
 	};
 	const TidalButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("tidal")}>
-				<span style={{ fontSize: "1.5vw" }}>TIDAL</span>
-				<p style={{ fontSize: "10vw", marginTop: "0px" }}>🌊</p>
+				<span className={"glow"} style={{ fontSize: "1.5vw" }}>
+					TIDAL
+				</span>
+				<br />
+				<img
+					className={"focus-in-expand-fwd"}
+					style={{ width: "100%" }}
+					alt={`icon`}
+					src={window.location.origin + `/water.png`}
+				/>
 			</span>
 		);
 	};
 	const WeatherButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("weather")}>
-				<span style={{ fontSize: "1.5vw" }}>WEATHER</span>
-				<p style={{ fontSize: "10vw", marginTop: "0px" }}>⛅</p>
+				<span className={"glow"}  style={{ fontSize: "1.5vw" }}>
+					WEATHER
+				</span>
+				<br />
+				<img
+					className={"focus-in-expand-fwd"}
+					style={{ width: "100%" }}
+					alt={`icon`}
+					src={window.location.origin + `/weather.png`}
+				/>
 			</span>
 		);
 	};
@@ -65,23 +89,25 @@ const Mega = (props: Props) => {
 		<>
 			<div className={props.background}>
 				<div className='app-grid'>
-					<div className='app-box'>
-						{props.focus === "weather" && <Weather />}
-						{props.focus === "lunar" && <Lunar />}
-						{props.focus === "tidal" && <Tidal />}
-					</div>
-
-					<div className='left-box sideButton'>
-						{props.focus === "weather" && <LunarButton />}
-						{props.focus === "tidal" && <WeatherButton />}
-						{props.focus === "lunar" && <TidalButton />}
-					</div>
-
-					<div className='right-box sideButton'>
-						{props.focus === "tidal" && <LunarButton />}
-						{props.focus === "lunar" && <WeatherButton />}
-						{props.focus === "weather" && <TidalButton />}
-					</div>
+					{props.focus && (
+						<>
+							<div className='app-box'>
+								{props.focus === "weather" && <Weather />}
+								{props.focus === "lunar" && <Lunar />}
+								{props.focus === "tidal" && <Tidal />}
+							</div>
+							<div className='left-box sideButton fade-in-left'>
+								{props.focus === "weather" && <TidalButton />}
+								{props.focus === "tidal" && <LunarButton />}
+								{props.focus === "lunar" && <WeatherButton />}
+							</div>
+							<div className='right-box fade-in-right sideButton'>
+								{props.focus === "tidal" && <WeatherButton />}
+								{props.focus === "lunar" && <TidalButton />}
+								{props.focus === "weather" && <LunarButton />}
+							</div>{" "}
+						</>
+					)}
 					<Navbar />
 				</div>
 			</div>

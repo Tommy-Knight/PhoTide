@@ -1,10 +1,9 @@
 .navBar {
-	font-size: 1.5vw;
+	font-size: 1.5vh;
 	line-height: 400%;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.061);
+	border-bottom: 1px solid rgb(48, 48, 48);
 	backdrop-filter: blur(100000px);
-	// background: rgba(34, 34, 34, 0.664);
-	background-color: rgba(172, 229, 255, 0.637);
+	background-color: rgba(255, 255, 255, 0.829);
 	box-shadow: rgba(255, 248, 157, 0.555) 0px 0px 20px 0px;
 	text-align: left;
 }
@@ -20,11 +19,12 @@
 	background: none;
 	border: none;
 	text-decoration: none;
-	color: white;
+	color: black;
 	font-family: inherit;
 	font-size: inherit;
 	cursor: pointer;
 	padding: 0;
+	
 }
 
 .dropdown.active > .link,

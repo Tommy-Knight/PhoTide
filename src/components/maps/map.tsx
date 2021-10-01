@@ -1,9 +1,9 @@
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, useMap, LayersControl } from "react-leaflet";
 import { connect } from "react-redux";
+import { Props } from "../../types";
 
-const Map = (props) => {
-
+const Map = (props: Props) => {
 	const mapTilerUrl = `https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key=pyUqDY2O06Vi3Qg4qTB5`;
 	const osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 	const owmLink = '<a href="https://openweathermap.org/">OpenWeatherMap</a>';
@@ -11,7 +11,6 @@ const Map = (props) => {
 		a: "https://tile.openweathermap.org/map/",
 		b: `/{z}/{x}/{y}.png?appid=9d33c3e69026b25a6cab7f300ec5e461`,
 	};
-	const position = [props.weather ? props.weather.lat : 42, props.weather ? props.weather.lon : 22];
 	const layers = {
 		clouds: "clouds_new",
 		precip: "precipitation_new",
@@ -26,7 +25,10 @@ const Map = (props) => {
 	};
 
 	return (
-		<MapContainer className='map' center={position} zoom={10}>
+		<MapContainer
+			className='map'
+			center={[props.weather?.lat! || 51.22, props.weather?.lon! || 0.22]}
+			zoom={10}>
 			<LayersControl position='topleft'>
 				<LayersControl.BaseLayer name='Satellite'>
 					<TileLayer attribution={owmLink} url={mapTilerUrl} />

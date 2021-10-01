@@ -46,9 +46,9 @@ const Photos = (props: Props) => {
 						</div>
 						<br />
 						{props.photos && (
-							<div className='weatherResult headline' style={{ width: "auto", padding: "20px" }}>
+							<div className='weatherResult headline' style={{ width: "auto", padding: "3%" }}>
 								<img
-									style={{ display: "inline-block", height: "40vh" }}
+									style={{ display: "inline-block", height: "40vh" , border:"1px solid white", borderRadius:"5px"}}
 									alt='nop'
 									src={props.photos?.images[0].dataURL}
 								/>

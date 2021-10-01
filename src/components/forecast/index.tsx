@@ -3,12 +3,13 @@ import { Props } from "../../types";
 import { format, fromUnixTime } from "date-fns";
 
 const WeatherForecast = (props: Props) => {
+
 	return (
-		<div>
+		<div style={{ overflow: "scroll" }}>
 			{props.weather &&
-				props.weather.daily.map((item) => {
+				props.weather.daily.map((item,i) => {
 					return (
-						<div style={{ width: "10%" }} className='weatherResult'>
+						<div onClick={e => props.setDay!(i)!} style={{ width: "6rem", margin: "2% 5px 0 0" }} className='weatherResult'>
 							<br />
 							<big className='headline'>
 								{format(new Date(fromUnixTime(item.dt).toString()), `iii`)}
@@ -16,12 +17,12 @@ const WeatherForecast = (props: Props) => {
 							<br />
 							<img
 								className={"bounce-in-fwd"}
-								style={{ width: "50%" }}
+								style={{ width: "3rem" }}
 								alt={`icon`}
 								src={window.location.origin + `/` + item.weather[0].icon + `.png`}
 							/>
 							<br />
-							<span>{item.temp.max}°</span>/<span>{item.temp.min}°</span>
+							<small>{item.temp.max}° </small> /<small>{item.temp.min}°</small>
 							<br />
 							<big className='headline'>{item.weather[0].main}</big>
 							<br />

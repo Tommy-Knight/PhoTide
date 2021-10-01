@@ -14,10 +14,11 @@ const Weather = (props: Props) => {
 	const [utcOffset, setUtcOffset] = useState<number>(0);
 	const [localTime, setLocalTime] = useState<string>();
 	const [geolocated, setGeolocated] = useState<any | null>(null);
+	const [viewDay, setViewDay] = useState<number>(0)
 
 	const dispatch = useDispatch();
 	const history = useHistory();
-
+	
 	useEffect(() => {
 		fetchGeolocated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,9 +123,15 @@ const Weather = (props: Props) => {
 			console.log("💀", error);
 		}
 	};
+
+	const setDay = (e:number) => {
+		setViewDay(e!)
+	}
 	return (
 		<div style={{ overflow: "auto", color: "" }}>
-			<h2 className='headline'>Weather</h2>
+			<h2 className='headline'>
+				{isLoading ? <div className='focus-in-expand'>Searching ...</div> : "Weather"}
+			</h2>
 			<div>
 				<div style={{ display: "flex", justifyContent: "center" }}>
 					<div style={{ display: "inline-block" }}>
@@ -150,13 +157,6 @@ const Weather = (props: Props) => {
 						style={{ display: "inline-block" }}>
 						<svg
 							className='weatherButtons'
-							style={{
-								background: "rgba(255, 255, 255, 0.103)",
-								borderRadius: "200%",
-								border: "2px solid white",
-								padding: "5px",
-								marginLeft: "10px",
-							}}
 							xmlns='http://www.w3.org/2000/svg'
 							width='24'
 							height='24'
@@ -174,13 +174,6 @@ const Weather = (props: Props) => {
 						<div title='Add to favourites! ❤' style={{ display: "inline-block" }}>
 							<svg
 								className='weatherButtons'
-								style={{
-									background: "rgba(255, 255, 255, 0.103)",
-									borderRadius: "200%",
-									border: "2px solid white",
-									padding: "5px",
-									marginLeft: "10px",
-								}}
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
 								height='24'
@@ -201,13 +194,6 @@ const Weather = (props: Props) => {
 							style={{ display: "inline-block" }}>
 							<svg
 								className='weatherButtons'
-								style={{
-									background: "rgba(255, 255, 255, 0.103)",
-									borderRadius: "200%",
-									border: "2px solid white",
-									padding: "5px",
-									marginLeft: "10px",
-								}}
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
 								height='24'
@@ -223,60 +209,121 @@ const Weather = (props: Props) => {
 						</div>
 					)}
 					<br />
-					{isLoading && <div className='focus-in-expand'> Oh Mama! We're searching ...</div>}
 				</div>
 
-				{!props.forecast && <h2>SEARCH OR CLICK THE LOCATOR!</h2>}
+				{!props.forecast && (
+					<div
+						style={{ fontSize: "3rem", marginTop: "10%", paddingBottom: "30%", width: "100%" }}
+						className='focus-in-expand-fwd headline'>
+						SEARCH OR CLICK!
+					</div>
+				)}
 				{props.forecast && (
 					<>
-						<div className='weatherResult weatherButtons' style={{ border: "2px solid rgba(255, 255, 255, 0)", background:"none" }}>
+						<div className='weatherResult'>
 							<div>
-								<h2 className={"headline"}>
+								<big style={{ fontSize: "2rem", margin: 0 }} className={"headline"}>
 									{props.forecast.city.name}
-									<br />{" "}
-									<small>
-										{" "}
-										in <i>{props.forecast.city.country}</i>
-									</small>{" "}
-								</h2>
+								</big>
+								<br />{" "}
+								<small>
+									{" "}
+									in <i>{props.forecast.city.country}</i>
+								</small>{" "}
+								<br />
 								<img
 									className={"roll-in-blurred-left"}
 									style={{ width: "60%" }}
 									alt={`icon`}
 									src={
-										window.location.origin + `/` + props.forecast.list[0].weather[0].icon + `.png`
+										window.location.origin +
+										`/` +
+										props.weather?.daily[viewDay].weather[0].icon +
+										`.png`
 									}
 								/>
 								<br />
-								<b>{props.forecast.list[0].weather[0].main} </b>
+								<span className='headline'>
+									<b>{props.forecast.list[0].weather[0].main} </b>
+									<small>
+										{" "}
+										currently <i>{props.weather?.daily[viewDay].weather[0].description}</i>
+									</small>
+								</span>
+							</div>
+						</div>
+						<div className='weatherResult '>
+							<br />
+							<h2 style={{ fontSize: "3rem", margin: 0 }} className={"headline"}>
+								{props.weather?.daily[viewDay].temp.day} °C
+							</h2>
+							<br />
+							<b>Highs</b>
+							<small>
+								{" "}
+								of <i>{props.weather?.daily[viewDay].temp.max} °C</i>
+							</small>
+							<br />
+							<b>Lows</b>
+							<small>
+								{" "}
+								of <i>{props.weather?.daily[viewDay].temp.min} °C</i>
+							</small>
+							<br />
+							<h2 className={"headline"}>
+								Cloud coverage
 								<small>
 									{" "}
-									currently <i>{props.forecast.list[0].weather[0].description}</i>
+									at <i>{props.weather?.daily[viewDay].clouds} %</i>
 								</small>
-							</div>
+							</h2>
+							<b>Wind Speed</b>
+							<small>
+								{" "}
+								is <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
+							</small>
+							<br />
+							<b>Gusts</b>
+							<small>
+								{" "}
+								of <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
+							</small>
+							<br />
+							<b>Visibility</b>
+							<small>
+								{" "}
+								at <i>{props.weather?.current.visibility}m</i>
+							</small>
 						</div>
 						<div className='weatherResult'>
 							<div key={props.forecast.city.id}>
-								<h2 className={"headline"}>
-									Local Time{" "}
-									<small>
-										{" "}
-										is{" "}
-										<i>
-											{localTime
-												? localTime
-												: props.weather &&
-												  format(
-														new Date(fromUnixTime(props.weather!.current.dt!).toString()),
-														`p`
-												  )}
-										</i>
-									</small>
-								</h2>
+								{props.weather && (
+									<big style={{ fontSize: "2rem" }} className={"headline"}>
+										{format(
+											new Date(fromUnixTime(props.weather.daily[viewDay].dt!).toString()),
+											`EEEE do MMM`
+										)}
+										<br />
+										<small className={"headline"}>
+											Local Time is{" "}
+											<i>
+												{localTime
+													? localTime
+													: props.weather &&
+													  format(
+															new Date(fromUnixTime(props.weather!.current.dt!).toString()),
+															`p`
+													  )}
+											</i>
+										</small>
+										<br />
+									</big>
+								)}
+								<br />
 								<b>Sunrise</b>{" "}
 								<small>
 									{format(
-										add(new Date(fromUnixTime(props.forecast.city.sunrise).toString()), {
+										add(new Date(fromUnixTime(props.weather?.daily[viewDay].sunrise!).toString()), {
 											seconds: utcOffset,
 										}),
 										`p`
@@ -286,60 +333,39 @@ const Weather = (props: Props) => {
 								<b>Sunset</b>{" "}
 								<small>
 									{format(
-										add(new Date(fromUnixTime(props.forecast.city.sunset).toString()), {
+										add(new Date(fromUnixTime(props.weather?.daily[viewDay].sunset!).toString()), {
 											seconds: utcOffset,
 										}),
 										`p`
 									)}
 								</small>
 							</div>
-							<br />
-						</div>
-						<div className='weatherResult '>
-							<h2 className={"headline"}>
-								Temperature
+							<h2 style={{ paddingTop: "2.5px" }} className={"headline"}>
+								Chance of Rain
 								<small>
-									{" "}
-									is <i>{props.forecast.list[0].main.temp} °C</i>
+									<i> {Math.round(props.weather?.daily[viewDay].pop! * 100)} %</i>
 								</small>
 							</h2>
-							<b>Highs</b>
+							<b>Expected</b>
 							<small>
 								{" "}
-								of <i>{props.forecast.list[0].main.temp_max} °C</i>
+								<i>{props.weather?.daily[viewDay].rain} mm</i>
 							</small>
 							<br />
-							<b>Lows</b>
-							<small>
+							<b>UV Index</b>
+							<small title='Wear Sunscreen if 3+ 🧴'>
 								{" "}
-								of <i>{props.forecast.list[0].main.temp_min} °C</i>
-							</small>
-							<h2 className={"headline"}>
-								Cloud coverage
-								<small>
-									{" "}
-									at <i>{props.forecast.list[0].clouds.all} %</i>
-								</small>
-							</h2>
-							<b>Wind Speed</b>
-							<small>
-								{" "}
-								is <i>{props.forecast.list[0].wind.speed} m/s</i>
-							</small>
-							<br />
-							<b>Gusts</b>
-							<small>
-								{" "}
-								of <i>{props.forecast.list[0].wind.gust} m/s</i>
+								at <i>{props.weather?.current.uvi}</i>
 							</small>
 							<br />
 							<b>Humidity</b>
 							<small>
 								{" "}
-								at <i>{props.forecast.list[0].main.humidity} %</i>
+								at <i>{props.weather?.current.humidity} %</i>
 							</small>
 						</div>
-						<WeatherForecast />
+
+						<WeatherForecast setDay={(e) => setDay(e)} />
 					</>
 				)}
 			</div>

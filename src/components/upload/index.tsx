@@ -48,11 +48,11 @@ const Upload = (props: Props) => {
 			<div className='background'>
 				<div className='app-grid'>
 					<div className='app-box'>
-						<h1 className='headline'>Photos</h1>
+						<h1 className='headline'>UPLOAD </h1>
 						<ImageUploading multiple value={images} onChange={onChange} maxNumber={maxNumber}>
 							{({ imageList, onImageUpload, onImageUpdate, onImageRemove, dragProps }) => (
 								<div title='📸' className='upload__image-wrapper'>
-									<button
+									<button 
 										className='weatherButtons photoButtons'
 										title='Upload a Photo! 🏕'
 										onClick={onImageUpload}
@@ -80,11 +80,9 @@ const Upload = (props: Props) => {
 									{imageList.map((image, index) => (
 										<div key={index} className='image-item' style={{ display: "inline-block" }}>
 											<img
-												style={{ border: "2px solid white", marginTop: "12px" }}
-												className='weatherButtons'
+												style={{ border: "2px solid white", marginTop: "12px", height:"25vh" }}
 												src={image.dataURL}
 												alt=''
-												width='122'
 											/>
 											<div className='image-item__btn-wrapper'>
 												<button
