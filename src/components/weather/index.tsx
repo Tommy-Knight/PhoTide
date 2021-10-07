@@ -138,7 +138,7 @@ const Weather = (props: Props) => {
 			console.log('💀', error);
 		}
 	};
-	
+
 const addToFavs = () =>{
 
 }
@@ -206,7 +206,7 @@ const addToFavs = () =>{
 								onMouseLeave={(e) => {
 									setHoverHeart(false);
 								}}
-								onClick={e=>addToFavs()}
+								onClick={(e) => addToFavs()}
 								className='weatherButtons'
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
@@ -265,196 +265,198 @@ const addToFavs = () =>{
 				)}
 				{props.forecast && props.weather && (
 					<>
-						<div className='weatherResult'>
-							<div>
-								<b
-									style={{ fontSize: '2rem', margin: 0 }}
+						<div>
+							<div className='weatherResult weatherData' >
+								<div>
+									<b
+										style={{ fontSize: '2rem', margin: 0 }}
+										className={'headline'}>
+										{props.forecast.city.name}
+									</b>
+									<br />{' '}
+									<small>
+										{' '}
+										in <i>{props.forecast.city.country}</i>
+									</small>{' '}
+									<br />
+									<img
+										className={'roll-in-blurred-left'}
+										style={{ width: '60%' }}
+										alt={`icon`}
+										src={
+											window.location.origin +
+											`/` +
+											props.weather?.daily[viewDay].weather[0].icon +
+											`.png`
+										}
+									/>
+									<br />
+									<span className='headline'>
+										<b>{props.forecast.list[0].weather[0].main} </b>
+										<small>
+											<i>
+												{' '}
+												{
+													props.weather?.daily[viewDay].weather[0]
+														.description
+												}
+											</i>
+										</small>
+									</span>
+								</div>
+							</div>
+							<div className='weatherResult weatherData'>
+								<br />
+								<h2
+									style={{ fontSize: '3rem', margin: 0 }}
 									className={'headline'}>
-									{props.forecast.city.name}
-								</b>
-								<br />{' '}
+									{props.weather?.daily[viewDay].temp.day} °C
+								</h2>
+								<br />
+								<b>Highs</b>
 								<small>
 									{' '}
-									in <i>{props.forecast.city.country}</i>
-								</small>{' '}
+									of <i>{props.weather?.daily[viewDay].temp.max} °C</i>
+								</small>
 								<br />
-								<img
-									className={'roll-in-blurred-left'}
-									style={{ width: '60%' }}
-									alt={`icon`}
-									src={
-										window.location.origin +
-										`/` +
-										props.weather?.daily[viewDay].weather[0].icon +
-										`.png`
-									}
-								/>
+								<b>Lows</b>
+								<small>
+									{' '}
+									of <i>{props.weather?.daily[viewDay].temp.min} °C</i>
+								</small>
 								<br />
-								<span className='headline'>
-									<b>{props.forecast.list[0].weather[0].main} </b>
+								<h2 className={'headline'}>
+									Cloud coverage
+									<small>
+										{' '}
+										at <i>{props.weather?.daily[viewDay].clouds} %</i>
+									</small>
+								</h2>
+								<b>Visibility</b>
+								<small>
+									{' '}
+									at <i>{props.weather?.current.visibility}m</i>
+								</small>
+								<br />
+								<b>Wind Speeds</b>
+								<small>
+									{' '}
+									of <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
+								</small>
+								<br />
+								<b>Gusts</b>
+								<small>
+									{' '}
+									up to{' '}
+									<i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
+								</small>
+							</div>
+							<div className='weatherResult weatherData' style={{ width: '30%' }}>
+								<div key={props.forecast.city.id}>
+									{props.weather && (
+										<big className={'headline'}>
+											<div
+												style={{
+													fontWeight: 'bold',
+													fontSize: '2rem',
+													marginBottom: '12px',
+												}}>
+												{format(
+													new Date(
+														fromUnixTime(
+															props.weather.daily[viewDay].dt!
+														).toString()
+													),
+													`EEEE do MMM`
+												)}
+											</div>
+											<b className={'headline'}>
+												Local Time is{' '}
+												<i>
+													{localTime
+														? localTime
+														: props.weather &&
+														  format(
+																new Date(
+																	fromUnixTime(
+																		props.weather!.current.dt!
+																	).toString()
+																),
+																`p`
+														  )}
+												</i>
+											</b>
+											<br />
+										</big>
+									)}
+									<br />
+									<b>Sunrise</b>{' '}
+									<small>
+										{props.weather?.daily[viewDay].sunrise &&
+											format(
+												add(
+													new Date(
+														fromUnixTime(
+															props.weather?.daily[viewDay].sunrise!
+														).toString()
+													),
+													{
+														seconds: utcOffset,
+													}
+												),
+												`p`
+											)}
+									</small>
+									<br />
+									<b>Sunset</b>{' '}
+									<small>
+										{props.weather?.daily[viewDay].sunset &&
+											format(
+												add(
+													new Date(
+														fromUnixTime(
+															props.weather?.daily[viewDay].sunset!
+														).toString()
+													),
+													{
+														seconds: utcOffset,
+													}
+												),
+												`p`
+											)}
+									</small>
+								</div>
+								<h2 style={{ paddingTop: '2.5px' }} className={'headline'}>
+									Chance of Rain
 									<small>
 										<i>
 											{' '}
-											{
-												props.weather?.daily[viewDay].weather[0]
-													.description
-											}
+											{Math.round(
+												props.weather?.daily[viewDay].pop! * 100
+											)}{' '}
+											%
 										</i>
 									</small>
-								</span>
-							</div>
-						</div>
-						<div className='weatherResult '>
-							<br />
-							<h2
-								style={{ fontSize: '3rem', margin: 0 }}
-								className={'headline'}>
-								{props.weather?.daily[viewDay].temp.day} °C
-							</h2>
-							<br />
-							<b>Highs</b>
-							<small>
-								{' '}
-								of <i>{props.weather?.daily[viewDay].temp.max} °C</i>
-							</small>
-							<br />
-							<b>Lows</b>
-							<small>
-								{' '}
-								of <i>{props.weather?.daily[viewDay].temp.min} °C</i>
-							</small>
-							<br />
-							<h2 className={'headline'}>
-								Cloud coverage
+								</h2>
+								<b>Expected</b>
 								<small>
 									{' '}
-									at <i>{props.weather?.daily[viewDay].clouds} %</i>
-								</small>
-							</h2>
-							<b>Visibility</b>
-							<small>
-								{' '}
-								at <i>{props.weather?.current.visibility}m</i>
-							</small>
-							<br />
-							<b>Wind Speeds</b>
-							<small>
-								{' '}
-								of <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
-							</small>
-							<br />
-							<b>Gusts</b>
-							<small>
-								{' '}
-								up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
-							</small>
-						</div>
-						<div className='weatherResult'>
-							<div key={props.forecast.city.id}>
-								{props.weather && (
-									<big className={'headline'}>
-										<div
-											style={{
-												fontWeight: 'bold',
-												fontSize: '2rem',
-												marginBottom: '12px',
-											}}>
-											{format(
-												new Date(
-													fromUnixTime(
-														props.weather.daily[viewDay].dt!
-													).toString()
-												),
-												`EEEE do MMM`
-											)}
-										</div>
-										<b className={'headline'}>
-											Local Time is{' '}
-											<i>
-												{localTime
-													? localTime
-													: props.weather &&
-													  format(
-															new Date(
-																fromUnixTime(
-																	props.weather!.current.dt!
-																).toString()
-															),
-															`p`
-													  )}
-											</i>
-										</b>
-										<br />
-									</big>
-								)}
-								<br />
-								<b>Sunrise</b>{' '}
-								<small>
-									{props.weather?.daily[viewDay].sunrise &&
-										format(
-											add(
-												new Date(
-													fromUnixTime(
-														props.weather?.daily[viewDay].sunrise!
-													).toString()
-												),
-												{
-													seconds: utcOffset,
-												}
-											),
-											`p`
-										)}
+									<i>{props.weather?.daily[viewDay].rain || 0} mm</i>
 								</small>
 								<br />
-								<b>Sunset</b>{' '}
+								<b>UV Index</b>
+								<small title='Wear Sunscreen if 3+ 🧴'>
+									{' '}
+									at <i>{props.weather?.current.uvi}</i>
+								</small>
+								<br />
+								<b>Humidity</b>
 								<small>
-									{props.weather?.daily[viewDay].sunset &&
-										format(
-											add(
-												new Date(
-													fromUnixTime(
-														props.weather?.daily[viewDay].sunset!
-													).toString()
-												),
-												{
-													seconds: utcOffset,
-												}
-											),
-											`p`
-										)}
+									{' '}
+									at <i>{props.weather?.current.humidity} %</i>
 								</small>
 							</div>
-							<h2 style={{ paddingTop: '2.5px' }} className={'headline'}>
-								Chance of Rain
-								<small>
-									<i>
-										{' '}
-										{Math.round(
-											props.weather?.daily[viewDay].pop! * 100
-										)}{' '}
-										%
-									</i>
-								</small>
-							</h2>
-							<b>Expected</b>
-							<small>
-								{' '}
-								<i>{props.weather?.daily[viewDay].rain || 0} mm</i>
-							</small>
-							<br />
-							<b>UV Index</b>
-							<small title='Wear Sunscreen if 3+ 🧴'>
-								{' '}
-								at <i>{props.weather?.current.uvi}</i>
-							</small>
-							<br />
-							<b>Humidity</b>
-							<small>
-								{' '}
-								at <i>{props.weather?.current.humidity} %</i>
-							</small>
 						</div>
-
 						<WeatherForecast setDay={(e) => setDay(e)} />
 					</>
 				)}

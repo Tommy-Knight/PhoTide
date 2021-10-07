@@ -65,7 +65,7 @@ const Upload = (props: Props) => {
 								type='text'></input>
 							<br />
 							<br />
-							<div style={{ position: "relative", left: "-38px" }}>
+							<div style={{ position: "relative", left: "-36px" }}>
 								<big className='headline'>Description: </big>
 								<textarea
 									spellCheck='false'

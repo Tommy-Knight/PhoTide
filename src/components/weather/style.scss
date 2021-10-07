@@ -115,12 +115,13 @@
 	        animation: slide-in-elliptic-top-fwd 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .weatherResult {
-	width: 30%;
+	width:auto;
+	margin:5px;
 	// margin: 5 5 5 5px;
 	display: inline-block;
 	padding: 10px;
 	border-radius: 10px;
-	text-align: center;
+	// text-align: center;
 	vertical-align: top !important;
 }
 .weatherForecast {
@@ -180,4 +181,12 @@
 	border: 2px solid rgb(255, 223, 117) !important;
 	color: white;
 	box-shadow: rgb(255, 255, 255) 1px 1px 5px 5px;
+}
+.weatherData{
+	width:30%;
+}
+@media only screen and (max-width: 600px) {
+  .weatherData {
+   width:auto;
+  }
 }

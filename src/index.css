@@ -12,5 +12,5 @@ font-family: 'Comfortaa', cursive!important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text);
-  font-size: 2vh;
+  font-size: 16px;
 }
