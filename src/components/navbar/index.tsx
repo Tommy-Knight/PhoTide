@@ -22,8 +22,6 @@ const Navbar = (props: Props) => {
 				},
 			});
 			if (resp.ok) {
-				history.push("/register");
-				window.location.reload()
 				console.log("byebye! 🍑");
 			}
 		} catch (error) {

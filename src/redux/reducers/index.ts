@@ -15,7 +15,15 @@ const rootReducer = (state = initialState, action: { type: string; payload: any 
 		case "FORECAST":
 			return { ...state, forecast: action.payload };
 		case "PHOTO":
-			return { ...state, photos: action.payload };
+			if (state.photos[0].images.length === 0) return { ...state, photos: [action.payload] };
+			else return { ...state, photos: [...state.photos, action.payload] };
+		case "INDEX":
+			let newArray = state.photos;
+			newArray.splice(action.payload, 1);
+			return { ...state, photos: newArray };
+		case "COORDS":
+			return { ...state, forecast: action.payload.forecast, weather: action.payload.weather };
+
 		default:
 			return state;
 	}

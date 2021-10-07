@@ -1,14 +1,21 @@
-import "./style.scss";
-import { useHistory } from "react-router-dom";
-import React, { useState, ChangeEvent, useEffect } from "react";
-import { format, fromUnixTime, add, isWithinInterval } from "date-fns";
-import { connect, useDispatch } from "react-redux";
-import { backgroundAction, searchAction, weatherAction, forecastAction } from "../../redux/actions";
-import { Forecast, Props } from "../../types";
-import WeatherForecast from "../forecast/index";
+import './style.scss';
+import { useHistory } from 'react-router-dom';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { format, fromUnixTime, add, isWithinInterval } from 'date-fns';
+import { connect, useDispatch } from 'react-redux';
+import {
+	backgroundAction,
+	searchAction,
+	weatherAction,
+	forecastAction,
+	// fetchForecastAction,
+	// fetchWeatherAction,
+} from '../../redux/actions';
+import { Forecast, Props } from '../../types';
+import WeatherForecast from '../forecast/index';
 
 const Weather = (props: Props) => {
-	const [searchValue, setSearchValue] = useState<string>("");
+	const [searchValue, setSearchValue] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [forecast, setForecast] = useState<Forecast | null>(null);
 	const [utcOffset, setUtcOffset] = useState<number>(0);
@@ -16,32 +23,33 @@ const Weather = (props: Props) => {
 	const [geolocated, setGeolocated] = useState<any | null>(null);
 	const [viewDay, setViewDay] = useState<number>(0);
 	const [hoverUpload, setHoverUpload] = useState<boolean>(false);
+	const [hoverHeart, setHoverHeart] = useState<boolean>(false);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		fetchGeolocated();
+			fetchGeolocated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [geolocated]);
 
 	useEffect(() => {
 		googleFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [forecast, utcOffset]);
+	}, [props.forecast, utcOffset]);
 
 	const goToPhotos = () => {
 		if (props.user) {
-			history.push("/upload");
+			history.push('/photos');
 		} else {
-			history.push("/register");
+			history.push('/register');
 		}
 	};
 
 	const googleFetch = async () => {
-		if (forecast) {
+		if (props.forecast) {
 			const resp = await fetch(
-				`https://maps.googleapis.com/maps/api/timezone/json?location=${forecast.city.coord.lat}%2C${forecast.city.coord.lon}&timestamp=0&key=${process.env.REACT_APP_GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/timezone/json?location=${props.forecast.city.coord.lat}%2C${props.forecast.city.coord.lon}&timestamp=0&key=${process.env.REACT_APP_GOOGLE_API}`
 			);
 			const googleData = await resp.json();
 			setUtcOffset(googleData.rawOffset);
@@ -59,31 +67,34 @@ const Weather = (props: Props) => {
 				start: new Date(fromUnixTime(forecast.city.sunrise).toString()),
 				end: new Date(fromUnixTime(forecast.city.sunset).toString()),
 			})
-				? dispatch(backgroundAction("dawn"))
-				: dispatch(backgroundAction("dusk"));
+				? dispatch(backgroundAction('dawn'))
+				: dispatch(backgroundAction('dusk'));
 		}
 	};
 
-	const fetchSearchLocation = async (e: React.FormEvent<HTMLFormElement>) => {
+	const fetchSearchLocation = async (
+		e: React.FormEvent<HTMLFormElement>
+	) => {
 		e.preventDefault();
+		console.log('🚿');
 		try {
 			setIsLoading(true);
 			dispatch(searchAction(e));
 			const resp = await fetch(
-				`https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+				`https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 			);
 			if (resp.ok) {
 				const forecastData = await resp.json();
 				dispatch(forecastAction(forecastData));
 				setForecast(forecastData);
 				const response = await fetch(
-					`https://api.openweathermap.org/data/2.5/onecall?lat=${forecastData.city.coord.lat}&lon=${forecastData.city.coord.lon}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+					`https://api.openweathermap.org/data/2.5/onecall?lat=${forecastData.city.coord.lat}&lon=${forecastData.city.coord.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
 				if (response.ok) {
 					const weather = await response.json();
 					dispatch(weatherAction(weather));
 					setIsLoading(false);
-					console.log("☀", weather);
+					console.log('☀', weather);
 				}
 			}
 		} catch (error) {
@@ -92,17 +103,21 @@ const Weather = (props: Props) => {
 	};
 
 	const geolocate = () => {
-		let geolocation = require("geolocation");
+		let geolocation = require('geolocation');
 		geolocation.getCurrentPosition(function (err: Error, position: any) {
 			if (err) throw err;
 			setGeolocated(position);
+			// dispatch(fetchForecastAction({ lat: position.coords.lat, lon: position.coords.lon }));
+			// dispatch(fetchWeatherAction({ lat: position.coords.lat, lon: position.coords.lon }));
 		});
 	};
+
 	const fetchGeolocated = async () => {
 		try {
 			if (geolocated) {
+				console.log('🎈');
 				const resp = await fetch(
-					`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+					`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
 				if (resp.ok) {
 					const forecastData = await resp.json();
@@ -111,35 +126,44 @@ const Weather = (props: Props) => {
 					setIsLoading(false);
 				}
 				const response = await fetch(
-					`https://api.openweathermap.org/data/2.5/onecall?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=9d33c3e69026b25a6cab7f300ec5e461`
+					`https://api.openweathermap.org/data/2.5/onecall?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
 				if (response.ok) {
 					const weather = await response.json();
 					dispatch(weatherAction(weather));
 					setIsLoading(false);
-					console.log("☀", weather);
 				}
 			}
 		} catch (error) {
-			console.log("💀", error);
+			console.log('💀', error);
 		}
 	};
+	
+const addToFavs = () =>{
+
+}
 
 	const setDay = (e: number) => {
 		setViewDay(e!);
 	};
 	return (
-		<div style={{ overflow: "auto", color: "" }}>
+		<div style={{ overflow: 'auto', color: '' }}>
 			<h2 className='headline'>
-				{isLoading ? <div className='focus-in-expand'>Searching ...</div> : "Weather"}
+				{isLoading ? (
+					<div className='focus-in-expand'>Searching ...</div>
+				) : (
+					'Weather'
+				)}
 			</h2>
 			<div>
-				<div style={{ display: "flex", justifyContent: "center" }}>
-					<div style={{ display: "inline-block" }}>
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<div style={{ display: 'inline-block' }}>
 						<form
 							style={{ zIndex: 5 }}
 							className='App'
-							onSubmit={(e: React.FormEvent<HTMLFormElement>) => fetchSearchLocation(e)}>
+							onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+								fetchSearchLocation(e)
+							}>
 							<input
 								className='searchInput'
 								spellCheck='false'
@@ -155,7 +179,7 @@ const Weather = (props: Props) => {
 					<div
 						title='Current Location! 🧭'
 						onClick={(e) => geolocate()}
-						style={{ display: "inline-block" }}>
+						style={{ display: 'inline-block' }}>
 						<svg
 							className='weatherButtons'
 							xmlns='http://www.w3.org/2000/svg'
@@ -172,15 +196,24 @@ const Weather = (props: Props) => {
 						</svg>
 					</div>
 					{props.forecast && props.user && (
-						<div title='Add to favourites! ❤' style={{ display: "inline-block" }}>
+						<div
+							title='Add to favourites! ❤'
+							style={{ display: 'inline-block' }}>
 							<svg
+								onMouseOver={(e) => {
+									setHoverHeart(true);
+								}}
+								onMouseLeave={(e) => {
+									setHoverHeart(false);
+								}}
+								onClick={e=>addToFavs()}
 								className='weatherButtons'
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
 								height='24'
 								viewBox='0 0 24 24'
 								fill='none'
-								stroke='red'
+								stroke={hoverHeart ? 'red' : 'currentColor'}
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'>
@@ -190,23 +223,23 @@ const Weather = (props: Props) => {
 					)}
 					{props.forecast && props.user && (
 						<div
-							onMouseOver={(e) => {
-								setHoverUpload(true);
-							}}
-							onMouseLeave={(e) => {
-								setHoverUpload(false);
-							}}
 							title='Upload a Photo! 📷'
 							onClick={(e) => goToPhotos()}
-							style={{ display: "inline-block" }}>
+							style={{ display: 'inline-block' }}>
 							<svg
 								className='weatherButtons'
+								onMouseOver={(e) => {
+									setHoverUpload(true);
+								}}
+								onMouseLeave={(e) => {
+									setHoverUpload(false);
+								}}
+								stroke={hoverUpload ? 'chartreuse' : 'currentColor'}
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
 								height='24'
 								viewBox='0 0 24 24'
 								fill='none'
-								stroke={hoverUpload ? "chartreuse" : "currentColor"}
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'>
@@ -220,27 +253,34 @@ const Weather = (props: Props) => {
 
 				{!props.forecast && (
 					<div
-						style={{ fontSize: "3rem", marginTop: "10%", paddingBottom: "30%", width: "100%" }}
+						style={{
+							fontSize: '3rem',
+							marginTop: '10%',
+							paddingBottom: '30%',
+							width: '100%',
+						}}
 						className='focus-in-expand-fwd headline'>
 						SEARCH OR CLICK!
 					</div>
 				)}
-				{props.forecast && (
+				{props.forecast && props.weather && (
 					<>
 						<div className='weatherResult'>
 							<div>
-								<b style={{ fontSize: "2rem", margin: 0 }} className={"headline"}>
+								<b
+									style={{ fontSize: '2rem', margin: 0 }}
+									className={'headline'}>
 									{props.forecast.city.name}
 								</b>
-								<br />{" "}
+								<br />{' '}
 								<small>
-									{" "}
+									{' '}
 									in <i>{props.forecast.city.country}</i>
-								</small>{" "}
+								</small>{' '}
 								<br />
 								<img
-									className={"roll-in-blurred-left"}
-									style={{ width: "60%" }}
+									className={'roll-in-blurred-left'}
+									style={{ width: '60%' }}
 									alt={`icon`}
 									src={
 										window.location.origin +
@@ -253,78 +293,93 @@ const Weather = (props: Props) => {
 								<span className='headline'>
 									<b>{props.forecast.list[0].weather[0].main} </b>
 									<small>
-										<i> {props.weather?.daily[viewDay].weather[0].description}</i>
+										<i>
+											{' '}
+											{
+												props.weather?.daily[viewDay].weather[0]
+													.description
+											}
+										</i>
 									</small>
 								</span>
 							</div>
 						</div>
 						<div className='weatherResult '>
 							<br />
-							<h2 style={{ fontSize: "3rem", margin: 0 }} className={"headline"}>
+							<h2
+								style={{ fontSize: '3rem', margin: 0 }}
+								className={'headline'}>
 								{props.weather?.daily[viewDay].temp.day} °C
 							</h2>
 							<br />
 							<b>Highs</b>
 							<small>
-								{" "}
+								{' '}
 								of <i>{props.weather?.daily[viewDay].temp.max} °C</i>
 							</small>
 							<br />
 							<b>Lows</b>
 							<small>
-								{" "}
+								{' '}
 								of <i>{props.weather?.daily[viewDay].temp.min} °C</i>
 							</small>
 							<br />
-							<h2 className={"headline"}>
+							<h2 className={'headline'}>
 								Cloud coverage
 								<small>
-									{" "}
+									{' '}
 									at <i>{props.weather?.daily[viewDay].clouds} %</i>
 								</small>
 							</h2>
 							<b>Visibility</b>
 							<small>
-								{" "}
+								{' '}
 								at <i>{props.weather?.current.visibility}m</i>
 							</small>
 							<br />
 							<b>Wind Speeds</b>
 							<small>
-								{" "}
+								{' '}
 								of <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
 							</small>
 							<br />
 							<b>Gusts</b>
 							<small>
-								{" "}
+								{' '}
 								up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
 							</small>
 						</div>
 						<div className='weatherResult'>
 							<div key={props.forecast.city.id}>
 								{props.weather && (
-									<big className={"headline"}>
+									<big className={'headline'}>
 										<div
 											style={{
-												fontWeight: "bold",
-												fontSize: "2rem",
-												whiteSpace: "nowrap",
-												marginBottom: "12px",
+												fontWeight: 'bold',
+												fontSize: '2rem',
+												marginBottom: '12px',
 											}}>
 											{format(
-												new Date(fromUnixTime(props.weather.daily[viewDay].dt!).toString()),
+												new Date(
+													fromUnixTime(
+														props.weather.daily[viewDay].dt!
+													).toString()
+												),
 												`EEEE do MMM`
 											)}
 										</div>
-										<b className={"headline"}>
-											Local Time is{" "}
+										<b className={'headline'}>
+											Local Time is{' '}
 											<i>
 												{localTime
 													? localTime
 													: props.weather &&
 													  format(
-															new Date(fromUnixTime(props.weather!.current.dt!).toString()),
+															new Date(
+																fromUnixTime(
+																	props.weather!.current.dt!
+																).toString()
+															),
 															`p`
 													  )}
 											</i>
@@ -333,12 +388,16 @@ const Weather = (props: Props) => {
 									</big>
 								)}
 								<br />
-								<b>Sunrise</b>{" "}
+								<b>Sunrise</b>{' '}
 								<small>
 									{props.weather?.daily[viewDay].sunrise &&
 										format(
 											add(
-												new Date(fromUnixTime(props.weather?.daily[viewDay].sunrise!).toString()),
+												new Date(
+													fromUnixTime(
+														props.weather?.daily[viewDay].sunrise!
+													).toString()
+												),
 												{
 													seconds: utcOffset,
 												}
@@ -347,12 +406,16 @@ const Weather = (props: Props) => {
 										)}
 								</small>
 								<br />
-								<b>Sunset</b>{" "}
+								<b>Sunset</b>{' '}
 								<small>
 									{props.weather?.daily[viewDay].sunset &&
 										format(
 											add(
-												new Date(fromUnixTime(props.weather?.daily[viewDay].sunset!).toString()),
+												new Date(
+													fromUnixTime(
+														props.weather?.daily[viewDay].sunset!
+													).toString()
+												),
 												{
 													seconds: utcOffset,
 												}
@@ -361,27 +424,33 @@ const Weather = (props: Props) => {
 										)}
 								</small>
 							</div>
-							<h2 style={{ paddingTop: "2.5px" }} className={"headline"}>
+							<h2 style={{ paddingTop: '2.5px' }} className={'headline'}>
 								Chance of Rain
 								<small>
-									<i> {Math.round(props.weather?.daily[viewDay].pop! * 100)} %</i>
+									<i>
+										{' '}
+										{Math.round(
+											props.weather?.daily[viewDay].pop! * 100
+										)}{' '}
+										%
+									</i>
 								</small>
 							</h2>
 							<b>Expected</b>
 							<small>
-								{" "}
-								<i>{props.weather?.daily[viewDay].rain} mm</i>
+								{' '}
+								<i>{props.weather?.daily[viewDay].rain || 0} mm</i>
 							</small>
 							<br />
 							<b>UV Index</b>
 							<small title='Wear Sunscreen if 3+ 🧴'>
-								{" "}
+								{' '}
 								at <i>{props.weather?.current.uvi}</i>
 							</small>
 							<br />
 							<b>Humidity</b>
 							<small>
-								{" "}
+								{' '}
 								at <i>{props.weather?.current.humidity} %</i>
 							</small>
 						</div>

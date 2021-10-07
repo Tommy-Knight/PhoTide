@@ -1,16 +1,4 @@
-.background {
-	background: linear-gradient(0deg, #2c55db, #152357, #171e36);
-	// background: linear-gradient(
-	// 	0deg,
-	// 	#54b5f9 10%,
-	// 	35%,
-	// 	#56a5ef 50%,
-	// 	63.5%,
-	// 	#2c55db,
-	// 	#152357,
-	// 	#171e36
-	// );
-}
+
 .photoButtons {
 	background: rgba(255, 255, 255, 0.198)!important;
 	border-radius: 200%;
@@ -28,6 +16,8 @@
 	border:none;
 	font-family: inherit;
 	overflow:auto;
+	 	background: rgba(56, 192, 255, 0.144);
+
 }
 .textbox:focus, input:focus{
  	background: rgba(56, 192, 255, 0.418);

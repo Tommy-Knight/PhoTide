@@ -3,15 +3,16 @@ import { Props } from "../../types";
 import { format, fromUnixTime } from "date-fns";
 
 const WeatherForecast = (props: Props) => {
-
 	return (
 		<div style={{ overflow: "scroll", whiteSpace: "nowrap" }}>
 			{props.weather &&
 				props.weather.daily.map((item, i) => {
 					return (
 						<div
+							title={item.weather[0].description}
+							key={i}
 							onClick={(e) => props.setDay!(i)!}
-							style={{ width: "6rem", height:"10rem" }}
+							style={{ width: "6rem", height: "10rem" }}
 							className='weatherResult weatherForecast'>
 							<br />
 							<big className='headline'>

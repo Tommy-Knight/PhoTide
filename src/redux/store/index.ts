@@ -16,10 +16,10 @@ export const initialState = {
 	background: "dusk",
 	focus: "weather",
 	searchValue: {},
-	user:null,
+	user: null,
 	weather: null,
 	forecast: null,
-	photos: null,
+	photos: [{ title: "", description: "", images: [] }],
 };
 
 const configureStore = () =>

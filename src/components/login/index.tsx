@@ -11,7 +11,7 @@ const Login = () => {
 
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const history = useHistory()
+	const history = useHistory();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -55,10 +55,14 @@ const Login = () => {
 				type='password'
 				placeholder='password'
 				id='password'></input>
-			<button style={{ width: "50px", margin: "auto" }} className='searchInput' type='submit'>
+			<button
+				style={{ margin: "auto", width: "50%", backgroundColor: "lightgrey" }}
+				className='searchInput loginButton'
+				type='submit'>
 				LOGIN
 			</button>
 		</form>
 	);
-}
-export default connect(s=>s)(Login)
+};
+
+export default connect((s) => s)(Login);

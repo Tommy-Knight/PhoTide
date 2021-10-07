@@ -71,7 +71,7 @@ const Mega = (props: Props) => {
 	const WeatherButton = () => {
 		return (
 			<span onClick={(e: React.MouseEvent) => selectFocus("weather")}>
-				<span className={"glow"}  style={{ fontSize: "1.5vw" }}>
+				<span className={"glow"} style={{ fontSize: "1.5vw" }}>
 					WEATHER
 				</span>
 				<br />

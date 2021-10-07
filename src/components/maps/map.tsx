@@ -1,11 +1,11 @@
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, useMap, LayersControl } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, LayersControl, ScaleControl } from "react-leaflet";
 import { connect } from "react-redux";
 import { Props } from "../../types";
 
 const Map = (props: Props) => {
 	const mapTilerUrl = `https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key=pyUqDY2O06Vi3Qg4qTB5`;
-	const osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+	const osmUrl = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png";
 	const owmLink = '<a href="https://openweathermap.org/">OpenWeatherMap</a>';
 	const owmUrl = {
 		a: "https://tile.openweathermap.org/map/",
@@ -29,11 +29,11 @@ const Map = (props: Props) => {
 			className='map'
 			center={[props.weather?.lat! || 51.22, props.weather?.lon! || 0.22]}
 			zoom={10}>
-			<LayersControl position='topright'>
-				<LayersControl.BaseLayer name='Satellite'>
+			<LayersControl position='topleft'>
+				<LayersControl.BaseLayer checked name='Satellite'>
 					<TileLayer attribution={owmLink} url={mapTilerUrl} />
 				</LayersControl.BaseLayer>
-				<LayersControl.BaseLayer checked name='Street Maps'>
+				<LayersControl.BaseLayer name='Street Maps'>
 					<TileLayer attribution={owmLink} url={osmUrl} />
 				</LayersControl.BaseLayer>
 				<LayersControl.Overlay name='Wind'>
@@ -53,6 +53,7 @@ const Map = (props: Props) => {
 				</LayersControl.Overlay>
 				<DisplayMap />
 			</LayersControl>
+			<ScaleControl position='topright' />
 		</MapContainer>
 	);
 };

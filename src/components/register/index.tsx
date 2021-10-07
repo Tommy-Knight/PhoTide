@@ -29,6 +29,8 @@ const Register = (props: Props) => {
 				},
 				body: bodyJSON,
 			});
+			const data = await resp.json();
+			dispatch(userAction(data));
 			if (resp.ok) history.push("/");
 		} catch (error) {
 			console.log(error);

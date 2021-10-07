@@ -53,21 +53,24 @@ const Lunar = (props: Props) => {
 
 	return (
 		<div>
-			<h1 className='headline'>Lunar</h1>
+			<h2 className='headline'>Lunar</h2>
 			<div className='slide-in-elliptic-bottom-fwd'>
 				<span style={{ fontSize: "69px" }}>{mooning(props.weather?.daily[0].moon_phase!)}</span>
 			</div>
-			<br/>
+			<br />
 			<b style={{ fontSize: "2rem" }}>{moonPhase}</b>
 			<br />
 			<div className='weatherResult'>
-				<br/>
+				<br />
 				<h2 className={"headline"}>
-				
 					Cloudiness
 					<small>
 						{" "}
-						at <i>{props.forecast?.list[0].clouds.all}<small>%</small></i>
+						at{" "}
+						<i>
+							{props.forecast?.list[0].clouds.all}
+							<small>%</small>
+						</i>
 					</small>
 				</h2>
 				<b>Moonrise</b>{" "}
@@ -115,9 +118,9 @@ const Lunar = (props: Props) => {
 
 			<div style={{ verticalAlign: "bottom" }}>
 				{props.weather &&
-					props.weather.daily.map((item) => {
+					props.weather.daily.map((item, i) => {
 						return (
-							<div style={{ width: "10%", padding: "5px" }} className='weatherResult'>
+							<div key={i} style={{ width: "10%", padding: "5px" }} className='weatherResult'>
 								<br />
 								<big className='headline'>
 									{format(new Date(fromUnixTime(item.dt).toString()), `iii`)}

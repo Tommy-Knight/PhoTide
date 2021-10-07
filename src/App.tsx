@@ -6,7 +6,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Mega from "./components/mega";
 import Register from "./components/register";
 import Photos from "./components/photos";
-import Favourites from "./favourites";
+import Favourites from "./components/favourites";
 import Profile from "../src/components/profile";
 import Maps from "./components/maps";
 import Upload from "./components/upload";

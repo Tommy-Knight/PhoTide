@@ -1,95 +1,196 @@
-import "./style.scss";
-import Navbar from "../navbar";
-import { connect } from "react-redux";
-import { Props } from "../../types";
-import { useHistory } from "react-router";
+import './style.scss';
+import { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Props } from '../../types';
+import { removePhotoAction } from '../../redux/actions';
+import { format, fromUnixTime, add } from 'date-fns';
+import Navbar from '../navbar';
+import Upload from '../upload';
 
 const Photos = (props: Props) => {
-	const history = useHistory();
-	const goToPhotos = () => {
-		history.push("/upload");
+	const [viewPhoto, setViewPhoto] = useState<number>(0);
+	const [dragging, setDragging] = useState<boolean>(false);
+
+	const dispatch = useDispatch();
+	const removePhoto = (e: number) => {
+		dispatch(removePhotoAction(e));
 	};
 
 	return (
 		<>
-			<div className='background'>
+			<div className={props.background}>
 				<div className='app-grid'>
-					<div className='app-box'>
-						<h1 style={{ display: "inline-block" }} className='headline'>
+					<div className='app-box photos'>
+						<big
+							style={{
+								display: 'inline-block',
+								fontSize: '3rem',
+								marginTop: '5px',
+							}}
+							className='headline'>
 							Photos
-						</h1>{" "}
-						<div
-							title='Upload a Photo! 📷'
-							onClick={(e) => goToPhotos()}
-							style={{ display: "inline-block" }}>
-							<svg
-								className='weatherButtons'
-								style={{
-									background: "rgba(255, 255, 255, 0.103)",
-									borderRadius: "200%",
-									border: "2px solid white",
-									padding: "5px",
-									marginLeft: "10px",
-								}}
-								xmlns='http://www.w3.org/2000/svg'
-								width='24'
-								height='24'
-								viewBox='0 0 24 24'
-								fill='none'
-								stroke='currentColor'
-								strokeWidth='2'
-								strokeLinecap='round'
-								strokeLinejoin='round'>
-								<line x1='12' y1='5' x2='12' y2='19'></line>
-								<line x1='5' y1='12' x2='19' y2='12'></line>
-							</svg>
-						</div>
-						<br />
-						{props.photos && (
-							<div className='weatherResult headline' style={{ width: "auto", padding: "3%" }}>
+						</big>
+						<Upload />
+						{props.photos[viewPhoto].images.length > 0 && (
+							<div
+								style={{ width: '90%', padding: '10px', marginBottom: 0 }}>
 								<img
-									style={{ display: "inline-block", height: "40vh" , border:"1px solid white", borderRadius:"5px"}}
+									title='📸'
+									style={{
+										position: 'relative',
+										height: '40vh',
+										border: '1px solid white',
+										borderRadius: '5px',
+									}}
 									alt='nop'
-									src={props.photos?.images[0].dataURL}
+									src={props.photos[viewPhoto]?.images[0].dataURL}
 								/>
-								<div style={{ display: "inline-block", paddingLeft: "30px", verticalAlign: "top" }}>
+								<div
+									style={{
+										float: 'right',
+										display: 'inline-block',
+										verticalAlign: 'top',
+										width: '35%',
+									}}>
 									<img
-										className={"roll-in-blurred-left"}
-										style={{ width: "20%" }}
+										className={'roll-in-blurred-left'}
+										style={{ width: '9vw', float: 'right' }}
 										alt={`icon`}
-										src={window.location.origin + `/` + props.photos?.weather[0].icon + `.png`}
+										src={
+											window.location.origin +
+											`/` +
+											props.photos[viewPhoto]?.weather[0].icon +
+											`.png`
+										}
 									/>
-									<h1 style={{ margin: 0 }} className='headline'>
-										<u>{props.photos?.title}</u>
-									</h1>
-									<big>
-										{props.photos?.city}, <i>{props.photos?.country}</i>
-									</big>
+
+									<div
+										className='headline'
+										style={{ textAlign: 'center' }}>
+										<h1 style={{ margin: 0 }}>
+											<u>{props.photos[viewPhoto]?.title}</u>
+										</h1>
+										<big>
+											{props.photos[viewPhoto]?.city},{' '}
+											<i>{props.photos?.country}</i>
+										</big>
+									</div>
 									<br />
-									<br/>
-									<div style={{textAlign:"right"}}>
-										<big>{props.photos?.weather[0].main}</big>,
-										<i> {props.photos?.weather[0].description}</i>
+
+									<div style={{ textAlign: 'left' }}>
+										<i>
+											{format(
+												new Date(
+													fromUnixTime(
+														props.photos[viewPhoto]?.date
+													).toString()
+												),
+												`EEEE do MMM`
+											)}
+										</i>
+										<br />
+										<br />
+										<big>{props.photos[viewPhoto]?.weather[0].main}</big>,
+										<i>
+											{' '}
+											{props.photos[viewPhoto]?.weather[0].description}
+										</i>
+										<br />
+										<big>Sky Coverage </big>
+										<i>{props.photos[viewPhoto]?.clouds} %</i>
 										<br />
 										<big>Temperature </big>
 										<small> was </small>
-										<i>{props.photos?.temp} °C</i>
+										<i>{props.photos[viewPhoto]?.temp} °C</i>
 										<br />
 										<big>Highs </big>
-										<small> of </small> <i>{props.photos?.tempMax} °C</i>
+										<small> of </small>{' '}
+										<i>{props.photos[viewPhoto]?.tempMax} °C</i>
 										<br />
 										<big>Lows </big>
 										<small> of </small>
-										<i>{props.photos?.tempMin} °C</i>
+										<i>{props.photos[viewPhoto]?.tempMin} °C</i>
 										<br />
-										<big>Clouds </big>
-										<small> at </small> <i>{props.photos?.clouds} %</i>
+										<big>Rainfall </big>
+										<small> approx </small>
+										<i>{props.photos[viewPhoto]?.rain || 0} mm</i>
+										<br />
+										<big>Windspeeds </big>
+										<small> of </small>
+										<i>{props.photos[viewPhoto]?.wind} m/s</i>
+										<br />
+										<br />
+										<big>Sunrise </big>
+										<small> at </small>{' '}
+										<i>
+											{format(
+												add(
+													new Date(
+														fromUnixTime(
+															props.photos[viewPhoto]?.sunrise
+														).toString()
+													),
+													{
+														seconds: 0,
+													}
+												),
+												`p`
+											)}
+										</i>
+										<small> set </small>{' '}
+										<i>
+											{format(
+												add(
+													new Date(
+														fromUnixTime(
+															props.photos[viewPhoto]?.sunset
+														).toString()
+													),
+													{
+														seconds: 0,
+													}
+												),
+												`p`
+											)}
+										</i>
+										<br />
 									</div>
-									<br />
+
+									<div
+										className='headline'
+										style={{ textAlign: 'center' }}>
+										<br />
+										<big>{props.photos[viewPhoto]?.description} </big>
+									</div>
 								</div>
 							</div>
 						)}
+						<br />
+						<br/>
+						{props.photos.length > 1 &&
+							props.photos.map((item: any, i: number) => {
+								return (
+									<div
+										onClick={(e) => setViewPhoto(i)}
+										style={{
+											width: '7rem',
+											padding: '18px',
+										}}
+										className='weatherResult weatherForecast'>
+										<img
+											className={'bounce-in-fwd'}
+											style={{ width: '6rem' }}
+											alt={`icon`}
+											src={item.images[0].dataURL}
+											onDragStart={(e) => removePhoto(i)}
+											onDragEnd={(e) => setDragging(!dragging)}
+											onDragOver={(e) => e.preventDefault()}
+										/>
+									</div>
+								);
+							})}
 					</div>
+
 					<div className='footer'></div>
 					<Navbar />
 				</div>

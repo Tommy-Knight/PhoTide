@@ -45,3 +45,34 @@ export const photoAction = (payload: any) => {
 		payload,
 	};
 };
+export const removePhotoAction = (payload: number) => {
+	return {
+		type: "INDEX",
+		payload,
+	};
+};
+export const fetchForecastAction = (payload: any) => {
+	return async (dispatch:any) => {
+		const resp = await fetch(
+			`https://api.openweathermap.org/data/2.5/forecast?lat=${payload.lat}&lon=${payload.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
+		);
+		const data = await resp.json();
+		dispatch({
+			type: "FORECAST",
+			payload: data,
+		});
+	};
+
+};
+export const fetchWeatherAction = (payload: any) => {
+	return async (dispatch: any) => {
+		const resp = await fetch(
+			`https://api.openweathermap.org/data/2.5/forecast?lat=${payload.lat}&lon=${payload.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
+		);
+		const data = await resp.json();
+		dispatch({
+			type: "WEATHER",
+			payload: data,
+		});
+	};
+};
