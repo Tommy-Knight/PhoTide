@@ -1,13 +1,13 @@
-import { FormEvent, useState, ChangeEvent } from "react";
-import { connect, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Props } from "../../types";
-import { userAction } from "../../redux/actions";
+import { FormEvent, useState, ChangeEvent } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Props } from '../../types';
+import { userAction } from '../../redux/actions';
 
 const Register = (props: Props) => {
-	const [username, setUsername] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [username, setUsername] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -22,16 +22,16 @@ const Register = (props: Props) => {
 		e.preventDefault();
 		try {
 			const resp = await fetch(`http://localhost:3069/auth/register`, {
-				method: "POST",
-				credentials: "include",
+				method: 'POST',
+				credentials: 'include',
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
 				body: bodyJSON,
 			});
 			const data = await resp.json();
 			dispatch(userAction(data));
-			if (resp.ok) history.push("/");
+			if (resp.ok) history.push('/');
 		} catch (error) {
 			console.log(error);
 		}
@@ -46,17 +46,17 @@ const Register = (props: Props) => {
 		e.preventDefault();
 		try {
 			const resp = await fetch(`http://localhost:3069/auth/login`, {
-				method: "POST",
-				credentials: "include",
+				method: 'POST',
+				credentials: 'include',
 				headers: {
-					"Content-Type": "application/json",
+					'Content-Type': 'application/json',
 				},
 				body: bodyJSONLogin,
 			});
 			const data = await resp.json();
 			if (resp.ok) {
 				dispatch(userAction(data));
-				history.push("/");
+				history.push('/');
 			}
 		} catch (error) {
 			console.log(error);
@@ -67,16 +67,21 @@ const Register = (props: Props) => {
 		<>
 			<div className={props.background}>
 				<div
-					style={{ height: "95vh", width: "75%", margin: "auto", marginTop: "2vh" }}
+					style={{
+						height: '95vh',
+						width: '75%',
+						margin: 'auto',
+						marginTop: '2vh',
+					}}
 					className='app-box'>
 					<h1> REGISTER</h1>
 					<form
 						onSubmit={(e) => handleSubmit(e)}
 						style={{
-							display: "flex",
-							flexDirection: "column",
-							width: "25%",
-							margin: "Auto",
+							display: 'flex',
+							flexDirection: 'column',
+							width: '25%',
+							margin: 'Auto',
 						}}>
 						Username
 						<input
@@ -114,7 +119,12 @@ const Register = (props: Props) => {
 								placeholder='password again...'
 								id='password'></input> */}
 						<button
-							style={{ width: "150px", margin: "auto", marginBottom: "5px" }}
+							style={{
+								width: '150px',
+								margin: 'auto',
+								marginBottom: '5px',
+								cursor: 'pointer',
+							}}
 							className='searchInput'
 							type='submit'>
 							Register
@@ -125,11 +135,11 @@ const Register = (props: Props) => {
 					<form
 						onSubmit={(e) => handleLogin(e)}
 						style={{
-							width: "50%",
-							margin: "auto",
-							marginTop: "2vh",
-							display: "flex",
-							flexDirection: "column",
+							width: '50%',
+							margin: 'auto',
+							marginTop: '2vh',
+							display: 'flex',
+							flexDirection: 'column',
 						}}>
 						<input
 							onChange={(e) => setEmail(e.target.value)}
@@ -144,10 +154,42 @@ const Register = (props: Props) => {
 							type='password'
 							placeholder='password'
 							id='login-password'></input>
-						<button style={{ width: "50px", right: "0" }} className='searchInput' type='submit'>
+						<button
+							style={{ width: '150px', margin: 'auto', cursor: 'pointer' }}
+							className='searchInput'
+							type='submit'>
 							LOGIN
 						</button>
 					</form>
+					<br />
+					<br />
+					<br />
+					<div>
+						<h4 className='headline'>Thanks for visiting PhoTide!</h4>
+						<br />
+						<br />
+						<br />
+						<small style={{ fontFamily: 'initial' }}>
+							This Project was written fully in Typescript with Redux and
+							basic CSS frontend.
+							<br />
+							Node, Express, MongoDB server with Cloudinary Image
+							Uploading.
+							<br />
+							Utilising{' '}
+							<a href='https://openweathermap.org/'>
+								OpenWeatherMap
+							</a>,{' '}
+							<a href='https://rapidapi.com/apihood/api/tides/'>
+								Global Tides
+							</a>
+							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and Google Location Services
+							<br />
+							Strive School Capstone. Created by{' '}
+							<a href='https://www.tommyk.uk'>Tommy Knight</a>
+							<br />
+						</small>
+					</div>
 				</div>
 			</div>
 		</>

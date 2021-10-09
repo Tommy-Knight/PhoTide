@@ -8,6 +8,7 @@ import {
 	searchAction,
 	weatherAction,
 	forecastAction,
+	addFavAction,
 	// fetchForecastAction,
 	// fetchWeatherAction,
 } from '../../redux/actions';
@@ -24,12 +25,13 @@ const Weather = (props: Props) => {
 	const [viewDay, setViewDay] = useState<number>(0);
 	const [hoverUpload, setHoverUpload] = useState<boolean>(false);
 	const [hoverHeart, setHoverHeart] = useState<boolean>(false);
+	const [fav, setFav] = useState<boolean>(false)
 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-			fetchGeolocated();
+		fetchGeolocated();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [geolocated]);
 
@@ -53,6 +55,7 @@ const Weather = (props: Props) => {
 			);
 			const googleData = await resp.json();
 			setUtcOffset(googleData.rawOffset);
+		console.log(	googleData)
 			getLocalTime();
 		}
 	};
@@ -107,6 +110,7 @@ const Weather = (props: Props) => {
 		geolocation.getCurrentPosition(function (err: Error, position: any) {
 			if (err) throw err;
 			setGeolocated(position);
+			console.log(position)
 			// dispatch(fetchForecastAction({ lat: position.coords.lat, lon: position.coords.lon }));
 			// dispatch(fetchWeatherAction({ lat: position.coords.lat, lon: position.coords.lon }));
 		});
@@ -139,9 +143,16 @@ const Weather = (props: Props) => {
 		}
 	};
 
-const addToFavs = () =>{
-
-}
+	const addToFavs = () => {
+		setFav(!fav)
+		const favs = {
+			name: props.forecast?.city.name,
+			country: props.forecast?.city.country,
+pop: props.forecast?.city.population,
+lat: props.weather?.lat, lon:props.weather?.lon, timezone: props.weather?.timezone,
+		};
+		dispatch(addFavAction(favs))
+	};
 
 	const setDay = (e: number) => {
 		setViewDay(e!);
@@ -213,7 +224,7 @@ const addToFavs = () =>{
 								height='24'
 								viewBox='0 0 24 24'
 								fill='none'
-								stroke={hoverHeart ? 'red' : 'currentColor'}
+								stroke={hoverHeart || fav ? 'red' : 'currentColor'}
 								strokeWidth='2'
 								strokeLinecap='round'
 								strokeLinejoin='round'>
@@ -234,7 +245,7 @@ const addToFavs = () =>{
 								onMouseLeave={(e) => {
 									setHoverUpload(false);
 								}}
-								stroke={hoverUpload ? 'chartreuse' : 'currentColor'}
+								stroke={hoverUpload ? 'green' : 'currentColor'}
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
 								height='24'
@@ -266,7 +277,7 @@ const addToFavs = () =>{
 				{props.forecast && props.weather && (
 					<>
 						<div>
-							<div className='weatherResult weatherData' >
+							<div className='weatherResult weatherData'>
 								<div>
 									<b
 										style={{ fontSize: '2rem', margin: 0 }}
@@ -351,7 +362,9 @@ const addToFavs = () =>{
 									<i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
 								</small>
 							</div>
-							<div className='weatherResult weatherData' style={{ width: '30%' }}>
+							<div
+								className='weatherResult weatherData'
+								style={{ width: '30%' }}>
 								<div key={props.forecast.city.id}>
 									{props.weather && (
 										<big className={'headline'}>

@@ -20,6 +20,7 @@ export const initialState = {
 	weather: null,
 	forecast: null,
 	photos: [{ title: "", description: "", images: [] }],
+	favourites: [null],
 };
 
 const configureStore = () =>

@@ -14,6 +14,7 @@ const Photos = (props: Props) => {
 	const dispatch = useDispatch();
 	const removePhoto = (e: number) => {
 		dispatch(removePhotoAction(e));
+		setViewPhoto(0)
 	};
 
 	return (
@@ -166,20 +167,19 @@ const Photos = (props: Props) => {
 							</div>
 						)}
 						<br />
-						<br/>
 						{props.photos.length > 1 &&
 							props.photos.map((item: any, i: number) => {
 								return (
 									<div
 										onClick={(e) => setViewPhoto(i)}
 										style={{
-											width: '7rem',
+											width: '120px',
 											padding: '18px',
 										}}
 										className='weatherResult weatherForecast'>
 										<img
 											className={'bounce-in-fwd'}
-											style={{ width: '6rem' }}
+											style={{height:"auto", width:"110px"}}
 											alt={`icon`}
 											src={item.images[0].dataURL}
 											onDragStart={(e) => removePhoto(i)}
