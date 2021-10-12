@@ -83,16 +83,6 @@ const Register = (props: Props) => {
 							width: '25%',
 							margin: 'Auto',
 						}}>
-						Username
-						<input
-							onChange={(e: ChangeEvent<HTMLInputElement>) => {
-								setUsername(e.target.value);
-							}}
-							className='searchInput'
-							type='text'
-							name='username'
-							placeholder='username...'
-							id='username'></input>
 						Email
 						<input
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +93,16 @@ const Register = (props: Props) => {
 							name='email'
 							placeholder='email...'
 							id='email'></input>
+						Username
+						<input
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								setUsername(e.target.value);
+							}}
+							className='searchInput'
+							type='text'
+							name='username'
+							placeholder='username...'
+							id='username'></input>
 						Password
 						<input
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -171,7 +171,7 @@ const Register = (props: Props) => {
 						<br />
 						<small style={{ fontFamily: 'initial' }}>
 							This Project was written fully in Typescript with Redux and
-							basic CSS frontend.
+							CSS frontend.
 							<br />
 							Node, Express, MongoDB server with Cloudinary Image
 							Uploading.
@@ -183,10 +183,10 @@ const Register = (props: Props) => {
 							<a href='https://rapidapi.com/apihood/api/tides/'>
 								Global Tides
 							</a>
-							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and Google Location Services
+							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and Google Location Services.
 							<br />
 							Strive School Capstone. Created by{' '}
-							<a href='https://www.tommyk.uk'>Tommy Knight</a>
+							<a href='https://www.tommyk.uk'>Tommy Knight</a>.
 							<br />
 						</small>
 					</div>

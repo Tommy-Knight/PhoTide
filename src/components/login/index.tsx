@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import { userAction } from "../../redux/actions";
 // import {Props} from "../../types"
@@ -9,7 +9,6 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const location = useLocation();
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -32,8 +31,6 @@ const Login = () => {
 			if (resp.ok) {
 				dispatch(userAction(data));
 				history.push("/");
-			}
-			if (location.pathname === "/register") {
 			}
 		} catch (error) {
 			console.log(error);

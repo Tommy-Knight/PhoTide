@@ -72,7 +72,7 @@ export const fetchForecastAction = (payload: any) => {
 export const fetchWeatherAction = (payload: any) => {
 	return async (dispatch: any) => {
 		const resp = await fetch(
-			`https://api.openweathermap.org/data/2.5/forecast?lat=${payload.lat}&lon=${payload.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
+			`https://api.openweathermap.org/data/2.5/onecall?lat=${payload.lat}&lon=${payload.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 		);
 		const data = await resp.json();
 		dispatch({

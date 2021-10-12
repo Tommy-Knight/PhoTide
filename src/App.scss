@@ -30,15 +30,15 @@ body {
 	grid-template-rows: 10% 10% 20% 30% 20% 10%;
 	gap: 0px 0px;
 	grid-template-areas:
-		"nav nav nav nav nav"
+	"nav nav nav nav nav"
 		". . . . ."
 		". app-box app-box app-box ."
 		"left-box app-box app-box app-box right-box"
 		". app-box app-box app-box ."
 		"footer footer footer footer footer";
-	width: 100%;
-	height: 100vh;
-	overflow: auto;
+		width: 100%;
+		height: 100vh;
+		overflow: auto;
 }
 
 .footer {
@@ -46,6 +46,21 @@ body {
 }
 .nav {
 	grid-area: nav;
+}
+
+.app-box {
+	grid-area: app-box;
+	border-radius: 2.22rem;
+	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+	background-color: rgb(217, 221, 223);
+	color:black;
+	overflow: auto;
+}
+.headline {
+	color: #242424;
+	letter-spacing: 0.01em;
+	text-shadow: 1px 1px 2px rgba(0, 204, 255, 0.431), 0 0 1em rgba(0, 153, 255, 0.198),
+		0 0 0.1em rgba(92, 195, 255, 0.096);
 }
 
 //########################### BACKGROUND ###########################
@@ -304,21 +319,6 @@ body {
 		-webkit-animation-timing-function: ease-out;
 		animation-timing-function: ease-out;
 	}
-}
-
-.app-box {
-	grid-area: app-box;
-	border-radius: 2.22rem;
-	box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-	background-color: rgba(255, 255, 255, 0.774);
-	color:black;
-	overflow: auto;
-}
-.headline {
-	color: #242424;
-	letter-spacing: 0.01em;
-	text-shadow: 1px 1px 2px rgba(0, 204, 255, 0.431), 0 0 1em rgba(0, 153, 255, 0.198),
-		0 0 0.1em rgba(92, 195, 255, 0.096);
 }
 //##################SIDE BUTTONS############
 
