@@ -9,6 +9,7 @@ export interface Props {
 	weather?: WeatherInterface | null;
 	forecast?: Forecast | null;
 	photos?: any;
+	favourites?: any;
 	setDay?: (e: number) => void;
 }
 export interface UserInterface {

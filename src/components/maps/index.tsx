@@ -2,6 +2,7 @@ import "./style.scss";
 import Navbar from "../navbar";
 import { connect } from "react-redux";
 import Map from "./map";
+
 const Maps = () => {
 	return (
 		<>

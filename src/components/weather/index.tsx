@@ -25,7 +25,7 @@ const Weather = (props: Props) => {
 	const [viewDay, setViewDay] = useState<number>(0);
 	const [hoverUpload, setHoverUpload] = useState<boolean>(false);
 	const [hoverHeart, setHoverHeart] = useState<boolean>(false);
-	const [fav, setFav] = useState<boolean>(false)
+	const [fav, setFav] = useState<boolean>(false);
 
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -55,7 +55,7 @@ const Weather = (props: Props) => {
 			);
 			const googleData = await resp.json();
 			setUtcOffset(googleData.rawOffset);
-		console.log(	googleData)
+			console.log(googleData);
 			getLocalTime();
 		}
 	};
@@ -110,7 +110,7 @@ const Weather = (props: Props) => {
 		geolocation.getCurrentPosition(function (err: Error, position: any) {
 			if (err) throw err;
 			setGeolocated(position);
-			console.log(position)
+			console.log(position);
 			// dispatch(fetchForecastAction({ lat: position.coords.lat, lon: position.coords.lon }));
 			// dispatch(fetchWeatherAction({ lat: position.coords.lat, lon: position.coords.lon }));
 		});
@@ -144,14 +144,16 @@ const Weather = (props: Props) => {
 	};
 
 	const addToFavs = () => {
-		setFav(!fav)
+		setFav(!fav);
 		const favs = {
 			name: props.forecast?.city.name,
 			country: props.forecast?.city.country,
-pop: props.forecast?.city.population,
-lat: props.weather?.lat, lon:props.weather?.lon, timezone: props.weather?.timezone,
+			pop: props.forecast?.city.population,
+			lat: props.weather?.lat,
+			lon: props.weather?.lon,
+			timezone: props.weather?.timezone,
 		};
-		dispatch(addFavAction(favs))
+		dispatch(addFavAction(favs));
 	};
 
 	const setDay = (e: number) => {

@@ -158,9 +158,20 @@ const Register = (props: Props) => {
 							style={{ width: '150px', margin: 'auto', cursor: 'pointer' }}
 							className='searchInput'
 							type='submit'>
-							LOGIN
+							Login
 						</button>
 					</form>
+					<br/>
+					<button
+						style={{
+							margin: 'auto',
+							width: '150px',
+							backgroundColor: 'whitesmoke',
+						}}
+						className='searchInput loginButton'
+						type='submit'>
+						Guest Login
+					</button>
 					<br />
 					<br />
 					<br />
@@ -183,7 +194,8 @@ const Register = (props: Props) => {
 							<a href='https://rapidapi.com/apihood/api/tides/'>
 								Global Tides
 							</a>
-							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and Google Location Services.
+							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and
+							Google Location Services.
 							<br />
 							Strive School Capstone. Created by{' '}
 							<a href='https://www.tommyk.uk'>Tommy Knight</a>.

@@ -38,7 +38,9 @@ const Login = () => {
 	};
 
 	return (
-		<form onSubmit={(e) => handleSubmit(e)} style={{ display: "flex", flexDirection: "column" }}>
+		<form
+			onSubmit={(e) => handleSubmit(e)}
+			style={{ display: 'flex', flexDirection: 'column' }}>
 			<input
 				onChange={(e) => setEmail(e.target.value)}
 				className='searchInput'
@@ -53,12 +55,17 @@ const Login = () => {
 				placeholder='password'
 				id='password'></input>
 			<button
-				style={{ margin: "auto", width: "50%", backgroundColor: "lightgrey" }}
+				style={{
+					margin: 'auto',
+					width: '50%',
+					backgroundColor: 'lightgrey',
+				}}
 				className='searchInput loginButton'
 				type='submit'>
 				LOGIN
 			</button>
 		</form>
+
 	);
 };
 
