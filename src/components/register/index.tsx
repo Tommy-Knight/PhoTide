@@ -77,6 +77,7 @@ const Register = (props: Props) => {
 					<h1> REGISTER</h1>
 					<form
 						onSubmit={(e) => handleSubmit(e)}
+						autoComplete='off'
 						style={{
 							display: 'flex',
 							flexDirection: 'column',
@@ -88,6 +89,7 @@ const Register = (props: Props) => {
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								setEmail(e.target.value);
 							}}
+							autoComplete='off'
 							className='searchInput'
 							type='email'
 							name='email'
@@ -98,6 +100,7 @@ const Register = (props: Props) => {
 							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								setUsername(e.target.value);
 							}}
+							autoComplete='off'
 							className='searchInput'
 							type='text'
 							name='username'
@@ -161,7 +164,7 @@ const Register = (props: Props) => {
 							Login
 						</button>
 					</form>
-					<br/>
+					<br />
 					<button
 						style={{
 							margin: 'auto',
@@ -181,11 +184,7 @@ const Register = (props: Props) => {
 						<br />
 						<br />
 						<small style={{ fontFamily: 'initial' }}>
-							This Project was written fully in Typescript with Redux and
-							CSS frontend.
-							<br />
-							Node, Express, MongoDB server with Cloudinary Image
-							Uploading.
+							This Project was written fully in Typescript with Redux and basic CSS.
 							<br />
 							Utilising{' '}
 							<a href='https://openweathermap.org/'>
@@ -194,8 +193,12 @@ const Register = (props: Props) => {
 							<a href='https://rapidapi.com/apihood/api/tides/'>
 								Global Tides
 							</a>
-							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and
-							Google Location Services.
+							, <a href='https://formidable.com/open-source/victory/'>Victory Charts</a>,{' '}
+							<a href='https://leafletjs.com/'>Leaflet Maps</a> and Google
+							Location Services.
+							<br />
+							Server with Node, Express, MongoDB server with Cloudinary Image
+							Uploading.
 							<br />
 							Strive School Capstone. Created by{' '}
 							<a href='https://www.tommyk.uk'>Tommy Knight</a>.

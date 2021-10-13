@@ -75,9 +75,7 @@ const Weather = (props: Props) => {
 		}
 	};
 
-	const fetchSearchLocation = async (
-		e: React.FormEvent<HTMLFormElement>
-	) => {
+	const fetchSearchLocation = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log('🚿');
 		try {
@@ -209,9 +207,7 @@ const Weather = (props: Props) => {
 						</svg>
 					</div>
 					{props.forecast && props.user && (
-						<div
-							title='Add to favourites! ❤'
-							style={{ display: 'inline-block' }}>
+						<div title='Add to favourites! ❤' style={{ display: 'inline-block' }}>
 							<svg
 								onMouseOver={(e) => {
 									setHoverHeart(true);
@@ -281,9 +277,7 @@ const Weather = (props: Props) => {
 						<div>
 							<div className='weatherResult weatherData'>
 								<div>
-									<b
-										style={{ fontSize: '2rem', margin: 0 }}
-										className={'headline'}>
+									<b style={{ fontSize: '2rem', margin: 0 }} className={'headline'}>
 										{props.forecast.city.name}
 									</b>
 									<br />{' '}
@@ -307,22 +301,14 @@ const Weather = (props: Props) => {
 									<span className='headline'>
 										<b>{props.forecast.list[0].weather[0].main} </b>
 										<small>
-											<i>
-												{' '}
-												{
-													props.weather?.daily[viewDay].weather[0]
-														.description
-												}
-											</i>
+											<i> {props.weather?.daily[viewDay].weather[0].description}</i>
 										</small>
 									</span>
 								</div>
 							</div>
 							<div className='weatherResult weatherData'>
 								<br />
-								<h2
-									style={{ fontSize: '3rem', margin: 0 }}
-									className={'headline'}>
+								<h2 style={{ fontSize: '3rem', margin: 0 }} className={'headline'}>
 									{props.weather?.daily[viewDay].temp.day} °C
 								</h2>
 								<br />
@@ -360,27 +346,22 @@ const Weather = (props: Props) => {
 								<b>Gusts</b>
 								<small>
 									{' '}
-									up to{' '}
-									<i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
+									up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
 								</small>
 							</div>
-							<div
-								className='weatherResult weatherData'
-								style={{ width: '30%' }}>
+							<div className='weatherResult weatherData' >
 								<div key={props.forecast.city.id}>
 									{props.weather && (
 										<big className={'headline'}>
 											<div
 												style={{
 													fontWeight: 'bold',
-													fontSize: '2rem',
-													marginBottom: '12px',
+													fontSize: '28px',
+													margin: "4px 0 12px 0",
 												}}>
 												{format(
 													new Date(
-														fromUnixTime(
-															props.weather.daily[viewDay].dt!
-														).toString()
+														fromUnixTime(props.weather.daily[viewDay].dt!).toString()
 													),
 													`EEEE do MMM`
 												)}
@@ -393,9 +374,7 @@ const Weather = (props: Props) => {
 														: props.weather &&
 														  format(
 																new Date(
-																	fromUnixTime(
-																		props.weather!.current.dt!
-																	).toString()
+																	fromUnixTime(props.weather!.current.dt!).toString()
 																),
 																`p`
 														  )}
@@ -444,13 +423,7 @@ const Weather = (props: Props) => {
 								<h2 style={{ paddingTop: '2.5px' }} className={'headline'}>
 									Chance of Rain
 									<small>
-										<i>
-											{' '}
-											{Math.round(
-												props.weather?.daily[viewDay].pop! * 100
-											)}{' '}
-											%
-										</i>
+										<i> {Math.round(props.weather?.daily[viewDay].pop! * 100)} %</i>
 									</small>
 								</h2>
 								<b>Expected</b>

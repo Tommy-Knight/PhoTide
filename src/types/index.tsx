@@ -1,4 +1,4 @@
-import { History, LocationState } from "history";
+import { History, LocationState } from 'history';
 
 export interface Props {
 	background?: string;
@@ -11,15 +11,53 @@ export interface Props {
 	photos?: any;
 	favourites?: any;
 	setDay?: (e: number) => void;
+	tide?: Tide;
 }
+
+export interface Tide {
+	disclaimer?: string;
+	status?: number;
+	latitude?: number;
+	longitude?: number;
+	origin?: Origin;
+	datums?: Datums;
+	timestamp?: number;
+	datetime?: Date;
+	unit?: string;
+	timezone?: string;
+	datum?: string;
+	extremes?: Extreme[];
+	heights?: Extreme[];
+	copyright?: string;
+}
+
+interface Datums {
+	LAT?: number;
+	HAT?: number;
+}
+
+interface Extreme {
+	timestamp?: number;
+	datetime?: Date;
+	height?: number;
+	state?: string;
+}
+
+export interface Origin {
+	latitude?: number;
+	longitude?: number;
+	distance?: number;
+	unit?: string;
+}
+
 export interface UserInterface {
 	_id?: string;
 	username?: string;
 	email?: string;
 	password?: string;
 	avatar?: string;
-	favourites?:[];
-	photos?:[];
+	favourites?: [];
+	photos?: [];
 }
 export interface Forecast {
 	cod: string;
@@ -115,7 +153,7 @@ interface Current {
 }
 
 interface Rain {
-	"1h"?: number;
+	'1h'?: number;
 }
 
 interface Weather {
