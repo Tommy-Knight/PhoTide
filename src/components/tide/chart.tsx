@@ -10,63 +10,10 @@ import {
 	VictoryGroup,
 	VictoryLabel,
 	VictoryLine,
-	VictoryScatter,
 	VictoryTheme,
 	VictoryTooltip,
 	VictoryVoronoiContainer,
 } from 'victory';
-
-const data = [
-	{
-		id: 670,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 3,
-		createdAt: new Date('2020-01-03T12:00:00.000Z'),
-	},
-	{
-		id: 671,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 5,
-		createdAt: new Date('2020-03-01T12:00:00.000Z'),
-	},
-	{
-		id: 671,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 8.5,
-		createdAt: new Date('2020-05-01T12:00:00.000Z'),
-	},
-	{
-		id: 672,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 4,
-		createdAt: new Date('2020-07-15T12:00:00.000Z'),
-	},
-	{
-		id: 673,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 7,
-		createdAt: new Date('2020-09-30T12:00:00.000Z'),
-	},
-	{
-		id: 676,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 6,
-		createdAt: new Date('2020-11-15T12:00:00.000Z'),
-	},
-	{
-		id: 676,
-		userId: 199,
-		key: 'AcademicEngagementScore',
-		value: 10,
-		createdAt: new Date('2020-12-30T12:00:00.000Z'),
-	},
-];
 
 const Chart = (props: Props) => {
 	return (
@@ -115,13 +62,12 @@ const Chart = (props: Props) => {
 							padding: '12',
 						},
 					}}
-				
 					tickValues={props.tide?.heights?.map((x) => {
 						return x.datetime;
 					})}
 					tickFormat={(x) => format(new Date(x), 'ha')}
-				orientation="top"
-				offsetY={-2}
+					orientation='top'
+					offsetY={-2}
 				/>
 				<VictoryGroup
 					data={props.tide?.heights?.map((datum) => ({
