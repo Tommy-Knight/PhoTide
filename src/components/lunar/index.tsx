@@ -63,7 +63,7 @@ const Lunar = (props: Props) => {
 			<b style={{ fontSize: '2rem' }}>{moonPhase}</b>
 			<br />
 			<div className='lunarInfo'>
-				<br />
+		
 				<h2 className={'headline'}>
 					Cloudiness
 					<small>
@@ -79,9 +79,7 @@ const Lunar = (props: Props) => {
 				<small>
 					{props.weather &&
 						format(
-							new Date(
-								fromUnixTime(props.weather?.daily[0].moonrise!).toString()
-							),
+							new Date(fromUnixTime(props.weather?.daily[0].moonrise!).toString()),
 							`p`
 						)}
 				</small>
@@ -90,11 +88,10 @@ const Lunar = (props: Props) => {
 				<small>
 					{props.weather &&
 						format(
-							new Date(
-								fromUnixTime(props.weather?.daily[0].moonset!).toString()
-							),
+							new Date(fromUnixTime(props.weather?.daily[0].moonset!).toString()),
 							`p`
 						)}
+					<br />
 					<br />
 				</small>
 				<div
@@ -115,7 +112,7 @@ const Lunar = (props: Props) => {
 			</div>
 			<span
 				className='headline lunarInfo'
-				style={{ textAlign: 'left', marginLeft:"15px" }}>
+				style={{ textAlign: 'left', marginLeft: '15px' }}>
 				🌑 - <small>New Moon</small>
 				<br />
 				🌒 - <small>Waxing Crescent</small>
@@ -152,14 +149,9 @@ const Lunar = (props: Props) => {
 								className='weatherResult'>
 								<br />
 								<big className='headline'>
-									{format(
-										new Date(fromUnixTime(item.dt).toString()),
-										`iii`
-									)}
+									{format(new Date(fromUnixTime(item.dt).toString()), `iii`)}
 								</big>
-								<h1 className='bounce-in-fwd'>
-									{mooning(item.moon_phase)}
-								</h1>
+								<h1 className='bounce-in-fwd'>{mooning(item.moon_phase)}</h1>
 							</div>
 						);
 					})}

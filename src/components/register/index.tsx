@@ -197,7 +197,7 @@ const Register = (props: Props) => {
 							<a href='https://leafletjs.com/'>Leaflet Maps</a> and Google
 							Location Services.
 							<br />
-							Server with Node, Express, MongoDB server with Cloudinary Image
+							Node.js, Express, MongoDB server with Cloudinary Image
 							Uploading.
 							<br />
 							Strive School Capstone. Created by{' '}

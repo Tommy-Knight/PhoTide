@@ -9,6 +9,7 @@ import {
 	weatherAction,
 	forecastAction,
 	addFavAction,
+	tidalAction,
 	// fetchForecastAction,
 	// fetchWeatherAction,
 } from '../../redux/actions';
@@ -32,6 +33,7 @@ const Weather = (props: Props) => {
 
 	useEffect(() => {
 		fetchGeolocated();
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [geolocated]);
 
@@ -118,6 +120,21 @@ const Weather = (props: Props) => {
 		try {
 			if (geolocated) {
 				console.log('🎈');
+				// const tideResp = await fetch(
+				// 	'https://tides.p.rapidapi.com/tides?longitude=-2.097&latitude=44.414&interval=60&duration=1440',
+				// 	{
+				// 		method: 'GET',
+				// 		headers: {
+				// 			'x-rapidapi-host': 'tides.p.rapidapi.com',
+				// 			'x-rapidapi-key': '93c27b20f1msh447fc923a1275afp112802jsn56ee71713f05',
+				// 		},
+				// 	}
+				// );
+				// const tide = await tideResp.json();
+				// if (tide) {
+				// 	console.log('🤽‍♂️');
+				// 	dispatch(tidalAction(tide));
+				// }
 				const resp = await fetch(
 					`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
@@ -349,7 +366,7 @@ const Weather = (props: Props) => {
 									up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
 								</small>
 							</div>
-							<div className='weatherResult weatherData' >
+							<div className='weatherResult weatherData'>
 								<div key={props.forecast.city.id}>
 									{props.weather && (
 										<big className={'headline'}>
@@ -357,7 +374,7 @@ const Weather = (props: Props) => {
 												style={{
 													fontWeight: 'bold',
 													fontSize: '28px',
-													margin: "4px 0 12px 0",
+													margin: '4px 0 12px 0',
 												}}>
 												{format(
 													new Date(

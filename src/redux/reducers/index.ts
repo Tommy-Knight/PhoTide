@@ -17,6 +17,8 @@ const rootReducer = (
 			return { ...state, weather: action.payload };
 		case 'FORECAST':
 			return { ...state, forecast: action.payload };
+		case 'TIDES':
+			return { ...state, tide: action.payload };
 		case 'ADD_FAV':
 			if (state.favourites[0] === null)
 				return { ...state, favourites: [action.payload] };

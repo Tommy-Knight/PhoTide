@@ -31,8 +31,9 @@ const Chart = (props: Props) => {
 						},
 					},
 				}}
+				padding={{ top: 10, left: 70, right: 30, bottom: 50 }}
 				width={800}
-				height={200}>
+				height={222}>
 				<VictoryAxis
 					style={{
 						axis: {
@@ -48,32 +49,16 @@ const Chart = (props: Props) => {
 						},
 					}}
 					dependentAxis
-				/>
-				<VictoryAxis
-					style={{
-						axis: {
-							stroke: '#798393',
-							strokeWidth: 2,
-						},
-						tickLabels: {
-							fill: '#798393',
-							fontFamily: 'Comfortaa',
-							fontSize: '8px',
-							padding: '12',
-						},
-					}}
-					tickValues={props.tide?.heights?.map((x) => {
-						return x.datetime;
-					})}
-					tickFormat={(x) => format(new Date(x), 'ha')}
-					orientation='top'
-					offsetY={-2}
+					tickFormat={(x) => `${x}m`}
 				/>
 				<VictoryGroup
-					data={props.tide?.heights?.map((datum) => ({
-						x: datum.datetime,
-						y: datum.height,
-						label: `${datum.height!.toFixed(2)} m`,
+					data={props.tide?.heights?.map((tide) => ({
+						x: tide.datetime,
+						y: tide.height,
+						label: `${tide.height!.toFixed(2)}m at ${format(
+							new Date(tide.datetime!),
+							'ha'
+						)}`,
 					}))}
 					labelComponent={
 						<VictoryTooltip
@@ -87,46 +72,31 @@ const Chart = (props: Props) => {
 									}}
 								/>
 							}
-							flyoutStyle={{ fill: '#3442BF', strokeWidth: 0 }}
+							flyoutStyle={{ fill: 'rgb(255,142,0)', strokeWidth: 0 }}
 							pointerLength={5}
-							dy={0}
 						/>
 					}>
 					<VictoryArea
-						// interpolation="monotoneX"
+						interpolation='monotoneX'
 						style={{
 							data: { fill: 'url(#myGradient)' },
 						}}
 					/>
-					<linearGradient id='myGradient' gradientTransform='rotate(0)'>
-						<stop offset='0%' stopColor='#E3E6FF' />
-						<stop offset='50%' stopColor='turquoise' />
-						<stop offset='100%' stopColor='#E3E6FF' />
+					<linearGradient id='myGradient'>
+						<stop offset='0%' stopColor='rgb(217, 221, 223)' />
+						<stop offset='50%' stopColor='rgb(140, 210, 252)' />
+						<stop offset='100%' stopColor='rgb(217, 221, 223)' />
 					</linearGradient>
 					<VictoryLine
 						animate={{
-							onLoad: { duration: 1000 },
+							onLoad: { duration: 2000 },
 						}}
 						interpolation='monotoneX'
 						style={{
-							data: { stroke: '#3442BF', strokeWidth: 1.5 },
+							data: { stroke: '#3442BF', strokeWidth: 2 },
 						}}
 					/>
 				</VictoryGroup>
-				{props.tide?.heights?.map((datum) => (
-					<VictoryLine
-						style={{
-							data: {
-								stroke: ({ active }) => (active ? '#3442BF' : 'transparent'),
-								strokeDasharray: '5, 5',
-							},
-						}}
-						data={[
-							{ x: datum.datetime, y: 0 },
-							{ x: datum.datetime, y: datum.height },
-						]}
-					/>
-				))}
 			</VictoryChart>
 		</div>
 	);
