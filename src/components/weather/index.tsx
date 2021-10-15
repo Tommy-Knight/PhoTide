@@ -314,13 +314,13 @@ const Weather = (props: Props) => {
 											`.png`
 										}
 									/>
-									<br />
-									<span className='headline'>
+									<br/>
+									<big className='headline'>
 										<b>{props.forecast.list[0].weather[0].main} </b>
 										<small>
 											<i> {props.weather?.daily[viewDay].weather[0].description}</i>
 										</small>
-									</span>
+									</big>
 								</div>
 							</div>
 							<div className='weatherResult weatherData'>

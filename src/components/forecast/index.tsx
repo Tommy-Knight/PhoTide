@@ -1,10 +1,10 @@
-import { connect } from "react-redux";
-import { Props } from "../../types";
-import { format, fromUnixTime } from "date-fns";
+import { connect } from 'react-redux';
+import { Props } from '../../types';
+import { format, fromUnixTime } from 'date-fns';
 
 const WeatherForecast = (props: Props) => {
 	return (
-		<div style={{ overflow: "scroll", whiteSpace: "nowrap" }}>
+		<div style={{ overflow: 'scroll', whiteSpace: 'nowrap' }}>
 			{props.weather &&
 				props.weather.daily.map((item, i) => {
 					return (
@@ -12,7 +12,7 @@ const WeatherForecast = (props: Props) => {
 							title={item.weather[0].description}
 							key={i}
 							onClick={(e) => props.setDay!(i)!}
-							style={{ width: "6rem", height: "10rem" }}
+							style={{ width: '6rem', height: '10rem' }}
 							className='weatherResult weatherForecast'>
 							<br />
 							<big className='headline'>
@@ -20,8 +20,8 @@ const WeatherForecast = (props: Props) => {
 							</big>
 							<br />
 							<img
-								className={"bounce-in-fwd"}
-								style={{ width: "3rem" }}
+								className={'bounce-in-fwd'}
+								style={{ width: '3rem' }}
 								alt={`icon`}
 								src={window.location.origin + `/` + item.weather[0].icon + `.png`}
 							/>
@@ -30,7 +30,6 @@ const WeatherForecast = (props: Props) => {
 							<small> {Math.floor(item.temp.min)}°</small>
 							<br />
 							<big className='headline'>{item.weather[0].main}</big>
-							<br />
 						</div>
 					);
 				})}

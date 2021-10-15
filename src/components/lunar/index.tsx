@@ -48,7 +48,7 @@ const Lunar = (props: Props) => {
 	};
 
 	useEffect(() => {
-		setMoonPhase(moon_phase(2021, 9, 30));
+		setMoonPhase(moon_phase(2021, 10, 20));
 	}, []);
 
 	return (

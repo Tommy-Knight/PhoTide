@@ -26,18 +26,18 @@ const Upload = (props: Props) => {
 			images,
 			title,
 			description,
-			date: props.weather?.daily[0].dt,
-			city: props.forecast?.city.name,
-			country: props.forecast?.city.country,
-			sunrise: props.forecast?.city.sunrise,
-			sunset: props.forecast?.city.sunset,
-			temp: props.weather?.daily[0].temp.day,
-			tempMin: props.weather?.daily[0].temp.min,
-			tempMax: props.weather?.daily[0].temp.max,
-			rain: props.weather?.daily[0].rain,
-			wind: props.weather?.daily[0].wind_speed,
-			clouds: props.weather?.daily[0].clouds,
-			weather: props.weather?.daily[0].weather,
+			date: props.weather?.daily[0]?.dt,
+			city: props.forecast?.city?.name,
+			country: props.forecast?.city?.country,
+			sunrise: props.forecast?.city?.sunrise,
+			sunset: props.forecast?.city?.sunset,
+			temp: props.weather?.daily[0]?.temp?.day,
+			tempMin: props.weather?.daily[0]?.temp?.min,
+			tempMax: props.weather?.daily[0]?.temp?.max,
+			rain: props.weather?.daily[0]?.rain,
+			wind: props.weather?.daily[0]?.wind_speed,
+			clouds: props.weather?.daily[0]?.clouds,
+			weather: props.weather?.daily[0]?.weather,
 		};
 		dispatch(photoAction(image));
 		setImages([]);
@@ -99,7 +99,7 @@ const Upload = (props: Props) => {
 								<button
 									className='weatherButtons photoButtons'
 									onClick={() => onImageRemove(index)}
-									title='🚨 DELETE! 🚨'>
+									title='🚨 STOP UPLOADING 🚨'>
 									💀
 								</button>
 								<button

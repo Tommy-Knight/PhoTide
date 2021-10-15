@@ -172,7 +172,8 @@ const Register = (props: Props) => {
 							backgroundColor: 'whitesmoke',
 						}}
 						className='searchInput loginButton'
-						type='submit'>
+						type='submit'
+						onClick={e=> history.push("/")}>
 						Guest Login
 					</button>
 					<br />

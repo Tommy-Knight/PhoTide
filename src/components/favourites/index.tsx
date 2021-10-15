@@ -11,7 +11,15 @@ const Favourites = (props: Props) => {
 			<div className={props.background}>
 				<div className='app-grid'>
 					<div className='app-box favs'>
-						<h1 className='headline'>Favourites</h1>
+						<h1
+							style={{
+								fontSize: '3rem',
+								marginTop: '5px',
+							}}
+							className='headline'>
+							Favourites
+						</h1>
+
 						<div style={{ display: 'inline-block' }}>
 							<form
 								style={{ zIndex: 5 }}
@@ -23,7 +31,7 @@ const Favourites = (props: Props) => {
 									className='searchInput'
 									spellCheck='false'
 									type='text'
-									placeholder='🔎 Location ...'
+									placeholder='🔎 Search ...'
 									// value={searchValue}
 									// onChange={(e: ChangeEvent<HTMLInputElement>) => {
 									// 	setSearchValue(e.target.value);
@@ -48,7 +56,7 @@ const Favourites = (props: Props) => {
 												<small> {e.lon}</small>
 												<br />
 												<big className='headline'>Latitude: </big>
-												<small>{e.lat}</small>	
+												<small>{e.lat}</small>
 												<br />
 												<big className='headline'>Population: </big>
 												<small>{e.pop} humans</small>

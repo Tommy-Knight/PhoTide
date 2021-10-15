@@ -22,7 +22,7 @@ const Photos = (props: Props) => {
 			<div className={props.background}>
 				<div className='app-grid'>
 					<div className='app-box photos'>
-						<big
+						<h1
 							style={{
 								display: 'inline-block',
 								fontSize: '3rem',
@@ -30,11 +30,23 @@ const Photos = (props: Props) => {
 							}}
 							className='headline'>
 							Photos
-						</big>
+						</h1>
 						<Upload />
-						{props.photos[viewPhoto].images.length > 0 && (
+
+						{!props.photos[viewPhoto].images.length && (
 							<div
-								style={{ width: '90%', padding: '10px', marginBottom: 0 }}>
+								style={{
+									fontSize: '3rem',
+									marginTop: '10%',
+									paddingBottom: '30%',
+									width: '100%',
+								}}
+								className='focus-in-expand-fwd headline'>
+								CLICK THE CAMERA TO UPLOAD!
+							</div>
+						)}
+						{props.photos[viewPhoto].images.length > 0 && (
+							<div style={{ width: '90%', padding: '10px', marginRight: "100px" }}>
 								<img
 									title='📸'
 									style={{
@@ -42,6 +54,7 @@ const Photos = (props: Props) => {
 										height: '40vh',
 										border: '1px solid white',
 										borderRadius: '5px',
+										marginLeft:"20px"
 									}}
 									alt='nop'
 									src={props.photos[viewPhoto]?.images[0].dataURL}
@@ -65,15 +78,12 @@ const Photos = (props: Props) => {
 										}
 									/>
 
-									<div
-										className='headline'
-										style={{ textAlign: 'center' }}>
+									<div className='headline' style={{ textAlign: 'center' }}>
 										<h1 style={{ margin: 0 }}>
 											<u>{props.photos[viewPhoto]?.title}</u>
 										</h1>
 										<big>
-											{props.photos[viewPhoto]?.city},{' '}
-											<i>{props.photos?.country}</i>
+											{props.photos[viewPhoto]?.city}, <i>{props.photos?.country}</i>
 										</big>
 									</div>
 									<br />
@@ -82,9 +92,7 @@ const Photos = (props: Props) => {
 										<i>
 											{format(
 												new Date(
-													fromUnixTime(
-														props.photos[viewPhoto]?.date
-													).toString()
+													fromUnixTime(props.photos[viewPhoto]?.date).toString()
 												),
 												`EEEE do MMM`
 											)}
@@ -92,10 +100,7 @@ const Photos = (props: Props) => {
 										<br />
 										<br />
 										<big>{props.photos[viewPhoto]?.weather[0].main}</big>,
-										<i>
-											{' '}
-											{props.photos[viewPhoto]?.weather[0].description}
-										</i>
+										<i> {props.photos[viewPhoto]?.weather[0].description}</i>
 										<br />
 										<big>Sky Coverage </big>
 										<i>{props.photos[viewPhoto]?.clouds} %</i>
@@ -105,8 +110,7 @@ const Photos = (props: Props) => {
 										<i>{props.photos[viewPhoto]?.temp} °C</i>
 										<br />
 										<big>Highs </big>
-										<small> of </small>{' '}
-										<i>{props.photos[viewPhoto]?.tempMax} °C</i>
+										<small> of </small> <i>{props.photos[viewPhoto]?.tempMax} °C</i>
 										<br />
 										<big>Lows </big>
 										<small> of </small>
@@ -127,9 +131,7 @@ const Photos = (props: Props) => {
 											{format(
 												add(
 													new Date(
-														fromUnixTime(
-															props.photos[viewPhoto]?.sunrise
-														).toString()
+														fromUnixTime(props.photos[viewPhoto]?.sunrise).toString()
 													),
 													{
 														seconds: 0,
@@ -143,9 +145,7 @@ const Photos = (props: Props) => {
 											{format(
 												add(
 													new Date(
-														fromUnixTime(
-															props.photos[viewPhoto]?.sunset
-														).toString()
+														fromUnixTime(props.photos[viewPhoto]?.sunset).toString()
 													),
 													{
 														seconds: 0,
@@ -157,11 +157,11 @@ const Photos = (props: Props) => {
 										<br />
 									</div>
 
-									<div
-										className='headline'
-										style={{ textAlign: 'center' }}>
+									<div className='headline' style={{ textAlign: 'center' }}>
 										<br />
 										<big>{props.photos[viewPhoto]?.description} </big>
+										<br />
+										<br />
 									</div>
 								</div>
 							</div>
@@ -179,12 +179,11 @@ const Photos = (props: Props) => {
 										className='weatherResult weatherForecast'>
 										<img
 											className={'bounce-in-fwd'}
-											style={{height:"auto", width:"110px"}}
+											style={{ height: 'auto', width: '110px' }}
 											alt={`icon`}
-											src={item.images[0].dataURL}
+											src={item.images[0]?.dataURL}
 											onDragStart={(e) => removePhoto(i)}
 											onDragEnd={(e) => setDragging(!dragging)}
-											onDragOver={(e) => e.preventDefault()}
 										/>
 									</div>
 								);
