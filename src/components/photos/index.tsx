@@ -24,7 +24,6 @@ const Photos = (props: Props) => {
 					<div className='app-box photos'>
 						<h1
 							style={{
-								display: 'inline-block',
 								fontSize: '3rem',
 								marginTop: '5px',
 							}}
@@ -46,7 +45,7 @@ const Photos = (props: Props) => {
 							</div>
 						)}
 						{props.photos[viewPhoto].images.length > 0 && (
-							<div style={{ width: '90%', padding: '10px', marginRight: "100px" }}>
+							<div style={{ width: '90%', padding: '10px' }}>
 								<img
 									title='📸'
 									style={{
@@ -78,7 +77,7 @@ const Photos = (props: Props) => {
 										}
 									/>
 
-									<div className='headline' style={{ textAlign: 'center' }}>
+									<div className='headline' style={{ textAlign: 'center'}}>
 										<h1 style={{ margin: 0 }}>
 											<u>{props.photos[viewPhoto]?.title}</u>
 										</h1>

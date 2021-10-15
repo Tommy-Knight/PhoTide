@@ -9,7 +9,7 @@ import {
 	weatherAction,
 	forecastAction,
 	addFavAction,
-	tidalAction,
+	// tidalAction,
 	// fetchForecastAction,
 	// fetchWeatherAction,
 } from '../../redux/actions';
@@ -121,7 +121,7 @@ const Weather = (props: Props) => {
 			if (geolocated) {
 				console.log('🎈');
 				// const tideResp = await fetch(
-				// 	'https://tides.p.rapidapi.com/tides?longitude=-2.097&latitude=44.414&interval=60&duration=1440',
+				// 	`https://tides.p.rapidapi.com/tides?longitude=${geolocated.coords.longitude}&latitude=${geolocated.coords.latitude}&interval=60&duration=1440`,
 				// 	{
 				// 		method: 'GET',
 				// 		headers: {

@@ -202,7 +202,7 @@ const Register = (props: Props) => {
 							Uploading.
 							<br />
 							Strive School Capstone. Created by{' '}
-							<a href='https://www.tommyk.uk'>Tommy Knight</a>.
+							<a title="Have a great day!" href='https://www.tommyk.uk'>Tommy Knight</a>.
 							<br />
 						</small>
 					</div>
