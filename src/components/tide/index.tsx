@@ -74,7 +74,7 @@ const Tide = (props: Props) => {
 					</div>
 				</div>
 				<br />
-				<div style={{ textAlign: 'left', margin: '40px 0 0 45px' }}>
+				<div style={{ textAlign: 'left', margin: '40px 0 0 40px' }}>
 					<i>Hover the chart to see heights and times for the next 24 hours.</i>
 				</div>
 				<Chart />

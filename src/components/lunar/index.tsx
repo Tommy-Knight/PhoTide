@@ -6,6 +6,7 @@ import { Props } from '../../types';
 
 const Lunar = (props: Props) => {
 	const [moonPhase, setMoonPhase] = useState<string | undefined>('');
+	const [brightness, setBrightness] = useState<number | null>(null);
 	const moon_phase = (year: number, month: number, day: number) => {
 		let x,
 			y,
@@ -23,6 +24,9 @@ const Lunar = (props: Props) => {
 		t = Math.floor(z); //take integer of z
 		z -= t; //subtract integer part to leave fractional part of original z
 		t = Math.round(z * 8); //scale fraction from 0-8 and round
+				const bright = (t / 8) * 100;
+				console.log(bright);
+				setBrightness(bright);
 		if (t === 0) return 'New Moon';
 		if (t === 1) return 'Waxing Crescent Moon';
 		if (t === 2) return 'First Quarter Moon';
@@ -63,7 +67,6 @@ const Lunar = (props: Props) => {
 			<b style={{ fontSize: '2rem' }}>{moonPhase}</b>
 			<br />
 			<div className='lunarInfo'>
-		
 				<h2 className={'headline'}>
 					Cloudiness
 					<small>
@@ -75,6 +78,17 @@ const Lunar = (props: Props) => {
 						</i>
 					</small>
 				</h2>
+				{brightness && <h2 className={'headline'}>
+					Brightness
+					<small>
+						{' '}
+						at{' '}
+						<i>
+							{brightness}
+							<small>%</small>
+						</i>
+					</small>
+				</h2>}
 				<b>Moonrise</b>{' '}
 				<small>
 					{props.weather &&
@@ -91,7 +105,6 @@ const Lunar = (props: Props) => {
 							new Date(fromUnixTime(props.weather?.daily[0].moonset!).toString()),
 							`p`
 						)}
-					<br />
 					<br />
 				</small>
 				<div
@@ -113,6 +126,7 @@ const Lunar = (props: Props) => {
 			<span
 				className='headline lunarInfo'
 				style={{ textAlign: 'left', marginLeft: '15px' }}>
+					<br/>
 				🌑 - <small>New Moon</small>
 				<br />
 				🌒 - <small>Waxing Crescent</small>

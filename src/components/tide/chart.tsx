@@ -31,7 +31,7 @@ const Chart = (props: Props) => {
 						},
 					},
 				}}
-				padding={{ top: 10, left: 70, right: 30, bottom: 50 }}
+				padding={{ top: 10, left: 50, right: 25, bottom: 50 }}
 				width={800}
 				height={222}>
 				<VictoryAxis
@@ -49,6 +49,7 @@ const Chart = (props: Props) => {
 						},
 					}}
 					dependentAxis
+					// domain={{ y: [-1.3, 1.3] }}
 					tickFormat={(x) => `${x}m`}
 				/>
 				<VictoryGroup
@@ -77,7 +78,7 @@ const Chart = (props: Props) => {
 						/>
 					}>
 					<VictoryArea
-						interpolation='monotoneX'
+						interpolation='basis'
 						style={{
 							data: { fill: 'url(#myGradient)' },
 						}}
@@ -91,9 +92,9 @@ const Chart = (props: Props) => {
 						animate={{
 							onLoad: { duration: 2000 },
 						}}
-						interpolation='monotoneX'
+						interpolation='basis'
 						style={{
-							data: { stroke: '#3442BF', strokeWidth: 2 },
+							data: { stroke: '#000000', strokeWidth: 2 },
 						}}
 					/>
 				</VictoryGroup>
