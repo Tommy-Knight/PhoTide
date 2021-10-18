@@ -25,7 +25,7 @@ const Photos = (props: Props) => {
 						<h1
 							style={{
 								fontSize: '3rem',
-								marginTop: '5px',
+								margin: '5px 0 0 0',
 							}}
 							className='headline'>
 							Photos
@@ -53,14 +53,14 @@ const Photos = (props: Props) => {
 										height: '40vh',
 										border: '1px solid white',
 										borderRadius: '5px',
-										marginLeft:"20px"
+										marginLeft:"60px"
 									}}
 									alt='nop'
 									src={props.photos[viewPhoto]?.images[0].dataURL}
 								/>
 								<div
 									style={{
-										float: 'right',
+										marginLeft:"100px",
 										display: 'inline-block',
 										verticalAlign: 'top',
 										width: '35%',

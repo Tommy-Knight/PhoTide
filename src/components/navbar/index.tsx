@@ -46,9 +46,9 @@ const Navbar = (props: Props) => {
 						to='/'>
 						<h1>📸🌊</h1>
 					</Link>
-					<div className='dropdown-menu information-grid'>
+					{/* <div className='dropdown-menu information-grid'>
 						USER PROFILE
-					</div>
+					</div> */}
 				</div>
 				{props.user && (
 					<Link to='/photos' className='link'>
@@ -90,7 +90,7 @@ const Navbar = (props: Props) => {
 					)}
 					{props.user && (
 						<Link
-							to='/profile'
+							to='/'
 							style={{ padding: '20px' }}
 							className='link'>
 							{props.user.username}

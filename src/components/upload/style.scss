@@ -1,6 +1,5 @@
-
 .photoButtons {
-	background: rgba(255, 255, 255, 0.198)!important;
+	background: rgba(255, 255, 255, 0.198) !important;
 	border-radius: 200%;
 	border: 2px solid white;
 	padding: 5px;
@@ -11,16 +10,41 @@
 	font-size: 33px;
 }
 
-.textbox{
-	background:none;
-	border:none;
+.textbox {
+	background: none;
+	border: none;
 	font-family: inherit;
-	overflow:auto;
-	 	background: rgba(56, 192, 255, 0.144);
-
+	overflow: auto;
+	background: rgba(56, 192, 255, 0.144);
 }
-.textbox:focus, input:focus{
- 	background: rgba(56, 192, 255, 0.418);
+.textbox:focus,
+input:focus {
+	background: rgba(56, 192, 255, 0.418);
 	outline: none;
-	color:white;
+	color: white;
+}
+
+.imagetextbox {
+	width: 300px;
+	background: none;
+	border: none;
+	font-family: inherit;
+	overflow: auto;
+	width: 300px;
+	font-family: inherit;
+	overflow: auto;
+	border: 2px solid rgba(0, 0, 0, 0) !important;
+	border-radius: 12px;
+	padding: 5px;
+	font-size: 18px;
+}
+.imagetextbox:focus,
+input:focus {
+	background: rgba(56, 192, 255, 0.418);
+	outline: none;
+	color: white;
+	border: 2px solid black !important;
+	border-radius: 12px;
+	padding: 5px;
+	box-shadow: rgba(70, 70, 70, 0.24) 1px 1px 3px 2px;
 }

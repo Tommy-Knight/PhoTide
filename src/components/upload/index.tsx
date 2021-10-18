@@ -1,10 +1,10 @@
-import "./style.scss";
-import { useState } from "react";
+import './style.scss';
+import { useState } from 'react';
 // import { useHistory } from "react-router";
-import { connect, useDispatch } from "react-redux";
-import ImageUploading, { ImageListType } from "react-images-uploading";
-import { Props } from "../../types";
-import { photoAction } from "../../redux/actions";
+import { connect, useDispatch } from 'react-redux';
+import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { Props } from '../../types';
+import { photoAction } from '../../redux/actions';
 // import Navbar from "../navbar";
 
 const Upload = (props: Props) => {
@@ -16,7 +16,10 @@ const Upload = (props: Props) => {
 	const dispatch = useDispatch();
 	// const history = useHistory();
 
-	const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+	const onChange = (
+		imageList: ImageListType,
+		addUpdateIndex: number[] | undefined
+	) => {
 		console.log(imageList, addUpdateIndex);
 		setImages(imageList as never[]);
 	};
@@ -44,7 +47,11 @@ const Upload = (props: Props) => {
 	};
 
 	return (
-		<ImageUploading multiple value={images} onChange={onChange} maxNumber={maxNumber}>
+		<ImageUploading
+			multiple
+			value={images}
+			onChange={onChange}
+			maxNumber={maxNumber}>
 			{({ imageList, onImageUpload, onImageUpdate, onImageRemove, dragProps }) => (
 				<div title='📸' className='upload__image-wrapper'>
 					<button
@@ -54,60 +61,96 @@ const Upload = (props: Props) => {
 						{...dragProps}>
 						📸
 					</button>
-					{imageList.length > 0 && (
-						<div>
-							<br />
-							<big className='headline'>Title: </big>
-							<input
-								title='Add a Title!'
-								onChange={(e) => setTitle(e.target.value)}
-								className='textbox'
-								type='text'></input>
-							<br />
-							<br />
-							<div style={{ position: "relative", left: "-36px" }}>
-								<big className='headline'>Description: </big>
-								<textarea
-									spellCheck='false'
-									title='Add a Description!'
-									name='textarea'
-									className='textbox'
-									onChange={(e) => setDescription(e.target.value)}
-									style={{ height: "50px", verticalAlign: "top" }}></textarea>
-							</div>
-							<br/>
-						</div>
-						
-					)}
+					<br />
+
 					{imageList.map((image, index) => (
 						<div
 							key={index}
 							className='image-item'
-							style={{ display: "inline-block", marginBottom: "150px" }}>
+							style={{ display: 'inline-block', marginBottom: '150px' }}>
 							<img
-								style={{ border: "2px solid white", marginTop: "12px", height: "33vh" }}
+								style={{
+									border: '2px solid white',
+									marginTop: '12px',
+									height: '33vh',
+								}}
 								src={image.dataURL}
 								alt=''
 							/>
+							<br />
+							{imageList.length > 0 && (
+								<div style={{ position: 'relative', left: '-20px' }}>
+									<br />
+
+									<big className='headline'>
+										<b>Title:</b>{' '}
+									</big>
+									<input
+										title='Add a Title!'
+										placeholder='Your Picture'
+										spellCheck='false'
+										onFocus={(e) => (e.target.placeholder = '')}
+										onChange={(e) => setTitle(e.target.value)}
+										className='imagetextbox'
+										type='text'></input>
+									<br />
+									<br />
+									<div style={{ position: 'relative', left: '-2px' }}>
+										<big className='headline'>
+											<b>Note: </b>
+										</big>
+										<input
+											title='Add a Description!'
+											spellCheck='false'
+											placeholder='Describe it!'
+											onFocus={(e) => (e.target.placeholder = '')}
+											onChange={(e) => setDescription(e.target.value)}
+											className='imagetextbox'
+											type='text'></input>
+										{/* <textarea
+											spellCheck='false'
+											title='Add a Description!'
+											name='textarea'
+											className='textbox'
+											placeholder='Write about it!'
+											onFocus={(e) => (e.target.placeholder = '')}
+											onChange={(e) => setDescription(e.target.value)}
+											style={{ verticalAlign: 'top', marginTop:0 }}></textarea> */}
+									</div>
+									<br />
+								</div>
+							)}
 							<div className='image-item__btn-wrapper'>
-								<button
-									className='weatherButtons photoButtons'
-									onClick={() => onImageUpdate(index)}
-									title='Switch Photo! ♻'>
-									👎
-								</button>{" "}
-								<button
-									className='weatherButtons photoButtons'
-									onClick={() => onImageRemove(index)}
-									title='🚨 STOP UPLOADING 🚨'>
-									💀
-								</button>
-								<button
-									onClick={(e) => saveImage()}
-									className='weatherButtons photoButtons'
-									title='Nice! 🌈'>
-									👍
-								</button>
+								<div style={{ display: 'inline-block' }}>
+									<button
+										className='weatherButtons photoButtons'
+										onClick={() => onImageUpdate(index)}
+										title='Switch Photo! ♻'>
+										👎
+									</button>{' '}
+									<br />
+									<b>Switch</b>
+								</div>
+								<div style={{ display: 'inline-block' }}>
+									{' '}
+									<button
+										className='weatherButtons photoButtons'
+										onClick={() => onImageRemove(index)}
+										title='🚨 STOP UPLOADING 🚨'>
+										💀
+									</button>
+									<br /> <b>Remove</b>
+								</div>
+								<div style={{ display: 'inline-block' }}>
+									{' '}
+									<button
+										onClick={(e) => saveImage()}
+										className='weatherButtons photoButtons'
+										title='Nice! 🌈'>
+										👍
+									</button>
+									<br /> <b>Upload</b>
+								</div>
 							</div>
 						</div>
 					))}

@@ -16,6 +16,7 @@ import {
 } from 'victory';
 
 const Chart = (props: Props) => {
+
 	return (
 		<div>
 			<VictoryChart
@@ -94,7 +95,7 @@ const Chart = (props: Props) => {
 						}}
 						interpolation='basis'
 						style={{
-							data: { stroke: '#000000', strokeWidth: 2 },
+							data: { stroke: '#192C6F', strokeWidth: 2 },
 						}}
 					/>
 				</VictoryGroup>
