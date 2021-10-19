@@ -11,7 +11,7 @@ const Upload = (props: Props) => {
 	const [title, setTitle] = useState<string | null>(null);
 	const [description, setDescription] = useState<string | null>(null);
 	const [images, setImages] = useState([]);
-	const maxNumber = 69;
+	const maxNumber = 1;
 
 	const dispatch = useDispatch();
 	// const history = useHistory();
@@ -20,7 +20,6 @@ const Upload = (props: Props) => {
 		imageList: ImageListType,
 		addUpdateIndex: number[] | undefined
 	) => {
-		console.log(imageList, addUpdateIndex);
 		setImages(imageList as never[]);
 	};
 

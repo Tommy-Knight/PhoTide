@@ -172,10 +172,14 @@
 .searchInput:focus {
 	outline: none;
 	border: 2px solid white;
+		border-radius: 30px;
+
 }
 .searchInput:hover {
 	outline: none;
 	border: 2px solid white;
+		border-radius: 30px;
+
 }
 .niceBorder {
 	border: 2px solid rgb(255, 223, 117) !important;
