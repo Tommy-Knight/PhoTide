@@ -15,21 +15,25 @@ const Tide = (props: Props) => {
 				<h2 className='headline'>Tidal</h2>
 				<h1>Current Tide: </h1>
 				<h2 className='headline'>{props.tide?.heights![0].state}</h2>
-				<div className='weatherResult' onClick={(e) => history.push('/maps')}>
+				<div
+					className='weatherResult tideResult'
+					title='Click to view on map'
+					onClick={(e) => history.push('/maps')}>
 					<big className='headline'>
 						<b>Your Location:</b>
 					</big>{' '}
-					{props.tide?.latitude}
-					<i className='headline'> lat </i> {props.tide?.longitude}
+					{props.tide?.latitude?.toFixed(2)}
+					<i className='headline'> lat </i> {props.tide?.longitude?.toFixed(2)}
 					<i className='headline'> lon</i>
 					<br />
 					<br />
 					<big className='headline'>
 						<b>Tide Location:</b>
 					</big>{' '}
-					{props.tide?.origin?.latitude}
+					{props.tide?.origin?.latitude?.toFixed(2)}
 					<i className='headline'> lat </i>
-					{props.tide?.origin?.longitude} <i className='headline'>lon </i>
+					{props.tide?.origin?.longitude?.toFixed(2)}{' '}
+					<i className='headline'>lon </i>
 					<br />
 					<br />
 					<big className='headline'>
