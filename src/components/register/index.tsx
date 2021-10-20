@@ -21,17 +21,14 @@ const Register = (props: Props) => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const resp = await fetch(
-				`https://photide-server.herokuapp.com/auth/register`,
-				{
-					method: 'POST',
-					credentials: 'include',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: bodyJSON,
-				}
-			);
+			const resp = await fetch(`http://localhost:3069/auth/register`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: bodyJSON,
+			});
 			const data = await resp.json();
 			dispatch(userAction(data));
 			if (resp.ok) history.push('/');
@@ -45,10 +42,10 @@ const Register = (props: Props) => {
 		password: password,
 	});
 
-	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => { 	
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const resp = await fetch(`https://photide-server.herokuapp.com/auth/login`, {
+			const resp = await fetch(`http://localhost:3069/auth/login`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {

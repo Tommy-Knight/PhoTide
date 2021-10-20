@@ -19,11 +19,11 @@ const Login = () => {
 			password: password,
 		});
 		try {
-			const resp = await fetch(`https://photide-server.herokuapp.com/auth/login`, {
-				method: 'POST',
-				credentials: 'include',
+			const resp = await fetch(`http://localhost:3069/auth/login`, {
+				method: "POST",
+				credentials: "include",
 				headers: {
-					'Content-Type': 'application/json',
+					"Content-Type": "application/json",
 				},
 				body: bodyJSON,
 			});
