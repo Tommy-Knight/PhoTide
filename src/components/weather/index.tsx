@@ -9,7 +9,7 @@ import {
 	weatherAction,
 	forecastAction,
 	addFavAction,
-	tidalAction,
+	// tidalAction,
 	// fetchForecastAction,
 	// fetchWeatherAction,
 } from '../../redux/actions';
