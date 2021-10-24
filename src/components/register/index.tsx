@@ -63,6 +63,16 @@ const Register = (props: Props) => {
 		}
 	};
 
+	const guestLogin = () => {
+		dispatch(
+			userAction({
+				username: 'Guest 🍏',
+				avatar: 'https://image.flaticon.com/icons/png/512/5173/5173555.png',
+			})
+		);
+		history.push('/');
+	};
+
 	return (
 		<>
 			<div className={props.background}>
@@ -173,7 +183,7 @@ const Register = (props: Props) => {
 						}}
 						className='searchInput loginButton'
 						type='submit'
-						onClick={e=> history.push("/")}>
+						onClick={(e) => guestLogin()}>
 						Guest Login
 					</button>
 					<br />
@@ -187,22 +197,23 @@ const Register = (props: Props) => {
 						<small style={{ fontFamily: 'initial' }}>
 							This Project was written fully in Typescript with Redux and basic CSS.
 							<br />
-							Utilising{' '}
-							<a href='https://openweathermap.org/'>
+							Utilising <a href='https://openweathermap.org/'>
 								OpenWeatherMap
 							</a>,{' '}
-							<a href='https://rapidapi.com/apihood/api/tides/'>
-								Global Tides
+							<a href='https://rapidapi.com/apihood/api/tides/'>Global Tides</a>,{' '}
+							<a href='https://formidable.com/open-source/victory/'>
+								Victory Charts
 							</a>
-							, <a href='https://formidable.com/open-source/victory/'>Victory Charts</a>,{' '}
-							<a href='https://leafletjs.com/'>Leaflet Maps</a> and Google
-							Location Services.
+							, <a href='https://leafletjs.com/'>Leaflet Maps</a> and Google Location
+							Services.
 							<br />
-							Node.js, Express, MongoDB server with Cloudinary Image
-							Uploading.
+							Node.js, Express, MongoDB server with Cloudinary Image Uploading.
 							<br />
 							Strive School Capstone. Created by{' '}
-							<a title="Have a great day!" href='https://www.tommyk.uk'>Tommy Knight</a>.
+							<a title='Have a great day!' href='https://www.tommyk.uk'>
+								Tommy Knight
+							</a>
+							.
 							<br />
 						</small>
 					</div>

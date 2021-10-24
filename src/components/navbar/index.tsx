@@ -13,20 +13,18 @@ const Navbar = (props: Props) => {
 	const logOut = async () => {
 		dispatch(userAction(null));
 		try {
-			const resp = await fetch(`http://localhost:3069/auth/logout`, {
+			await fetch(`http://localhost:3069/auth/logout`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 			});
-			if (resp.ok) {
-				history.push('/');
-				console.log('byebye! 🍑');
-			}
 		} catch (error) {
 			console.log(error);
 		}
+		history.push('/');
+		console.log('byebye! 🍑');
 	};
 
 	const goToProfile = () => {
@@ -41,9 +39,7 @@ const Navbar = (props: Props) => {
 		<>
 			<div className='header nav navBar'>
 				<div className='dropdown' data-dropdown>
-					<Link
-						style={{ textDecoration: 'none', letterSpacing: '-0.4rem' }}
-						to='/'>
+					<Link style={{ textDecoration: 'none', letterSpacing: '-0.4rem' }} to='/'>
 						<h1>📸🌊</h1>
 					</Link>
 					{/* <div className='dropdown-menu information-grid'>
@@ -81,18 +77,12 @@ const Navbar = (props: Props) => {
 						</div>
 					)}
 					{!props.user && (
-						<Link
-							to='/register'
-							style={{ padding: '20px' }}
-							className='link'>
+						<Link to='/register' style={{ padding: '20px' }} className='link'>
 							REGISTER
 						</Link>
 					)}
 					{props.user && (
-						<Link
-							to='/'
-							style={{ padding: '20px' }}
-							className='link'>
+						<Link to='/' style={{ padding: '20px' }} className='link'>
 							{props.user.username}
 						</Link>
 					)}

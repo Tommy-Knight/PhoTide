@@ -1,4 +1,4 @@
-{
+export const Tide = {
 	"disclaimer": "NOT SUITABLE FOR NAVIGATIONAL PURPOSES. API Hood does not warrant that the provided data will be free from errors or omissions. Provided data are NOT suitable for usage where someone could be harmed or suffer any damage.",
 	"status": 200,
 	"latitude": 44.414,
