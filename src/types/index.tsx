@@ -22,7 +22,7 @@ export interface Tide {
 	origin?: Origin;
 	datums?: Datums;
 	timestamp?: number;
-	datetime?: Date;
+	datetime?: Date | null;
 	unit?: string;
 	timezone?: string;
 	datum?: string;
@@ -38,7 +38,7 @@ interface Datums {
 
 interface Extreme {
 	timestamp?: number;
-	datetime?: Date;
+	datetime?: Date | null;
 	height?: number;
 	state?: string;
 }

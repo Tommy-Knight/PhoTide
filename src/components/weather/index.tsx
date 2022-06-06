@@ -57,7 +57,6 @@ const Weather = (props: Props) => {
 			);
 			const googleData = await resp.json();
 			setUtcOffset(googleData.rawOffset);
-			console.log(googleData);
 			getLocalTime();
 		}
 	};
@@ -97,7 +96,6 @@ const Weather = (props: Props) => {
 					const weather = await response.json();
 					dispatch(weatherAction(weather));
 					setIsLoading(false);
-					console.log('☀', weather);
 				}
 			}
 		} catch (error) {
@@ -110,7 +108,6 @@ const Weather = (props: Props) => {
 		geolocation.getCurrentPosition(function (err: Error, position: any) {
 			if (err) throw err;
 			setGeolocated(position);
-			console.log(position);
 			// dispatch(fetchForecastAction({ lat: position.coords.lat, lon: position.coords.lon }));
 			// dispatch(fetchWeatherAction({ lat: position.coords.lat, lon: position.coords.lon }));
 		});
@@ -119,14 +116,13 @@ const Weather = (props: Props) => {
 	const fetchGeolocated = async () => {
 		try {
 			if (geolocated) {
-				console.log('🎈');
 				const tideResp = await fetch(
 					`https://tides.p.rapidapi.com/tides?longitude=${geolocated.coords.longitude}&latitude=${geolocated.coords.latitude}&interval=60&duration=1440`,
 					{
 						method: 'GET',
 						headers: {
 							'x-rapidapi-host': 'tides.p.rapidapi.com',
-							'x-rapidapi-key': '93c27b20f1msh447fc923a1275afp112802jsn56ee71713f05',
+							'x-rapidapi-key': `${process.env.REACT_APP_RAPID}`,
 						},
 					}
 				);

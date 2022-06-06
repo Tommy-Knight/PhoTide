@@ -1,5 +1,5 @@
-import React from 'react'
 
+export{}
 // export default function search() {
 //     return (
 // 			<div style={{ display: "flex", justifyContent: "center" }}>
