@@ -47,7 +47,8 @@ const Tide = (props: Props) => {
 						<u className='headline'>Todays Extremes:</u>
 					</h2>
 					<div style={{ width: '20%', display: 'inline-block' }}>
-						{format(new Date(props.tide?.extremes![0].datetime!), 'h:mma')}
+						{props.tide &&
+							format(new Date(props.tide?.extremes![0].datetime!), 'h:mma')}
 						<br />
 						<br /> <b className='headline'>{props.tide?.extremes![0].state}</b>
 					</div>
@@ -57,7 +58,8 @@ const Tide = (props: Props) => {
 							display: 'inline-block',
 							margin: '0 10px 0 10px',
 						}}>
-						{format(new Date(props.tide?.extremes![1].datetime!), 'h:mma')}
+						{props.tide &&
+							format(new Date(props.tide?.extremes![1].datetime!), 'h:mma')}
 						<br />
 						<br /> <b className='headline'>{props.tide?.extremes![1].state}</b>
 					</div>
@@ -67,12 +69,14 @@ const Tide = (props: Props) => {
 							display: 'inline-block',
 							margin: '0 10px 0 10px',
 						}}>
-						{format(new Date(props.tide?.extremes![2].datetime!), 'h:mma')}
+						{props.tide &&
+							format(new Date(props.tide?.extremes![2].datetime!), 'h:mma')}
 						<br />
 						<br /> <b className='headline'>{props.tide?.extremes![2].state}</b>
 					</div>
 					<div style={{ width: '20%', display: 'inline-block' }}>
-						{format(new Date(props.tide?.extremes![3].datetime!), 'h:mma')}
+						{props.tide &&
+							format(new Date(props.tide?.extremes![3].datetime!), 'h:mma')}
 						<br />
 						<br /> <b className='headline'>{props.tide?.extremes![3].state}</b>
 					</div>
