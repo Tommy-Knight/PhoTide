@@ -44,7 +44,7 @@ const Tide = (props: Props) => {
 				</div>
 				<div className='weatherResult' style={{ width: '50%' }}>
 					<h2 style={{ marginTop: 0 }}>
-						<u className='headline'>Todays Extremes:</u>
+						<b style={{textDecoration: 'underline'}} className='headline'>Todays Extremes:</b>
 					</h2>
 					<div style={{ width: '20%', display: 'inline-block' }}>
 						{props.tide &&
