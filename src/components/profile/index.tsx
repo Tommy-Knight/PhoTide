@@ -1,21 +1,15 @@
 import Navbar from "../navbar";
 import { connect } from "react-redux";
 import { Props } from "../../types";
+import SnekeGame from "./snake";
+
 
 const Profile = (props: Props) => {
 	return (
 		<>
-			<div className='background'>
-				<div className='app-grid'>
-					<div className='app-box'>
-						<h1>Profile</h1>
-					</div>
 
-					<div className='footer'></div>
+						<SnekeGame />
 
-					<Navbar />
-				</div>
-			</div>
 		</>
 	);
 };

@@ -112,8 +112,11 @@ const Navbar = (props: Props) => {
 					}}
 					alt={`📸`}
 				/>
+				
 			</div>
 		</>
 	);
 };
 export default connect((s) => s)(Navbar);
+
+

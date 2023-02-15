@@ -8,7 +8,7 @@ const Lunar = (props: Props) => {
 	const [moonPhase, setMoonPhase] = useState<string | undefined>('');
 	const [brightness, setBrightness] = useState<number | null>(null);
 
- const moon_phase = (year: number, month: number, day: number) => {
+	const moon_phase = (year: number, month: number, day: number) => {
 		let x,
 			y,
 			z,
@@ -27,28 +27,26 @@ const Lunar = (props: Props) => {
 		t = Math.round(z * 8); //scale fraction from 0-8 and round
 		const bright = (t / 8) * 100;
 		setBrightness(bright);
-		if (t === 0) return 'New Moon';
-		if (t === 1) return 'Waxing Crescent Moon';
-		if (t === 2) return 'First Quarter Moon';
-		if (t === 3) return 'Waxing Gibbous Moon';
-		if (t === 4) return 'Waning Gibbous Moon';
-		if (t === 5) return 'Last Quarter Moon';
-		if (t === 6) return 'Waning Crescent Moon';
-		if (t === 7) return 'Full Moon';
+
+		const moonPhaseArr = [
+			'New Moon',
+			'Waxing Crescent Moon',
+			'First Quarter Moon',
+			'Waxing Gibbous Moon',
+			'Waning Gibbous Moon',
+			'Last Quarter Moon',
+			'Waning Crescent Moon',
+			'Full Moon',
+		];
+		return moonPhaseArr[t];
 	};
 
 	const mooning = (p: number) => {
 		let m = Math.floor(p);
 		p -= m;
 		m = Math.floor(p * 8);
-		if (m === 0) return '🌑';
-		if (m === 1) return '🌒';
-		if (m === 2) return '🌓';
-		if (m === 3) return '🌔';
-		if (m === 4) return '🌖';
-		if (m === 5) return '🌗';
-		if (m === 6) return '🌘';
-		if (m === 7) return '🌕';
+		const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌖', '🌗', '🌘', '🌕'];
+		return moonPhases[m];
 	};
 
 	useEffect(() => {
