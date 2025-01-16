@@ -33,12 +33,13 @@
 		"web-vitals": "^2.1.0"
 	},
 	"devDependencies": {
+		"gh-pages": "^6.3.0",
 		"nth-check": "^2.1.1",
 		"react-scripts": "^5.0.1"
 	},
 	"overrides": {
-    "autoprefixer": "10.4.5"
-},
+		"autoprefixer": "10.4.5"
+	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",

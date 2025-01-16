@@ -1,8 +1,10 @@
 import './style.scss';
+
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { format, fromUnixTime } from 'date-fns';
+
 import { Props } from '../../types';
+import { connect } from 'react-redux';
 
 const Lunar = (props: Props) => {
 	const [moonPhase, setMoonPhase] = useState<string | undefined>('');

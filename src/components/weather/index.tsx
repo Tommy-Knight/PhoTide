@@ -1,29 +1,29 @@
 import './style.scss';
-import { useHistory } from 'react-router-dom';
-import React, { useState, ChangeEvent, useEffect } from 'react';
-import { format, fromUnixTime, add, isWithinInterval } from 'date-fns';
-import { connect, useDispatch } from 'react-redux';
+
+import { Forecast, Props, WeatherData } from '../../types';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { add, format, fromUnixTime, isWithinInterval } from 'date-fns';
 import {
-	backgroundAction,
-	searchAction,
-	weatherAction,
-	forecastAction,
 	addFavAction,
+	backgroundAction,
+	forecastAction,
+	searchAction,
 	tidalAction,
-	// fetchForecastAction,
-	// fetchWeatherAction,
+	weatherAction,
 } from '../../redux/actions';
-import { Forecast, Props } from '../../types';
+import { connect, useDispatch } from 'react-redux';
+
 import WeatherForecast from '../forecast/index';
+import { useHistory } from 'react-router-dom';
 
 const Weather = (props: Props) => {
 	const [searchValue, setSearchValue] = useState<string>('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [forecast, setForecast] = useState<Forecast | null>(null);
+	const [weather, setWeather] = useState<WeatherData | null>(null);
 	const [utcOffset, setUtcOffset] = useState<number>(0);
 	const [localTime, setLocalTime] = useState<string>();
 	const [geolocated, setGeolocated] = useState<any | null>(null);
-	const [viewDay, setViewDay] = useState<number>(0);
 	const [hoverUpload, setHoverUpload] = useState<boolean>(false);
 	const [hoverHeart, setHoverHeart] = useState<boolean>(false);
 	const [fav, setFav] = useState<boolean>(false);
@@ -33,7 +33,6 @@ const Weather = (props: Props) => {
 
 	useEffect(() => {
 		fetchGeolocated();
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [geolocated]);
 
@@ -53,7 +52,7 @@ const Weather = (props: Props) => {
 	const googleFetch = async () => {
 		if (props.forecast) {
 			const resp = await fetch(
-				`https://maps.googleapis.com/maps/api/timezone/json?location=${props.forecast.city.coord.lat}%2C${props.forecast.city.coord.lon}&timestamp=0&key=${process.env.REACT_APP_GOOGLE_API}`
+				`https://maps.googleapis.com/maps/api/timezone/json?location=${props.forecast.city.coord.lat}%2C${props.forecast.city.coord.lon}×tamp=0&key=${process.env.REACT_APP_GOOGLE_API}`
 			);
 			const googleData = await resp.json();
 			setUtcOffset(googleData.rawOffset);
@@ -66,10 +65,10 @@ const Weather = (props: Props) => {
 		const seconds = utcOffset;
 		const newTime = add(UTC, { seconds });
 		setLocalTime(format(newTime, `p`));
-		if (forecast) {
+		if (forecast && weather) {
 			isWithinInterval(newTime, {
-				start: new Date(fromUnixTime(forecast.city.sunrise).toString()),
-				end: new Date(fromUnixTime(forecast.city.sunset).toString()),
+				start: new Date(fromUnixTime(weather.sys.sunrise).toString()),
+				end: new Date(fromUnixTime(weather.sys.sunset).toString()),
 			})
 				? dispatch(backgroundAction('dawn'))
 				: dispatch(backgroundAction('dusk'));
@@ -78,23 +77,24 @@ const Weather = (props: Props) => {
 
 	const fetchSearchLocation = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log('🚿');
 		try {
 			setIsLoading(true);
 			dispatch(searchAction(e));
-			const resp = await fetch(
+			const forecastResp = await fetch(
 				`https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 			);
-			if (resp.ok) {
-				const forecastData = await resp.json();
+			if (forecastResp.ok) {
+				const forecastData = await forecastResp.json();
 				dispatch(forecastAction(forecastData));
 				setForecast(forecastData);
-				const response = await fetch(
-					`https://api.openweathermap.org/data/2.5/onecall?lat=${forecastData.city.coord.lat}&lon=${forecastData.city.coord.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
+
+				const weatherResp = await fetch(
+					`https://api.openweathermap.org/data/2.5/weather?lat=${forecastData.city.coord.lat}&lon=${forecastData.city.coord.lon}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
-				if (response.ok) {
-					const weather = await response.json();
-					dispatch(weatherAction(weather));
+				if (weatherResp.ok) {
+					const weatherData = await weatherResp.json();
+					dispatch(weatherAction(weatherData));
+					setWeather(weatherData);
 					setIsLoading(false);
 				}
 			}
@@ -108,8 +108,6 @@ const Weather = (props: Props) => {
 		geolocation.getCurrentPosition(function (err: Error, position: any) {
 			if (err) throw err;
 			setGeolocated(position);
-			// dispatch(fetchForecastAction({ lat: position.coords.lat, lon: position.coords.lon }));
-			// dispatch(fetchWeatherAction({ lat: position.coords.lat, lon: position.coords.lon }));
 		});
 	};
 
@@ -128,25 +126,25 @@ const Weather = (props: Props) => {
 				);
 				const tide = await tideResp.json();
 				if (tide) {
-					console.log('🤽‍♂️');
 					dispatch(tidalAction(tide));
 				}
-				const resp = await fetch(
+				const forecastResp = await fetch(
 					`https://api.openweathermap.org/data/2.5/forecast?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
 				);
-				if (resp.ok) {
-					const forecastData = await resp.json();
+				if (forecastResp.ok) {
+					const forecastData = await forecastResp.json();
 					dispatch(forecastAction(forecastData));
 					setForecast(forecastData);
-					setIsLoading(false);
-				}
-				const response = await fetch(
-					`https://api.openweathermap.org/data/2.5/onecall?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
-				);
-				if (response.ok) {
-					const weather = await response.json();
-					dispatch(weatherAction(weather));
-					setIsLoading(false);
+
+					const weatherResp = await fetch(
+						`https://api.openweathermap.org/data/2.5/weather?lat=${geolocated.coords.latitude}&lon=${geolocated.coords.longitude}&units=metric&appid=${process.env.REACT_APP_OW_KEY}`
+					);
+					if (weatherResp.ok) {
+						const weatherData = await weatherResp.json();
+						dispatch(weatherAction(weatherData));
+						setWeather(weatherData);
+						setIsLoading(false);
+					}
 				}
 			}
 		} catch (error) {
@@ -160,16 +158,13 @@ const Weather = (props: Props) => {
 			name: props.forecast?.city.name,
 			country: props.forecast?.city.country,
 			pop: props.forecast?.city.population,
-			lat: props.weather?.lat,
-			lon: props.weather?.lon,
-			timezone: props.weather?.timezone,
+			lat: weather?.coord.lat,
+			lon: weather?.coord.lon,
+			timezone: weather?.timezone,
 		};
 		dispatch(addFavAction(favs));
 	};
 
-	const setDay = (e: number) => {
-		setViewDay(e!);
-	};
 	return (
 		<div style={{ overflow: 'auto', color: '' }}>
 			<h2 className='headline'>
@@ -185,16 +180,14 @@ const Weather = (props: Props) => {
 						<form
 							style={{ zIndex: 5 }}
 							className='App'
-							onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-								fetchSearchLocation(e)
-							}>
+							onSubmit={(e) => fetchSearchLocation(e)}>
 							<input
 								className='searchInput'
 								spellCheck='false'
 								type='text'
 								placeholder='🔎 Location ...'
 								value={searchValue}
-								onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								onChange={(e) => {
 									setSearchValue(e.target.value);
 								}}
 							/>
@@ -202,7 +195,7 @@ const Weather = (props: Props) => {
 					</div>
 					<div
 						title='Current Location! 🧭'
-						onClick={(e) => geolocate()}
+						onClick={() => geolocate()}
 						style={{ display: 'inline-block' }}>
 						<svg
 							className='weatherButtons'
@@ -228,7 +221,7 @@ const Weather = (props: Props) => {
 								onMouseLeave={(e) => {
 									setHoverHeart(false);
 								}}
-								onClick={(e) => addToFavs()}
+								onClick={() => addToFavs()}
 								className='weatherButtons'
 								xmlns='http://www.w3.org/2000/svg'
 								width='24'
@@ -246,7 +239,7 @@ const Weather = (props: Props) => {
 					{props.forecast && props.user && (
 						<div
 							title='Upload a Photo! 📷'
-							onClick={(e) => goToPhotos()}
+							onClick={() => goToPhotos()}
 							style={{ display: 'inline-block' }}>
 							<svg
 								className='weatherButtons'
@@ -285,7 +278,7 @@ const Weather = (props: Props) => {
 						SEARCH OR CLICK!
 					</div>
 				)}
-				{props.forecast && props.weather && (
+				{props.forecast && weather && (
 					<>
 						<div>
 							<div className='weatherResult weatherData'>
@@ -306,15 +299,15 @@ const Weather = (props: Props) => {
 										src={
 											window.location.origin +
 											`/` +
-											props.weather?.daily[viewDay].weather[0].icon +
+											weather?.weather[0].icon +
 											`.png`
 										}
 									/>
-									<br/>
+									<br />
 									<big className='headline'>
-										<b>{props.forecast.list[0].weather[0].main} </b>
+										<b>{weather?.weather[0].main} </b>
 										<small>
-											<i> {props.weather?.daily[viewDay].weather[0].description}</i>
+											<i> {weather?.weather[0].description}</i>
 										</small>
 									</big>
 								</div>
@@ -322,49 +315,49 @@ const Weather = (props: Props) => {
 							<div className='weatherResult weatherData'>
 								<br />
 								<h2 style={{ fontSize: '3rem', margin: 0 }} className={'headline'}>
-									{props.weather?.daily[viewDay].temp.day} °C
+									{weather?.main.temp} °C
 								</h2>
 								<br />
 								<b>Highs</b>
 								<small>
 									{' '}
-									of <i>{props.weather?.daily[viewDay].temp.max} °C</i>
+									of <i>{weather?.main.temp_max} °C</i>
 								</small>
 								<br />
 								<b>Lows</b>
 								<small>
 									{' '}
-									of <i>{props.weather?.daily[viewDay].temp.min} °C</i>
+									of <i>{weather?.main.temp_min} °C</i>
 								</small>
 								<br />
 								<h2 className={'headline'}>
 									Cloud coverage
 									<small>
 										{' '}
-										at <i>{props.weather?.daily[viewDay].clouds} %</i>
+										at <i>{weather?.clouds.all} %</i>
 									</small>
 								</h2>
 								<b>Visibility</b>
 								<small>
 									{' '}
-									at <i>{props.weather?.current.visibility}m</i>
+									at <i>{weather?.visibility}m</i>
 								</small>
 								<br />
 								<b>Wind Speeds</b>
 								<small>
 									{' '}
-									of <i>{props.weather?.daily[viewDay].wind_speed} m/s</i>
+									of <i>{weather?.wind.speed} m/s</i>
 								</small>
 								<br />
 								<b>Gusts</b>
 								<small>
 									{' '}
-									up to <i>{props.weather?.daily[viewDay].wind_gust} m/s</i>
+									up to <i>{weather?.wind.gust || 'N/A'} m/s</i>
 								</small>
 							</div>
 							<div className='weatherResult weatherData'>
 								<div key={props.forecast.city.id}>
-									{props.weather && (
+									{weather && (
 										<big className={'headline'}>
 											<div
 												style={{
@@ -373,9 +366,7 @@ const Weather = (props: Props) => {
 													margin: '4px 0 12px 0',
 												}}>
 												{format(
-													new Date(
-														fromUnixTime(props.weather.daily[viewDay].dt!).toString()
-													),
+													new Date(fromUnixTime(weather.dt).toString()),
 													`EEEE do MMM`
 												)}
 											</div>
@@ -384,11 +375,9 @@ const Weather = (props: Props) => {
 												<i>
 													{localTime
 														? localTime
-														: props.weather &&
+														: weather &&
 														  format(
-																new Date(
-																	fromUnixTime(props.weather!.current.dt!).toString()
-																),
+																new Date(fromUnixTime(weather.dt).toString()),
 																`p`
 														  )}
 												</i>
@@ -399,36 +388,22 @@ const Weather = (props: Props) => {
 									<br />
 									<b>Sunrise</b>{' '}
 									<small>
-										{props.weather?.daily[viewDay].sunrise &&
+										{weather?.sys.sunrise &&
 											format(
-												add(
-													new Date(
-														fromUnixTime(
-															props.weather?.daily[viewDay].sunrise!
-														).toString()
-													),
-													{
-														seconds: utcOffset,
-													}
-												),
+												add(new Date(fromUnixTime(weather.sys.sunrise).toString()), {
+													seconds: utcOffset,
+												}),
 												`p`
 											)}
 									</small>
 									<br />
 									<b>Sunset</b>{' '}
 									<small>
-										{props.weather?.daily[viewDay].sunset &&
+										{weather?.sys.sunset &&
 											format(
-												add(
-													new Date(
-														fromUnixTime(
-															props.weather?.daily[viewDay].sunset!
-														).toString()
-													),
-													{
-														seconds: utcOffset,
-													}
-												),
+												add(new Date(fromUnixTime(weather.sys.sunset).toString()), {
+													seconds: utcOffset,
+												}),
 												`p`
 											)}
 									</small>
@@ -436,29 +411,28 @@ const Weather = (props: Props) => {
 								<h2 style={{ paddingTop: '2.5px' }} className={'headline'}>
 									Chance of Rain
 									<small>
-										<i> {Math.round(props.weather?.daily[viewDay].pop! * 100)} %</i>
+										<i> {Math.round(weather?.rain?.['1h'] || 0 * 100)} %</i>
 									</small>
 								</h2>
 								<b>Expected</b>
 								<small>
-									{' '}
-									<i>{props.weather?.daily[viewDay].rain || 0} mm</i>
+									<i> {weather?.rain?.['1h'] || 0} mm</i>
 								</small>
 								<br />
 								<b>UV Index</b>
 								<small title='Wear Sunscreen if 3+ 🧴'>
 									{' '}
-									at <i>{props.weather?.current.uvi}</i>
+									at <i>N/A</i>
 								</small>
 								<br />
 								<b>Humidity</b>
 								<small>
 									{' '}
-									at <i>{props.weather?.current.humidity} %</i>
+									at <i>{weather?.main.humidity} %</i>
 								</small>
 							</div>
 						</div>
-						<WeatherForecast setDay={(e) => setDay(e)} />
+						<WeatherForecast />
 					</>
 				)}
 			</div>
